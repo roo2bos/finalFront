@@ -3,6 +3,7 @@
 클론 : 포트는 3000으로 설정되어 있음.
 ```bash
 git clone https://github.com/roo2bos/finalFront.git
+npm i
 npm run dev
 ```
 

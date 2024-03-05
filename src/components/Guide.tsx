@@ -4,6 +4,7 @@ export default function Guide() {
 	return (
 		<div>
 			<h2>Guide</h2>
+			<h3 className="text-lg font-bold">버튼들</h3>
 
 			<button
 				type="button"
@@ -30,6 +31,10 @@ export default function Guide() {
 				className="px-6 py-3.5 text-base font-medium text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
 				Extra large
 			</button>
+
+      <hr className="my-3" />
+
+
 		</div>
 	);
 }
