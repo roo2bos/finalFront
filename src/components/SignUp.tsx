@@ -1,4 +1,7 @@
 import { useForm, SubmitHandler, SubmitErrorHandler } from 'react-hook-form';
+import { useDispatch } from 'react-redux';
+import { signUpUser } from '../store/features/signUpSlice';
+
 
 type FormData = {
   username: string;
@@ -10,6 +13,8 @@ type FormData = {
 };
 
 export default function SignUp() {
+  const dispatch = useDispatch()
+
   const {
     register,
     handleSubmit,
@@ -20,13 +25,15 @@ export default function SignUp() {
   console.log('errors', errors);
   console.log('watch username', watch('username'));
 
-  const onValid: SubmitHandler<FormData> = (data) => {
-    console.log('onValid', data);
+  const onValid: SubmitHandler<FormData> = (userdata) => {
+    console.log('onValid', userdata);
+    dispatch(signUpUser(userdata))    
   };
 
   const onInValid: SubmitErrorHandler<FormData> = (errors) => {
     console.log('onInValid', errors);
   };
+
 
   return (
     <>
