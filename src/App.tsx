@@ -5,6 +5,7 @@ import Home from './pages/Home';
 import Mypage from './pages/Mypage';
 import Guide from './components/Guide';
 import NotFound from './components/NotFound';
+import SignUp from './components/SignUp';
 
 function App() {
 	return (
@@ -15,6 +16,7 @@ function App() {
 					<Route path="/mypage" element={<Mypage />} />
 					<Route path="/guide" element={<Guide />} />
 					<Route path="*" element={<NotFound />} />
+					<Route path='/signup' element= {<SignUp/>}/>
 				</Route>
 			</Routes>
 		</>
