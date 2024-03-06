@@ -1,7 +1,8 @@
 import axios from "axios";
 
-const signup = async (userdata: any): Promise<any> => {
-    const API_URL: string = 'http://localhost:3001'; 
+const API_URL: string = 'http://localhost:3001';
+
+const signupApi = async (userdata: any): Promise<any> => {
     try {
         const response = await axios.post(`${API_URL}`, userdata);
         console.log(response);
@@ -11,4 +12,4 @@ const signup = async (userdata: any): Promise<any> => {
     }
 }
 
-export default signup;
+export default signupApi;

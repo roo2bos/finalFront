@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Dispatch } from "redux";
-import signup from "../../api/signUp"; 
+import { Dispatch } from "@reduxjs/toolkit";
+import signupApi from "../../api/signUp"; 
 
 
 interface User{
@@ -46,10 +46,9 @@ const signUpSlice = createSlice({
 export const signUpUser = (userdata: any) => async (dispatch: Dispatch) => {
   try {
     dispatch(signUpStart());
-    const user = await signup(userdata); 
+    const user = await signupApi(userdata); 
     dispatch(signUpSuccess(user));
   } catch (error : any) {
-    console.error(error)
     dispatch(signUpError(error.message));
   }
 };
