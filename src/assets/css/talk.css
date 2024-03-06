@@ -1,0 +1,25 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+/* Talk */
+.list-talk {
+	@apply flex h-full flex-col;
+}
+.list-talk .inner {
+	@apply flex-1 overflow-hidden;
+}
+.list-talk li {
+	@apply flex flex-1 text-base mx-auto gap-3 md:px-5 lg:px-1 xl:px-5 md:max-w-3xl;
+}
+.list-talk li .profile {
+	@apply w-[20px] h-[20px] flex-shrink-0 flex flex-col relative items-end bg-gray-500 rounded-full;
+}
+.list-talk li .info {
+	@apply relative flex w-full flex-col;
+}
+
+.form {
+	@apply w-full p-2 md:pt-0 dark:border-white/20 md:border-transparent md:dark:border-transparent md:w-[calc(100%-.5rem)];
+}
