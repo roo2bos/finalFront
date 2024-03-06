@@ -6,6 +6,7 @@ import Mypage from './pages/Mypage';
 import Guide from './components/Guide';
 import NotFound from './components/NotFound';
 import SignUp from './components/SignUp';
+import Login from './components/Login'
 
 function App() {
 	return (
@@ -17,6 +18,7 @@ function App() {
 					<Route path="/guide" element={<Guide />} />
 					<Route path="*" element={<NotFound />} />
 					<Route path='/signup' element= {<SignUp/>}/>
+					<Route path='/login' element= {<Login/>}/>
 				</Route>
 			</Routes>
 		</>

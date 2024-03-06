@@ -1,6 +1,8 @@
 import { useForm, SubmitHandler, SubmitErrorHandler } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { signUpUser } from '../store/features/signUpSlice';
+import { Dispatch } from '@reduxjs/toolkit';
+
 
 
 type FormData = {
@@ -13,7 +15,7 @@ type FormData = {
 };
 
 export default function SignUp() {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   const {
     register,
@@ -23,22 +25,22 @@ export default function SignUp() {
   } = useForm<FormData>();
 
   console.log('errors', errors);
-  console.log('watch username', watch('username'));
 
-  const onValid: SubmitHandler<FormData> = (userdata) => {
-    console.log('onValid', userdata);
-    dispatch(signUpUser(userdata))    
+
+  const onSubmit: SubmitHandler<FormData> = (userdata) => {
+      console.log('onSubmit', userdata);
+      dispatch(signUpUser(userdata));
   };
-
-  const onInValid: SubmitErrorHandler<FormData> = (errors) => {
-    console.log('onInValid', errors);
+  
+  const onError: SubmitErrorHandler<FormData> = (errors) => {
+    console.log('onError', errors);
   };
 
 
   return (
     <>
       <h1>회원가입</h1>
-      <form onSubmit={handleSubmit(onValid, onInValid)}>
+      <form onSubmit={handleSubmit(onSubmit, onError)}>
         <label htmlFor="username">이름</label>
         <input
           type="text"
