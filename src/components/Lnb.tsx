@@ -1,9 +1,9 @@
+import '../assets/lnb.css';
+
 export default function Lnb() {
   return (
-    <div id="lnb">
-      <div className="lnb">Lnb</div>
+    <div id='lnb'>
+      <div className='lnb'>Lnb</div>
     </div>
-  )
+  );
 }
-
-
