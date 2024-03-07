@@ -1,59 +1,49 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Dispatch } from "@reduxjs/toolkit";
-import signupApi from "../../api/signUp"; 
+import {userIdCheckApi, userNicknameCheckApi } from "../../api/userCheck"; 
 
 
-interface User{
-  username: string;
-  userId: string;
-  nickname : string;
-  email: string;
-  password: string;
-  confirmPassword: string;
-  agree : boolean;
+interface UserCheckId{
+  userId: boolean;
+  nickname : boolean;
 }
 
-interface SignUpState {
-  user: User | null;
-  loading: boolean;
-  error: string | null; 
-}
-
-const initialState: SignUpState = {
-  user: null,
-  loading: false,
-  error: null,
+const initialState: UserCheckId = {
+  userId: false,
+  nickname: false,
 };
 
-const signUpSlice = createSlice({
+const userCheckSlice = createSlice({
   name: "signUp",
   initialState,
   reducers: {
-    signUpStart: (state) => {
-      state.loading = true;
-      state.error = null;
+    userCheckId : (state, action: PayloadAction<boolean>) => {
+      state.userId = action.payload
     },
-    signUpSuccess: (state, action: PayloadAction<User>) => {
-      state.loading = false;
-      state.user = action.payload;
-    },
-    signUpError: (state, action: PayloadAction<string>) => {
-      state.loading = false;
-      state.error = action.payload;
+    userCheckNickname : (state, action: PayloadAction<boolean>) => {
+      state.nickname = action.payload;
     },
   },
 });
 
-export const signUpUser = (userdata: any) => async (dispatch: Dispatch) => {
+export const userIdCheck = (userdata: any) => async (dispatch: Dispatch) => {
   try {
-    dispatch(signUpStart());
-    const user = await signupApi(userdata); 
-    dispatch(signUpSuccess(user));
+    const user = await userIdCheckApi(userdata); 
+    dispatch(userCheckId(user));
   } catch (error : any) {
-    dispatch(signUpError(error.message));
+    throw error 
   }
 };
 
-export const { signUpStart, signUpSuccess, signUpError } = signUpSlice.actions;
+export const userNicknameCheck = (userdata: any) => async (dispatch: Dispatch) => {
+  try {
+    const user = await userNicknameCheckApi(userdata); 
+    dispatch(userCheckNickname(user));
+  } catch (error : any) {
+    throw error 
+  }
+};
 
-export default signUpSlice.reducer;
+export const { userCheckId, userCheckNickname} = userCheckSlice.actions;
+
+export default userCheckSlice.reducer;

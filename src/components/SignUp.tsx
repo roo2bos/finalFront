@@ -1,10 +1,9 @@
 import { useForm, SubmitHandler, SubmitErrorHandler } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
+import {userIdCheck , userNicknameCheck } from '../store/features/userIdCheck'
 import { signUpUser } from '../store/features/signUpSlice';
 import '../assets/css/auth.css'
-
-
-
+import { useEffect } from 'react';
 
 type FormData = {
   username: string;
@@ -37,6 +36,14 @@ export default function SignUp() {
 
   const userId = watch('userId')
   const nickname = watch('nickname')
+
+  useEffect(()=>{
+    dispatch(userIdCheck(userId))
+  },[userId, dispatch])
+
+  useEffect(()=>{
+    dispatch(userNicknameCheck(nickname))
+  },[nickname, dispatch])
 
   return (
     <>

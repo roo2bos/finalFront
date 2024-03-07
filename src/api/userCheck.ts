@@ -2,9 +2,9 @@ import axios from "axios";
 
 const API_URL: string = 'http://localhost:3001';
 
-export const userIdCheckApi = async (userdata : any) : Promise<any> => {
+export const userIdCheckApi = async (userId : any) : Promise<any> => {
     try{    
-        const response = await axios.post(`${API_URL}`, userdata, {withCredentials: true});
+        const response = await axios.get(`${API_URL}`, {params: {userId}});
         console.log(response)
         return response.data
     }catch(error){
@@ -12,9 +12,9 @@ export const userIdCheckApi = async (userdata : any) : Promise<any> => {
     }
 }
 
-export const logoutApi = async () => {
+export const userNicknameCheckApi = async (nickname : any) : Promise<any> => {
     try{
-        const response = await axios.get(`${API_URL}`, {withCredentials: true})
+        const response = await axios.get(`${API_URL}`, {params : {nickname}})
         console.log(response)
         return response.data
     }catch(error){
