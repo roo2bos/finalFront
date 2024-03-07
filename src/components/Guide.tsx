@@ -30,8 +30,7 @@
 				Extra large
 			</button>
 
-      <hr className="my-3" />
-
+      <hr className="my-3" />			
 
 		</div>
 	);

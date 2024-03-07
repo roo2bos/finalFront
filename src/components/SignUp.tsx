@@ -1,13 +1,14 @@
 import { useForm, SubmitHandler, SubmitErrorHandler } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
+import {userIdCheck , userNicknameCheck } from '../store/features/userIdCheck'
 import { signUpUser } from '../store/features/signUpSlice';
-// import { Dispatch } from '@reduxjs/toolkit';
-
-
+import '../assets/css/auth.css'
+import { useEffect } from 'react';
 
 type FormData = {
   username: string;
   userId: string;
+  nickname : string;
   email: string;
   password: string;
   confirmPassword: string;
@@ -24,9 +25,6 @@ export default function SignUp() {
     watch,
   } = useForm<FormData>();
 
-  console.log('errors', errors);
-
-
   const onSubmit: SubmitHandler<FormData> = (userdata) => {
       console.log('onSubmit', userdata);
       dispatch(signUpUser(userdata));
@@ -36,13 +34,24 @@ export default function SignUp() {
     console.log('onError', errors);
   };
 
+  const userId = watch('userId')
+  const nickname = watch('nickname')
+
+  useEffect(()=>{
+    dispatch(userIdCheck(userId))
+  },[userId, dispatch])
+
+  useEffect(()=>{
+    dispatch(userNicknameCheck(nickname))
+  },[nickname, dispatch])
 
   return (
     <>
       <h1>회원가입</h1>
-      <form onSubmit={handleSubmit(onSubmit, onError)}>
-        <label htmlFor="username">이름</label>
+      <form className='grid gap-6 mb-6 md:grid-cols-2' onSubmit={handleSubmit(onSubmit, onError)}>
+        <label className='authLable' htmlFor="username">이름</label>
         <input
+          className='authInput'
           type="text"
           id="username"
           placeholder="username"
@@ -55,10 +64,10 @@ export default function SignUp() {
           })}
         />
         {errors.username && <span role="alert">{errors.username.message}</span>}
-        <br />
 
-        <label htmlFor="userId">아이디</label>
+        <label className='authLable' htmlFor="userId">아이디</label>
         <input
+          className='authInput'
           type="text"
           id="userId"
           placeholder="userId"
@@ -67,10 +76,26 @@ export default function SignUp() {
           })}
         />
         {errors.userId && <span role="alert">{errors.userId.message}</span>}
-        <br />
+        {userId && <span>{userId}은(는) 사용 가능한 아이디입니다.</span>}
+        {errors.userId && <span role="alert">{errors.userId.message}</span>}
 
-        <label htmlFor="email">이메일</label>
+        <label className='authLabel' htmlFor='nickname'>닉네임</label>
         <input
+          className='authInput'
+          type='text'
+          id='nickname'
+          placeholder='nickname'
+          {...register('nickname',{
+            required : '닉네임을 입력해주세요'
+          })}
+        />
+        {errors.nickname && <span role='alert'>{errors.nickname.message}</span>}
+        {nickname && <span>{nickname}은(는) 사용 가능한 닉네임입니다.</span>}
+        {errors.nickname && <span role="alert">{errors.nickname.message}</span>}
+
+        <label className='authLable' htmlFor="email">이메일</label>
+        <input
+           className='authInput'
           type="email"
           id="email"
           placeholder="email"
@@ -83,10 +108,10 @@ export default function SignUp() {
           })}
         />
         {errors.email && <span role="alert">{errors.email.message}</span>}
-        <br />
 
-        <label htmlFor="password">비밀번호</label>
+        <label className='authLable' htmlFor="password">비밀번호</label>
         <input
+           className='authInput'
           type="password"
           id="password"
           placeholder="password"
@@ -97,25 +122,25 @@ export default function SignUp() {
               message: '비밀번호는 8자 이상이어야 합니다',
             },
             validate: (value) => {
-              const hasNumber = /\d/.test(value);
-              const hasUpperCase = /[A-Z]/.test(value);
-              const hasLowerCase = /[a-z]/.test(value);
-              const hasSpecialChar = /[!@#$%^&*]/.test(value);
+              const Number = /\d/.test(value);
+              const UpperCase = /[A-Z]/.test(value);
+              const LowerCase = /[a-z]/.test(value);
+              const SpecialChar = /[!@#$%^&*]/.test(value);
               return (
-                hasNumber &&
-                hasUpperCase &&
-                hasLowerCase &&
-                hasSpecialChar ||
+                Number &&
+                UpperCase &&
+                LowerCase &&
+                SpecialChar ||
                 '비밀번호는 숫자, 대문자, 소문자, 특수문자를 포함해야 합니다'
               );
             },
           })}
         />
         {errors.password && <span role="alert">{errors.password.message}</span>}
-        <br />
 
-        <label htmlFor="confirmPassword">비밀번호 확인</label>
+        <label className='authLable' htmlFor="confirmPassword">비밀번호 확인</label>
         <input
+           className='authInput'
           type="password"
           id="confirmPassword"
           placeholder="confirmPassword"
@@ -126,9 +151,8 @@ export default function SignUp() {
           })}
         />
         {errors.confirmPassword && (
-          <span role="alert">{errors.confirmPassword.message}</span>
+          <span className='text-red-500 text-xs' role="alert">{errors.confirmPassword.message}</span>
         )}
-        <br />
 
         <input
           type="checkbox"
