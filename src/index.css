@@ -17,48 +17,60 @@
 	-moz-osx-font-smoothing: grayscale;
 }
 
-a {
-	font-weight: 500;
-	color: #646cff;
-	text-decoration: inherit;
-	@apply text-blue-900;
-}
-a:hover {
-	color: #535bf2;
-}
-html,
-body {
-	@apply h-full;
-}
-
-body {
-	font-size: 16px;
-}
-
-h1 {
-	@apply m-0;
-}
-
-#root {
-	@apply h-full;
-}
-#wrap {
-	@apply h-full flex;
-}
-
-#lnb {
-	@apply flex h-full flex-col flex-shrink-0 w-0 md:w-[260px] overflow-x-hidden;
-}
-.lnb {
-	@apply flex-1 flex-shrink-0 w-0 md:w-[260px] overflow-x-hidden;
-}
-
-main {
-	@apply flex-1 flex flex-col;
-}
-
 @layer base {
-  .truncate-2 {
+	a {
+		font-weight: 500;
+		color: #646cff;
+		text-decoration: inherit;
+		@apply text-blue-900;
+	}
+	a:hover {
+		color: #535bf2;
+	}
+	html,
+	body {
+		@apply h-full;
+	}
+
+	body {
+		font-size: 16px;
+	}
+
+	h1 {
+		@apply m-0;
+	}
+	main {
+		@apply flex-1 flex flex-col;
+	}
+}
+
+@layer components {
+	#root {
+		@apply h-full;
+	}
+	#wrap {
+		@apply h-full flex;
+	}
+
+  #header{@apply mb-5 px-3}
+	#lnb {
+		@apply flex h-full flex-col flex-shrink-0 w-0 md:w-[260px] overflow-x-hidden;
+	}
+	.lnb {
+		@apply flex-1 flex-shrink-0 w-0 md:w-[260px] overflow-x-hidden;
+	}
+  .content{@apply overflow-hidden overflow-y-auto p-5 flex flex-1 flex-col}
+
+	.list-title {
+		@apply text-2xl font-bold mb-2;
+	}
+	.list-title ~ .list-title {
+		@apply mt-4;
+	}
+}
+
+@layer utilities {
+	.truncate-2 {
 		display: -webkit-box;
 		word-wrap: break-word;
 		-webkit-line-clamp: 2;
@@ -66,19 +78,13 @@ main {
 		overflow: hidden;
 		text-overflow: ellipsis;
 	}
-  .truncate-3 {
+	.truncate-3 {
 		display: -webkit-box;
 		word-wrap: break-word;
 		-webkit-line-clamp: 3;
 		-webkit-box-orient: vertical;
 		overflow: hidden;
 		text-overflow: ellipsis;
-	}
-}
-
-@layer utilities {
-	.list-title {
-		@apply text-2xl font-bold;
 	}
 }
 

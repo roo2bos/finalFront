@@ -1,10 +1,15 @@
 import '../assets/css/talk.css';
-
+import { useParams } from 'react-router-dom';
 function Talk() {
+  const {id} = useParams();
+
 	return (
 		<>
 			<div className="list-talk">
 				<div className="inner">
+          <div className="head">
+            방 제목 : {id}
+          </div>
 					<ul>
 						<li className="you">
 							<div className="profile"></div>
