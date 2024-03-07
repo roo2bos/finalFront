@@ -5,7 +5,8 @@ import NotFound from './components/NotFound';
 import Guide from './components/Guide';
 import Home from './pages/Home';
 import Mypage from './pages/Mypage';
-import Talk from './pages/Talk'; // Talk
+import Guide from './components/Guide';
+import NotFound from './components/NotFound';
 
 function App() {
 	return (
@@ -17,6 +18,8 @@ function App() {
 					<Route path="/mypage" element={<Mypage />} />
 					<Route path="/guide" element={<Guide />} />
 					<Route path="*" element={<NotFound />} />
+					<Route path='/signup' element= {<SignUp/>}/>
+					<Route path='/login' element= {<Login/>}/>
 				</Route>
 			</Routes>
 		</>
