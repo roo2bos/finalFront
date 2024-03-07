@@ -1,8 +1,8 @@
 import { useForm, SubmitHandler, SubmitErrorHandler } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { signUpUser } from '../store/features/signUpSlice';
-import { Dispatch } from '@reduxjs/toolkit';
 import '../assets/css/auth.css'
+
 
 
 
@@ -17,7 +17,7 @@ type FormData = {
 };
 
 export default function SignUp() {
-  const dispatch = useDispatch<Dispatch>();
+  const dispatch = useDispatch();
 
   const {
     register,
@@ -30,7 +30,7 @@ export default function SignUp() {
       console.log('onSubmit', userdata);
       dispatch(signUpUser(userdata));
   };
-  
+
   const onError: SubmitErrorHandler<FormData> = (errors) => {
     console.log('onError', errors);
   };

@@ -11,6 +11,7 @@ export default function Header() {
 			</h1>
       <nav>
 				<Link to="/">홈</Link> /{" "}
+				<Link to="/talk">대화</Link> /{" "}
 				<Link to="/mypage">마이페이지</Link> /{" "}
 				<Link to="/about">404</Link> /{" "}
 				<Link to="/guide">가이드</Link>

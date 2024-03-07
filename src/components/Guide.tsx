@@ -1,6 +1,4 @@
-import React from 'react';
-
-export default function Guide() {
+ export default function Guide() {
 	return (
 		<div>
 			<h2>Guide</h2>
