@@ -32,8 +32,7 @@ export default function Guide() {
 				Extra large
 			</button>
 
-      <hr className="my-3" />
-
+      <hr className="my-3" />			
 
 		</div>
 	);
