@@ -3,18 +3,21 @@
 @tailwind utilities;
 
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+	font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+	line-height: 1.5;
+	font-weight: 400;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+	color-scheme: light dark;
+	color: rgba(255, 255, 255, 0.87);
+	background-color: #242424;
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+	font-synthesis: none;
+	text-rendering: optimizeLegibility;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	--btn-bg: #80c2af; /* 버튼 : 배경 */
+	--btn-bg-ov: #94e3cd; /* 버튼 오버 : 배경 */
+	--btn-bd-ov: #53b4ff; /* 버튼 오버 : 보더 */
 }
 
 @layer base {
@@ -42,6 +45,45 @@
 	main {
 		@apply flex-1 flex flex-col;
 	}
+	svg {
+		@apply inline;
+	}
+
+	button,
+	[type='button'],
+	[type='reset'],
+	[type='submit'] {
+		@apply font-medium text-white text-center bg-[var(--btn-bg)] hover:bg-[var(--btn-bg-ov)] focus:ring-[var(--btn-bd-ov)]  rounded-lg focus:ring-4 focus:outline-none;
+	}
+	button + button:not(.w-full) {
+		@apply ms-2;
+	}
+	button + button.w-full {
+		@apply mt-2;
+	}
+	.btn-xs {
+		@apply px-3 py-2 text-xs;
+	}
+	.btn-sm {
+		@apply px-3 py-2 text-sm;
+	}
+	.btn-md {
+		@apply px-5 py-2.5 text-sm;
+	}
+	.btn-lg {
+		@apply px-5 py-3 text-base;
+	}
+	.btn-xl {
+		@apply px-6 py-3.5 text-base;
+	}
+
+	button,
+	input,
+	optgroup,
+	select,
+	textarea {
+		@apply p-2.5 border border-gray-300 text-gray-900 text-base rounded-lg focus:!border-[var(--btn-bd-ov)] focus:!outline-[var(--btn-bd-ov)];
+	}
 }
 
 @layer components {
@@ -52,14 +94,18 @@
 		@apply h-full flex;
 	}
 
-  #header{@apply mb-5 px-3}
+	#header {
+		@apply mb-5 px-3;
+	}
 	#lnb {
 		@apply flex h-full flex-col flex-shrink-0 w-0 md:w-[260px] overflow-x-hidden;
 	}
 	.lnb {
 		@apply flex-1 flex-shrink-0 w-0 md:w-[260px] overflow-x-hidden;
 	}
-  .content{@apply overflow-hidden overflow-y-auto p-5 flex flex-1 flex-col}
+	.content {
+		@apply overflow-hidden overflow-y-auto p-5 flex flex-1 flex-col;
+	}
 
 	.list-title {
 		@apply text-2xl font-bold mb-2;
@@ -67,6 +113,9 @@
 	.list-title ~ .list-title {
 		@apply mt-4;
 	}
+
+  .form li{@apply mb-2 mt-4;}
+  .form li label{@apply block mb-2 text-sm font-medium text-gray-900;}
 }
 
 @layer utilities {
@@ -89,11 +138,8 @@
 }
 
 @media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
+	:root {
+		color: #213547;
+		background-color: #ffffff;
+	}
 }
-
-
-
