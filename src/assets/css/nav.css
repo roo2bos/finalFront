@@ -1,0 +1,28 @@
+#nav {
+  @apply h-full flex flex-col flex-shrink-0 overflow-x-hidden;
+  background-color: #66c0b6;
+}
+
+.nav-container {
+  @apply h-full flex flex-col justify-between p-8 text-white font-bold;
+}
+
+.logo {
+  @apply pb-10 font-bold;
+  font-size: 2rem;
+}
+
+.nav-user {
+  @apply pb-10;
+}
+
+.nav-user-login {
+  @apply p-4 text-center text-black rounded-lg;
+  font-size: 18px;
+  background-color: #f7f5f0;
+}
+
+.nav-menu-item {
+  @apply py-5;
+  font-size: 18px;
+}
