@@ -1,6 +1,7 @@
 import { useForm, SubmitHandler, SubmitErrorHandler } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { loginUser } from '../store/features/loginSlice';
+import '../assets/css/auth.css'
 
 
 type FormData = {
@@ -32,9 +33,10 @@ export default function SignUp() {
 
   return (
     <>
-      <form onSubmit={handleSubmit(onSubmit, onError)}>
-        <label htmlFor="userId">아이디</label>
+      <form className='authForm' onSubmit={handleSubmit(onSubmit, onError)}>
+        <label className='authLable' htmlFor="userId">아이디</label>
         <input
+          className='authInput'
           type="text"
           id="userId"
           placeholder="userId"
@@ -42,11 +44,12 @@ export default function SignUp() {
             required: 'ID를 입력해주세요',
           })}
         />
-        {errors.userId && <span role="alert">{errors.userId.message}</span>}
+        {errors.userId && <span className='authSpan' role="alert">{errors.userId.message}</span>}
         <br />
 
-        <label htmlFor="password">비밀번호</label>
+        <label className='authLable' htmlFor="password">비밀번호</label>
         <input
+          className='authInput'
           type="password"
           id="password"
           placeholder="password"
@@ -71,10 +74,10 @@ export default function SignUp() {
             },
           })}
         />
-        {errors.password && <span role="alert">{errors.password.message}</span>}
+        {errors.password && <span className='authSpan' role="alert">{errors.password.message}</span>}
         <br />
 
-        <button type="submit">로그인</button>
+        <button className='authInput mt-10' type="submit">로그인</button>
       </form>
     </>
   );

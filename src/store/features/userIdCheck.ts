@@ -14,7 +14,7 @@ const initialState: UserCheckId = {
 };
 
 const userCheckSlice = createSlice({
-  name: "signUp",
+  name: "userCheck",
   initialState,
   reducers: {
     userCheckId : (state, action: PayloadAction<boolean>) => {
