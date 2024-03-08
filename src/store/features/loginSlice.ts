@@ -3,9 +3,8 @@ import { Dispatch } from "@reduxjs/toolkit";
 import {loginApi , logoutApi} from "../../api/login";
 
 interface User {
-    id: string;
-    username: string;
-    email: string;
+    userId: string;
+    password: string;
 }
 
 interface LoginState {
