@@ -1,28 +1,45 @@
 #nav {
   @apply h-full flex flex-col flex-shrink-0 overflow-x-hidden;
-  background-color: #ebe6e1;
+  background-color: #faf5f0;
 }
 
 .nav-container {
-  @apply h-full flex flex-col justify-between p-8 font-bold;
+  @apply h-full w-[280px] flex flex-col justify-between p-8 font-bold;
+  color: #98989e;
 }
 
+/* 로고 */
 .logo {
   @apply pb-10 font-bold;
-  font-size: 2rem;
+  font-size: 1.5rem;
+  color: #39393d;
 }
 
-.nav-user {
-  @apply pb-10;
+/* 메뉴 */
+.active {
+  display: block;
+  align-items: center;
+  width: 100%;
+  background: #67c0cd;
+  border-radius: 30px;
+  padding: 10px 0;
 }
 
-.nav-user-login {
-  @apply p-4 text-center text-white rounded-lg;
-  font-size: 18px;
-  background-color: #1a1a1a;
+.active .nav-menu-box div {
+  color: #fff;
 }
 
 .nav-menu-item {
-  @apply py-5;
+  @apply py-4 flex items-end;
   font-size: 18px;
+}
+
+.nav-menu-box {
+  @apply flex items-center;
+  color: #98989e;
+}
+
+.nav-menu-item .nav-icon {
+  @apply pl-5 pr-4 pb-1;
+  font-size: 24px;
 }

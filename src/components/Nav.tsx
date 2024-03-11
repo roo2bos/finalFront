@@ -1,25 +1,74 @@
 import '../assets/css/nav.css';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
+// 아이콘 import
+import { GoHomeFill } from 'react-icons/go';
+import { CgMenuGridR } from 'react-icons/cg';
+import { BiSolidChat } from 'react-icons/bi';
+import { FaBell } from 'react-icons/fa';
 
-export default function Lnb() {
+export default function Nav() {
   return (
     <nav id='nav'>
       <div className='nav-container'>
         <div className='nav-content'>
           <h1 className='logo'>DoRun-DoRun</h1>
-          <div className='nav-user'>
-            <div className='nav-user-login'>로그인</div>
-          </div>
           <ul className='nav-menu-list'>
             <li className='nav-menu-item'>
-              <Link to='/'>홈</Link>
+              <NavLink
+                to='/'
+                className={({ isActive }) => (isActive ? 'active' : '')}
+              >
+                <div className='nav-menu-box'>
+                  <div className='nav-icon'>
+                    <GoHomeFill />
+                  </div>
+                  <div>Home</div>
+                </div>
+              </NavLink>
             </li>
-            <li className='nav-menu-item'>메뉴2</li>
-            <li className='nav-menu-item'>메뉴3</li>
+            <li className='nav-menu-item'>
+              <NavLink
+                to='/m1'
+                className={({ isActive }) => (isActive ? 'active' : '')}
+              >
+                <div className='nav-menu-box'>
+                  <div className='nav-icon'>
+                    <CgMenuGridR />
+                  </div>
+                  <div>메뉴1</div>
+                </div>
+              </NavLink>
+            </li>
+            <li className='nav-menu-item'>
+              <NavLink
+                to='/m2'
+                className={({ isActive }) => (isActive ? 'active' : '')}
+              >
+                <div className='nav-menu-box'>
+                  <div className='nav-icon'>
+                    <BiSolidChat />
+                  </div>
+                  <div>메뉴2</div>
+                </div>
+              </NavLink>
+            </li>
+            <li className='nav-menu-item'>
+              <NavLink
+                to='/m3'
+                className={({ isActive }) => (isActive ? 'active' : '')}
+              >
+                <div className='nav-menu-box'>
+                  <div className='nav-icon'>
+                    <FaBell />
+                  </div>
+                  <div>메뉴3</div>
+                </div>
+              </NavLink>
+            </li>
           </ul>
         </div>
         <div className='nav-footer'>
-          <p>@copyright</p>
+          <p>@ copyright</p>
         </div>
       </div>
     </nav>
