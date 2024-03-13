@@ -13,7 +13,6 @@ function Home() {
 
 	const [myTalk] = useState(datas.users.find((user) => user.userid === account)); //인증된 유저의 전체 정보
 	const [myRooms] = useState(datas.users.find((user) => user.userid === account).chats); //채팅룸
-	console.log(myTalk);
 	const [myMsg] = useState(
 		myRooms.map((roomId) => {
 			const newData = {
