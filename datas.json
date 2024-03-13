@@ -1,0 +1,149 @@
+{
+	"characters": [
+		{
+			"id": "aaa111",
+			"name": "푸우",
+			"img": "/image1.png",
+			"desc": "영문 이름은 Winnie the Pooh(위니 더 푸)로 실제로 존재했던 곰 '위니'의 이름을 따왔다. 위니는 런던 동물원에 있던 캐나다 암컷 흑곰[4]으로, 곰을 사냥꾼으로부터 사들인 해리 콜번이 자신의 고향인 캐나다의 도시 위니펙[5]에서 이름을 가져와 붙였다. 따라서 'Pooh(푸)'는 친구들 사이에서 불리는 별명이고 진짜 본명은 'Winnie(위니)'이다.[6] 한국판에서는 곰돌이 푸(우), 일본판에서는 쿠마노 푸우상(クマのプーさん, 곰 푸 씨)이 정식 풀 네임이고 중화권에서는 '위니'를 음차한 維尼/维尼(웨이니)[7]라고 불리고 있다."
+		},
+		{
+			"id": "aaa222",
+			"name": "조커",
+			"img": "/characters/ic_style_joker_male.avif",
+			"desc": "유명한 빌런을 주인공으로 하는 영화 '조커'는 지금까지 극장에서 볼 수 없었던 독립적인 오리지널 스토리를 전달한다. 사회가 외면한 남자 아서 플렉(호아킨 피닉스)에 대한 이야기는 단순히 기괴한 캐릭터를 보여주기만 하는 게 아니라 우리 사회에 경고를 주는 이야기이기도 하다.       이미지 출처 : https://www.media.io/"
+		},
+		{
+			"id": "aaa333",
+			"name": "아이언맨",
+			"img": "/characters/ic_style_hero_male.avif",
+			"desc": "마블 코믹스의 슈퍼히어로. 이명은 아이언맨으로,[1] 천하무적 아이언맨(The Invincible Iron Man)이라는 수식어가 붙는다. 역설적으로 철은 방탄용으로 잘 쓰이지 않는다는 점을 고려하면 아이언맨을 만들기 위한 합금에는 철이 없을 확률이 높다.[2] 철이 단단한 금속하면 먼저 떠오르고 우리 삶에서 친숙한 금속이기 때문에 붙인 것으로 추정된다.      억만장자 천재 발명가인 토니 스타크가 심장에 치명적인 상처를 입은 자신의 목숨을 지키며 동시에 세계를 지킬 강화 슈트를 제작하고 과학의 결정체로 만들어진 슈트를 입고 아이언맨이 되어 범죄와 싸워나간다. 이미지 출처 : https://www.media.io/"
+		},
+		{
+			"id": "aaa444",
+			"name": "할리퀸",
+			"img": "/characters/ic_style_joker_female.avif",
+			"desc": "DC 코믹스의 등장인물. 이름은 할리퀸(Harlequin)을 사람 이름처럼 변형한 것이다. 본명은 할린 퀸젤.이미지 출처 : https://www.media.io/"
+		}
+	],
+	"chats": [
+		{
+			"id": 1,
+			"roomId": "aaa222",
+			"sendId": "test",
+			"name": "조커",
+			"img": "/characters/ic_style_joker_male.avif",
+			"msg": "안녕하세요",
+      "advice":""
+		},
+		{
+			"id": 2,
+			"roomId": "aaa222",
+			"sendId": "test",
+			"name": "조커",
+			"img": "/characters/ic_style_joker_male.avif",
+			"msg": "반갑습니다",
+      "advice":""
+		},
+		{
+			"id": 3,
+			"roomId": "aaa222",
+			"sendId": "ai",
+			"name": "조커",
+			"img": "/characters/ic_style_joker_male.avif",
+			"msg": "하이여~",
+      "advice":""
+		},
+		{
+			"id": 4,
+			"roomId": "aaa222",
+			"sendId": "ai",
+			"name": "조커",
+			"img": "/characters/ic_style_joker_male.avif",
+			"msg": "오늘 하루는 어땠어?",
+      "advice":""
+		},
+		{
+			"id": 5,
+			"roomId": "aaa444",
+			"sendId": "test",
+			"name": "할리퀸",
+			"img": "/characters/ic_style_joker_female.avif",
+			"msg": "여~! 하이!!",
+      "advice":""
+		},
+		{
+			"id": 6,
+			"roomId": "aaa444",
+			"sendId": "ai",
+			"name": "할리퀸",
+			"img": "/characters/ic_style_joker_female.avif",
+			"msg": "안녕?",
+      "advice":""
+		},
+		{
+			"id": 6,
+			"roomId": "aaa444",
+			"sendId": "test",
+			"name": "할리퀸",
+			"img": "/characters/ic_style_joker_female.avif",
+			"msg": "어떻게 지내?",
+      "advice":"How are you?"
+		},
+		{
+			"id": 7,
+			"roomId": "aaa222",
+			"sendId": "test",
+			"name": "조커",
+			"img": "/characters/ic_style_joker_male.avif",
+			"msg": "즐거웠어 ㅋㅋㅋ",
+      "advice":""
+		},
+		{
+			"id": 8,
+			"roomId": "aaa333",
+			"sendId": "hong",
+			"name": "아이언맨",
+			"img": "/characters/ic_style_hero_male.avif",
+			"msg": "반갑습니다^^",
+      "advice":""
+		},
+		{
+			"id": 9,
+			"roomId": "aaa111",
+			"sendId": "oh",
+			"name": "푸우",
+			"img": "/image1.png",
+			"msg": "반갑습니다!!!!!!",
+      "advice":""
+		},
+		{
+			"id": 10,
+			"roomId": "aaa444",
+			"sendId": "ai",
+			"name": "할리퀸",
+			"img": "/characters/ic_style_joker_female.avif",
+			"msg": "난 잘지내지~ㅋ",
+      "advice":"I'm fine."
+		}
+	],
+	"users": [
+		{
+			"id": 1,
+			"userid": "test",
+			"profile": "/image1.png",
+			"chats": ["aaa444", "aaa222"]
+		},
+		{
+			"id": 2,
+			"userid": "hong",
+			"profile": "/image1.png",
+			"chats": ["aaa333"]
+		},
+		{
+			"id": 3,
+			"userid": "oh",
+			"profile": "/image1.png",
+			"chats": ["aaa444"]
+		}
+	]
+}
