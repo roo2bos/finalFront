@@ -9,6 +9,7 @@ import Home from './pages/Home';
 import Mypage from './pages/Mypage';
 import Talk from './pages/Talk';
 import Myroom from './components/Myroom';
+import Character from './pages/Character';
 
 function App() {
 	return (
@@ -22,6 +23,7 @@ function App() {
 					<Route path="/guide" element={<Guide />} />
 					<Route path='/signup' element= {<SignUp/>}/>
 					<Route path='/login' element= {<Login/>}/>
+          <Route path="/character/:id" element={<Character />} />
 
 					<Route path="*" element={<NotFound />} />
 				</Route>

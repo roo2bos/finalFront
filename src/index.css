@@ -3,157 +3,191 @@
 @tailwind utilities;
 
 @font-face {
-  font-family: 'Pretendard', sans;
-  src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff')
-    format('woff');
-  font-weight: 400;
-  font-style: normal;
+	font-family: 'Pretendard', sans;
+	src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+	font-weight: 400;
+	font-style: normal;
 }
 
 :root {
-  font-family: 'Pretendard', Inter, system-ui, Avenir, Helvetica, Arial,
-    sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+	font-family: 'Pretendard', Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+	line-height: 1.5;
+	font-weight: 400;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+	color-scheme: light dark;
+	color: rgba(255, 255, 255, 0.87);
+	background-color: #242424;
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  --btn-bg: #80c2af; /* 버튼 : 배경 */
-  --btn-bg-ov: #94e3cd; /* 버튼 오버 : 배경 */
-  --btn-bd-ov: #53b4ff; /* 버튼 오버 : 보더 */
+	font-synthesis: none;
+	text-rendering: optimizeLegibility;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	--btn: #98989e; /* 버튼 : 폰트 색상 */
+	--btn-ov: #000; /* 버튼 : 폰트 색상 오버 */
+	--btn-bg: #80c2af; /* 버튼 : 배경 */
+	--btn-bg-ov: #67c0cd; /* 버튼 배경 : 오버 */
+	--btn-bd-ov: #67c0cd; /* 버튼 보더 : 오버 */
 }
 
 @layer base {
-  a {
-    font-weight: 500;
-    color: #646cff;
-    text-decoration: inherit;
-    @apply text-blue-900;
-  }
-  a:hover {
-    color: #535bf2;
-  }
-  html,
-  body {
-    @apply h-full;
-  }
+	a {
+		color: inherit;
+		text-decoration: inherit;
+    transition:color .3s;
+	}
+	a:hover {
+		color: var(--btn-ov);
+	}
+	html,
+	body {
+		@apply h-full;
+	}
 
-  body {
-    font-family: 'Pretendard', sans;
-    font-size: 16px;
-  }
+	body {
+		font-family: 'Pretendard', sans;
+		font-size: 16px;
+	}
 
-  h1 {
-    @apply m-0;
-  }
-  main {
-    @apply flex-1 flex flex-col;
-  }
-  svg {
-    @apply inline;
-  }
+	h1 {
+		@apply m-0;
+	}
+	main {
+		@apply flex-1 flex flex-col;
+	}
+	svg {
+		@apply inline;
+	}
 
-  button,
-  [type='button'],
-  [type='reset'],
-  [type='submit'] {
-    @apply font-medium text-white text-center bg-[var(--btn-bg)] hover:bg-[var(--btn-bg-ov)] focus:ring-[var(--btn-bd-ov)]  rounded-lg focus:ring-4 focus:outline-none;
-  }
-  button + button:not(.w-full) {
-    @apply ms-2;
-  }
-  button + button.w-full {
-    @apply mt-2;
-  }
-  .btn-xs {
-    @apply px-3 py-2 text-xs;
-  }
-  .btn-sm {
-    @apply px-3 py-2 text-sm;
-  }
-  .btn-md {
-    @apply px-5 py-2.5 text-sm;
-  }
-  .btn-lg {
-    @apply px-5 py-3 text-base;
-  }
-  .btn-xl {
-    @apply px-6 py-3.5 text-base;
-  }
+	button,
+	[type='button'],
+	[type='reset'],
+	[type='submit'] {
+		@apply font-medium text-white text-center bg-[var(--btn-bg)] hover:bg-[var(--btn-bg-ov)] focus:ring-[var(--btn-bd-ov)] rounded-lg focus:ring-1
+	}
+	button + button:not(.w-full) {
+		@apply ms-2;
+	}
+	button + button.w-full {
+		@apply mt-2;
+	}
+	.btn-xs {
+		@apply px-3 py-2 text-xs;
+	}
+	.btn-sm {
+		@apply px-3 py-2 text-sm;
+	}
+	.btn-md {
+		@apply px-5 py-2.5 text-sm;
+	}
+	.btn-lg {
+		@apply px-5 py-3 text-base;
+	}
+	.btn-xl {
+		@apply px-6 py-3.5 text-base;
+	}
 
-  button,
-  input,
-  optgroup,
-  select,
-  textarea {
-    @apply p-2.5 border border-gray-300 text-gray-900 text-base rounded-lg focus:!border-[var(--btn-bd-ov)] focus:!outline-[var(--btn-bd-ov)];
-  }
+	button,
+	input,
+	optgroup,
+	select,
+	textarea {
+		@apply p-2.5 border border-gray-300 text-gray-900 text-base rounded-lg focus:!border-[var(--btn-bd-ov)] focus:!outline-[var(--btn-bd-ov)];
+	}
 }
 
 @layer components {
-  #root {
-    @apply h-full;
-  }
-  #wrap {
-    @apply h-full flex;
-  }
+	#root {
+		@apply h-full;
+	}
+	#wrap {
+		@apply h-full flex;
+	}
 
-  #header {
-    @apply mb-5 px-3;
+	#header {
+		@apply mb-5 px-3;
+	}
+	#nav {
+		@apply  w-0 md:w-[260px];
+	}
+	.content {
+		@apply h-full overflow-hidden overflow-y-auto p-5/*  flex flex-1 flex-col */;
+	}
+  *::-webkit-scrollbar-track {
+    width: 10px;
+    height: 10px;
+    margin: 10px 0;
+    border-radius: 10px;
+    background-color: transparent;
   }
-  #lnb {
-    @apply flex h-full flex-col flex-shrink-0 w-0 md:w-[260px] overflow-x-hidden;
-  }
-  .lnb {
-    @apply flex-1 flex-shrink-0 w-0 md:w-[260px] overflow-x-hidden;
-  }
-  .content {
-    @apply overflow-hidden overflow-y-auto p-5 flex flex-1 flex-col;
-  }
+	*::-webkit-scrollbar {
+    height: 1rem;
+    width: 0.5rem;
+	}
+	*::-webkit-scrollbar-thumb:hover {
+		--tw-bg-opacity: 1;
+		background-color: rgba(227, 227, 227, var(--tw-bg-opacity));
+	}
+  *::-webkit-scrollbar-thumb {
+    --tw-border-opacity: 1;
+    background-color: hsla(0, 0%, 89%, .8);
+    border-color: rgba(255,255,255, var(--tw-border-opacity));
+    border-radius: 9999px;
+    border-width: 1px;
+}
+	.list-title {
+		@apply text-2xl font-bold mb-2;
+	}
+	.list-title ~ .list-title {
+		@apply mt-4;
+	}
 
-  .list-title {
-    @apply text-2xl font-bold mb-2;
-  }
-  .list-title ~ .list-title {
-    @apply mt-4;
-  }
+	.form li {
+		@apply mb-2 mt-4;
+	}
+	.form li label {
+		@apply block mb-2 text-sm font-medium text-gray-900;
+	}
 
-  .form li {
-    @apply mb-2 mt-4;
-  }
-  .form li label {
-    @apply block mb-2 text-sm font-medium text-gray-900;
-  }
+	/* 버튼 그룹 */
+	.btn-group {
+		@apply inline-flex rounded-md shadow-sm;
+	}
+	.btn-group button {
+		@apply px-4 py-2 text-sm font-medium text-gray-900 bg-white border-t border-b border-gray-200 rounded-none hover:bg-gray-100 hover:text-[var(--btn-ov)] focus:z-10 focus:text-[var(--btn-ov)];
+	}
+	.btn-group button + button {
+		@apply m-0;
+	}
+	.btn-group button:first-child {
+		@apply rounded-s-lg -me-1;
+	}
+	.btn-group button:last-child {
+		@apply rounded-e-lg -ms-1;
+	}
 }
 
 @layer utilities {
-  .truncate-2 {
-    display: -webkit-box;
-    word-wrap: break-word;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-  .truncate-3 {
-    display: -webkit-box;
-    word-wrap: break-word;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
+	.truncate-2 {
+		display: -webkit-box;
+		word-wrap: break-word;
+		-webkit-line-clamp: 2;
+		-webkit-box-orient: vertical;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+	.truncate-3 {
+		display: -webkit-box;
+		word-wrap: break-word;
+		-webkit-line-clamp: 3;
+		-webkit-box-orient: vertical;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
 }
 
 @media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
+	:root {
+		color: #213547;
+		background-color: #ffffff;
+	}
 }

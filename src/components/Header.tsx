@@ -1,12 +1,12 @@
 import { Link } from "react-router-dom";
-import viteLogo from "/vite.svg"
-
+// import viteLogo from "/vite.svg"
+import { TfiCommentsSmiley } from "react-icons/tfi";
 export default function Header() {
   return (
     <header id="header" className="flex justify-between">
       <h1 className="inline-flex">
-				<Link to="/" className="text-sm text-[10px]">
-					<img src={viteLogo} className="logo" alt="Vite logo" width="20" />
+				<Link to="/" className="text-3xl">
+          <TfiCommentsSmiley />{/* <img src={viteLogo} className="logo" alt="Vite logo" width="20" /> */}
 				</Link>
 			</h1>
       <nav>
