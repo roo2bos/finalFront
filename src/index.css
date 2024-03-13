@@ -46,6 +46,7 @@
 	body {
 		font-family: 'Pretendard', sans;
 		font-size: 16px;
+    min-width:320px;
 	}
 
 	h1 {
