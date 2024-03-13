@@ -87,7 +87,7 @@ function Talk() {
 				<form className="form">
 					<textarea id="small-input" className="w-full " />
 					<div className="btns">
-						<button type="button" class="btn-send">
+						<button type="button" className="btn-send">
 							<RiSendPlaneFill />
 						</button>
 						<button type="button" className="btn-mic" onClick={() => setMic(!mic)}>
