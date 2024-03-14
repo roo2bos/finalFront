@@ -23,7 +23,6 @@
 
   .nav-menu-item a {
     @apply block w-full rounded-[32px] py-2 text-lg;
-    color: var(--sub-font-color);
   }
 
   .nav-menu-item a:hover {
@@ -31,7 +30,7 @@
     background-color: var(--hover-highlight-color);
   }
 
-  a.active {
+  .active {
     @apply text-white;
     background-color: var(--heighlight-color);
   }
@@ -46,6 +45,7 @@
   }
 
   .nav-footer {
+    @apply pl-4;
     color: var(--sub-font-color);
   }
 }

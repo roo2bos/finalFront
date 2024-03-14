@@ -18,14 +18,13 @@ export default function Header() {
           <label className='hidden' htmlFor='header-search'>
             검색창
           </label>
-          <input
+          {/* <input
             id='header-search'
             type='search'
             placeholder='궁금한 내용이 있으신가요?'
             title='검색어 입력'
             autoFocus
-          />
-          <button type='reset'></button>
+          /> */}
         </div>
         <div className='nav-icon-wrap'>
           <button className='nav-btn-icon' aria-label='검색'>

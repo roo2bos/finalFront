@@ -49,11 +49,11 @@
     font-weight: 500;
     color: var(--sub-font-color);
     text-decoration: inherit;
-    @apply text-blue-900;
   }
   a:hover {
     color: #fff;
   }
+
   html,
   body {
     @apply h-full;
@@ -113,6 +113,7 @@
     @apply p-2.5 border border-gray-300 text-base rounded;
   }
 
+  /* 텍스트 숨기기 (웹 접근성) */
   .hidden {
     position: absolute;
     clip: rect(0 0 0 0);
