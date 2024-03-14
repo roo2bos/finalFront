@@ -1,5 +1,5 @@
 import '../assets/css/nav.css';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 // 아이콘 import
 import { GoHomeFill } from 'react-icons/go';
 import { CgMenuGridR } from 'react-icons/cg';
@@ -11,7 +11,9 @@ export default function Nav() {
     <nav id='nav'>
       <div className='nav-container'>
         <div className='nav-content'>
-          <h1 className='logo'>DoRun-DoRun</h1>
+          <Link to='/'>
+            <h1 className='logo'>DoRun-DoRun</h1>
+          </Link>
           <ul className='nav-menu-list'>
             <li className='nav-menu-item'>
               <NavLink

@@ -10,35 +10,43 @@
   font-style: normal;
 }
 
+/* 전체 스타일 설정 */
 :root {
-  font-family: 'Pretendard', Inter, system-ui, Avenir, Helvetica, Arial,
-    sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
+  /* 모드 변경 설정 */
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
   background-color: #242424;
 
+  /* 폰트 설정 */
+  font-family: 'Pretendard', Inter, system-ui, Avenir, Helvetica, Arial,
+    sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  --main-font-color: #39393d;
+  --sub-font-color: #7b7e83;
+
+  /* 폰트 렌더링 설정 */
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  --btn-bg: #80c2af; /* 버튼 : 배경 */
-  --btn-bg-ov: #94e3cd; /* 버튼 오버 : 배경 */
-  --btn-bd-ov: #53b4ff; /* 버튼 오버 : 보더 */
+
+  /* 색상 설정 */
+  --heighlight-color: #67c0cd;
+  --hover-highlight-color: #5dadb9;
+
+  /* 버튼 설정 */
+  --btn-bg: var(--heighlight-color); /* 버튼 : 배경 */
+  --btn-bg-hover: var(--hover-highlight-color); /* 버튼 오버 : 배경 */
 }
 
 @layer base {
   a {
     font-weight: 500;
-    color: #646cff;
+    color: var(--sub-font-color);
     text-decoration: inherit;
-    @apply text-blue-900;
   }
-  a:hover {
-    color: #535bf2;
-  }
+
   html,
   body {
     @apply h-full;
@@ -46,12 +54,15 @@
 
   body {
     font-family: 'Pretendard', sans;
-    font-size: 16px;
+    color: var(--main-font-color);
   }
 
   h1 {
-    @apply m-0;
+    @apply m-0 pb-10 font-bold;
+    font-size: 1.5rem;
+    color: var(--main-font-color);
   }
+
   main {
     @apply flex-1 flex flex-col;
   }
@@ -63,7 +74,7 @@
   [type='button'],
   [type='reset'],
   [type='submit'] {
-    @apply font-medium text-white text-center bg-[var(--btn-bg)] hover:bg-[var(--btn-bg-ov)] focus:ring-[var(--btn-bd-ov)]  rounded-lg focus:ring-4 focus:outline-none;
+    @apply font-medium text-white text-center bg-[var(--btn-bg)] hover:bg-[var(--btn-bg-hover)] rounded border-none focus:outline-none;
   }
   button + button:not(.w-full) {
     @apply ms-2;
@@ -92,7 +103,17 @@
   optgroup,
   select,
   textarea {
-    @apply p-2.5 border border-gray-300 text-gray-900 text-base rounded-lg focus:!border-[var(--btn-bd-ov)] focus:!outline-[var(--btn-bd-ov)];
+    @apply p-2.5 border border-gray-300 text-base rounded;
+    /* focus:!border-[var(--btn-bg-hover)] focus:!outline-[var(--btn-bg-hover)] */
+  }
+
+  .hidden {
+    position: absolute;
+    clip: rect(0 0 0 0);
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
   }
 }
 
@@ -106,12 +127,6 @@
 
   #header {
     @apply mb-5 px-3;
-  }
-  #lnb {
-    @apply flex h-full flex-col flex-shrink-0 w-0 md:w-[260px] overflow-x-hidden;
-  }
-  .lnb {
-    @apply flex-1 flex-shrink-0 w-0 md:w-[260px] overflow-x-hidden;
   }
   .content {
     @apply overflow-hidden overflow-y-auto p-5 flex flex-1 flex-col;
@@ -153,7 +168,6 @@
 
 @media (prefers-color-scheme: light) {
   :root {
-    color: #213547;
     background-color: #ffffff;
   }
 }
