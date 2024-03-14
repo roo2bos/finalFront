@@ -23,6 +23,7 @@
 
   .nav-menu-item a {
     @apply block w-full rounded-[32px] py-2 text-lg;
+    color: var(--sub-font-color);
   }
 
   .nav-menu-item a:hover {
@@ -30,7 +31,7 @@
     background-color: var(--hover-highlight-color);
   }
 
-  .active {
+  a.active {
     @apply text-white;
     background-color: var(--heighlight-color);
   }
