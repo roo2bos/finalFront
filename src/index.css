@@ -12,41 +12,34 @@
 
 /* 전체 스타일 설정 */
 :root {
-  /* 모드 변경 설정 */
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  /* 폰트 설정 */
   font-family: 'Pretendard', Inter, system-ui, Avenir, Helvetica, Arial,
     sans-serif;
   line-height: 1.5;
   font-weight: 400;
-  --main-font-color: #39393d;
-  --sub-font-color: #7b7e83;
 
-  /* 폰트 렌더링 설정 */
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
+
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-
-  /* 색상 설정 */
-  --heighlight-color: #67c0cd;
-  --hover-highlight-color: #5dadb9;
-
-  /* 버튼 설정 */
-  --btn-bg: var(--heighlight-color); /* 버튼 : 배경 */
-  --btn-bg-hover: var(--hover-highlight-color); /* 버튼 오버 : 배경 */
+  --btn-bg: #80c2af; /* 버튼 : 배경 */
+  --btn-bg-ov: #94e3cd; /* 버튼 오버 : 배경 */
+  --btn-bd-ov: #53b4ff; /* 버튼 오버 : 보더 */
 }
 
 @layer base {
   a {
     font-weight: 500;
-    color: var(--sub-font-color);
+    color: #646cff;
     text-decoration: inherit;
+    @apply text-blue-900;
   }
-
+  a:hover {
+    color: #535bf2;
+  }
   html,
   body {
     @apply h-full;
@@ -54,15 +47,12 @@
 
   body {
     font-family: 'Pretendard', sans;
-    color: var(--main-font-color);
+    font-size: 16px;
   }
 
   h1 {
-    @apply m-0 pb-10 font-bold;
-    font-size: 1.5rem;
-    color: var(--main-font-color);
+    @apply m-0;
   }
-
   main {
     @apply flex-1 flex flex-col;
   }
@@ -74,7 +64,7 @@
   [type='button'],
   [type='reset'],
   [type='submit'] {
-    @apply font-medium text-white text-center bg-[var(--btn-bg)] hover:bg-[var(--btn-bg-hover)] rounded border-none focus:outline-none;
+    @apply font-medium text-white text-center bg-[var(--btn-bg)] hover:bg-[var(--btn-bg-ov)] focus:ring-[var(--btn-bd-ov)]  rounded-lg focus:ring-4 focus:outline-none;
   }
   button + button:not(.w-full) {
     @apply ms-2;
@@ -103,17 +93,7 @@
   optgroup,
   select,
   textarea {
-    @apply p-2.5 border border-gray-300 text-base rounded;
-    /* focus:!border-[var(--btn-bg-hover)] focus:!outline-[var(--btn-bg-hover)] */
-  }
-
-  .hidden {
-    position: absolute;
-    clip: rect(0 0 0 0);
-    width: 1px;
-    height: 1px;
-    margin: -1px;
-    overflow: hidden;
+    @apply p-2.5 border border-gray-300 text-gray-900 text-base rounded-lg focus:!border-[var(--btn-bd-ov)] focus:!outline-[var(--btn-bd-ov)];
   }
 }
 
@@ -128,10 +108,30 @@
   #header {
     @apply mb-5 px-3;
   }
+  #lnb {
+    @apply flex h-full flex-col flex-shrink-0 w-0 md:w-[260px] overflow-x-hidden;
+  }
+  .lnb {
+    @apply flex-1 flex-shrink-0 w-0 md:w-[260px] overflow-x-hidden;
+  }
   .content {
     @apply overflow-hidden overflow-y-auto p-5 flex flex-1 flex-col;
   }
-
+  *::-webkit-scrollbar {
+    height: 1rem;
+    width: 0.5rem;
+  }
+  *::-webkit-scrollbar-thumb:hover {
+    --tw-bg-opacity: 1;
+    background-color: rgba(227, 227, 227, var(--tw-bg-opacity));
+  }
+  *::-webkit-scrollbar-thumb {
+    --tw-border-opacity: 1;
+    background-color: hsla(0, 0%, 89%, 0.8);
+    border-color: rgba(255, 255, 255, var(--tw-border-opacity));
+    border-radius: 9999px;
+    border-width: 1px;
+  }
   .list-title {
     @apply text-2xl font-bold mb-2;
   }
@@ -144,6 +144,23 @@
   }
   .form li label {
     @apply block mb-2 text-sm font-medium text-gray-900;
+  }
+
+  /* 버튼 그룹 */
+  .btn-group {
+    @apply inline-flex rounded-md shadow-sm;
+  }
+  .btn-group button {
+    @apply px-4 py-2 text-sm font-medium text-gray-900 bg-white border-t border-b border-gray-200 rounded-none hover:bg-gray-100 hover:text-[var(--btn-ov)] focus:z-10 focus:text-[var(--btn-ov)];
+  }
+  .btn-group button + button {
+    @apply m-0;
+  }
+  .btn-group button:first-child {
+    @apply rounded-s-lg -me-1;
+  }
+  .btn-group button:last-child {
+    @apply rounded-e-lg -ms-1;
   }
 }
 
@@ -168,6 +185,7 @@
 
 @media (prefers-color-scheme: light) {
   :root {
+    color: #213547;
     background-color: #ffffff;
   }
 }

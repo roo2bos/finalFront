@@ -3,7 +3,8 @@ import { useDispatch } from 'react-redux';
 import {userNicknameCheck } from '../store/features/userIdCheck'
 import { signUpUser } from '../store/features/signUpSlice';
 import '../assets/css/auth.css'
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 
 type FormData = {
   username: string;
@@ -15,6 +16,7 @@ type FormData = {
 
 export default function SignUp() {
   const dispatch = useDispatch();
+  const [getUser, setGetUser] = useState<FormData | null>(null)
 
   // 수정 페이지 form
   const {
@@ -25,11 +27,15 @@ export default function SignUp() {
   } = useForm<FormData>();
 
   // 수정페이지 전송
-  const onSubmit: SubmitHandler<FormData> = (userdata) => {
-      console.log('onSubmit', userdata);
-      dispatch(signUpUser(userdata));
-  };
+  const onSubmit: SubmitHandler<FormData> =  async (userdata) => {
+    try{
+     await axios.put(``, userdata)
+     setGetUser(userdata)
+    }catch(error){
+      console.error('에러라네',error)
+    }
 
+  };
 
   // 닉네임 실시간 수정
   const nickname = watch('nickname')
@@ -37,6 +43,19 @@ export default function SignUp() {
   useEffect(()=>{
     dispatch(userNicknameCheck(nickname))
   },[nickname, dispatch])
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const API_URL = '...';
+      try {
+        const response = await axios.get(API_URL);
+        console.log(response);
+      } catch (error) {
+        console.error('에러', error);
+      }
+    };
+    fetchData();
+  }, []);
 
   return (
     <>
@@ -49,7 +68,8 @@ export default function SignUp() {
         <label className='authLable' htmlFor="username">이름</label>
         <input
           className='authInput'
-          value='바꿀 수 없다네'
+          value={getUser}
+          onChange={(e)=>setGetUser(e.target.value)}
           type="text"
           id="username"
           disabled
@@ -58,7 +78,7 @@ export default function SignUp() {
         <label className='authLable' htmlFor="userId">아이디</label>
         <input
           className='authInput'
-          value='바꿀 수 없다네'
+          value={getUser}
           type="text"
           id="userId"
           disabled
@@ -68,7 +88,8 @@ export default function SignUp() {
         <label className='authLable' htmlFor='nickname'>닉네임</label>
         <input
           className='authInput'
-          value=''
+          value={getUser}
+          onChange={(e)=>setGetUser(e.target.value)}
           type='text'
           id='nickname'
           placeholder='닉네임을 변경해주세요'
@@ -84,7 +105,8 @@ export default function SignUp() {
         <label className='authLable' htmlFor="email">이메일</label>
         <input
           className='authInput'
-          value=''
+          value={getUser}
+          onChange={(e)=>setGetUser(e.target.value)}
           type="email"
           id="email"
           placeholder="이메일을 변경해주세요"
@@ -102,7 +124,8 @@ export default function SignUp() {
         <label className='authLable' htmlFor="password">비밀번호</label>
         <input
           className='authInput'
-          value=''
+          value={getUser}
+          onChange={(e)=>setGetUser(e.target.value)}
           type="password"
           id="password"
           placeholder="'영문, 숫자, 대문자, 특수문자 포함 8자리 이상'"

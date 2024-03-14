@@ -8,7 +8,8 @@ import Guide from './components/Guide';
 import Home from './pages/Home';
 import Mypage from './pages/Mypage';
 import Talk from './pages/Talk';
-import Mypage1 from './components/Mypage1';
+import Myroom from './components/Myroom';
+import Character from './pages/Character';
 
 function App() {
 	return (
@@ -18,10 +19,11 @@ function App() {
 					<Route path="/" element={<Home />} />
 					<Route path="/talk/:id" element={<Talk />} />
 					<Route path="/mypage" element={<Mypage />} />
-					<Route path="/mypage1" element={<Mypage1 />} />
+					<Route path="/myroom" element={<Myroom />} />
 					<Route path="/guide" element={<Guide />} />
 					<Route path='/signup' element= {<SignUp/>}/>
 					<Route path='/login' element= {<Login/>}/>
+          <Route path="/character/:id" element={<Character />} />
 
 					<Route path="*" element={<NotFound />} />
 				</Route>

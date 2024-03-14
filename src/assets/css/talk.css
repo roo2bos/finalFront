@@ -1,20 +1,92 @@
 /* Talk */
 .list-talk {
+  --bubble-bg:#faf5f0;
+  --bubble-bg-ov:var(--btn-bg-ov);
 	@apply flex h-full flex-col;
 }
+
 .list-talk .inner {
-	@apply flex-1 overflow-hidden;
+	@apply flex-1 overflow-hidden overflow-y-auto px-5;
+}
+.list-talk .head{
+  @apply mb-8 flex flex-col lg:flex-row gap-8
+}
+.list-talk .head .profile{
+  @apply  shrink-0 w-[200px] h-[200px]  rounded-lg overflow-hidden border shadow-[10px_10px_0_0px_var(--btn-bg-ov)] duration-300;
+}
+.list-talk .head .profile img{
+  @apply w-full h-full object-cover
+}
+.list-talk .head dt{
+  @apply font-bold
+}
+.list-talk .head a{
+  @apply text-inherit flex items-center gap-1;
 }
 .list-talk li {
-	@apply flex flex-1 text-base mx-auto gap-3 md:px-5 lg:px-1 xl:px-5 md:max-w-3xl;
+	@apply flex-row-reverse my-4 flex flex-1 text-base mx-auto gap-5;
 }
 .list-talk li .profile {
-	@apply w-[20px] h-[20px] flex-shrink-0 flex flex-col relative items-end bg-gray-500 rounded-full;
+	@apply w-[50px] h-[50px] flex-shrink-0 flex flex-col relative items-end overflow-hidden rounded-lg;;
+}
+.list-talk li .profile img{
+  @apply w-full h-full object-cover
 }
 .list-talk li .info {
-	@apply relative flex w-full flex-col;
+	@apply relative flex w-full flex-col p-2 px-3 rounded-lg rounded-tr-none bg-[var(--bubble-bg-ov)] text-white shadow-lg;
+}
+.list-talk li.ai {
+	@apply flex-row;
+}
+.list-talk li.ai .info{
+	@apply items-start text-inherit rounded-lg rounded-tl-none bg-[var(--bubble-bg)];
+}
+.list-talk li:not(.ai) .info{
+	@apply items-end;
+}
+.list-talk li .info:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 100%;
+  width: 10px;
+  height: 20px;
+  background-color: var(--bubble-bg-ov);
+}
+.list-talk li .info:after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 100%;
+  width: 10px;
+  height: 20px;
+  border-radius: 20px 0 0 ;
+  background-color: white;
+}
+.list-talk li.ai .info:before {
+  left:auto;
+  right: 100%;
+  background:var(--bubble-bg);
+}
+.list-talk li.ai .info:after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left:auto;
+  right: 100%;
+  width: 10px;
+  height: 20px;
+  border-radius: 0 20px 0 0;
+  background-color: white;
+}
+.list-talk li a{
+  @apply text-blue-500
 }
 
-.form {
-	@apply w-full p-2 md:pt-0 dark:border-white/20 md:border-transparent md:dark:border-transparent md:w-[calc(100%-.5rem)];
+.list-talk .form {
+	@apply flex items-center gap-2 w-full md:pt-0 dark:border-white/20 md:border-transparent md:dark:border-transparent md:w-[calc(100%-.5rem)];
 }
+.list-talk .form .btns{@apply flex}
+.list-talk .form .btn-send{@apply relative /* bottom-10  right-28*/ flex rounded-full text-xl text-black /*  bg-transparent border-0 */bg-gray-100}
+.list-talk .form .btn-mic{@apply flex rounded-full text-xl text-black bg-gray-100}
+
