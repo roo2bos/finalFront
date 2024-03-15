@@ -4,16 +4,13 @@ import { useParams, Link } from 'react-router-dom';
 import { RiThumbUpFill, RiThumbDownFill } from 'react-icons/ri';
 import datas from '../../datas.json'; //임시 데이터
 import { MdOutlineRecordVoiceOver } from 'react-icons/md';
-import { PiMicrophoneFill } from 'react-icons/pi';
-import { PiMicrophoneSlash } from 'react-icons/pi';
-import { RiSendPlaneFill } from 'react-icons/ri';
+
 
 function Character() {
 	const { id } = useParams();
 	const [account] = useState('test');
 	// const [article, setArticle] = useState([]); //api로 사용예정
 	const [article] = useState(datas.characters.find((character) => character.id === id)); //임시
-	const [mic, setMic] = useState(false);
 	return (
 		<>
 			<div className="list-talk">
@@ -58,7 +55,7 @@ function Character() {
 							})
 						) : (
 							<>
-								<li>새로운 대화를 해보시는건 어떠실까요?</li>
+								<li>새로운 대화를 시작해 보세요~!</li>
 								<li>
 									<Link to={`/talk/${id}`} className="flex items-center gap-1">
 										<MdOutlineRecordVoiceOver /> 대화 하기
@@ -68,17 +65,6 @@ function Character() {
 						)}
 					</ul>
 				</div>
-				<form className="form">
-					<textarea id="small-input" className="w-full " />
-					<div className="btns">
-						<button type="button" className="btn-send">
-							<RiSendPlaneFill />
-						</button>
-						<button type="button" className="btn-mic" onClick={() => setMic(!mic)}>
-							{mic ? <PiMicrophoneFill /> : <PiMicrophoneSlash />}
-						</button>
-					</div>
-				</form>
 			</div>
 		</>
 	);

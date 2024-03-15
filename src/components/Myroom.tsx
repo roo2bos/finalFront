@@ -9,7 +9,6 @@ export default function Myroom (){
         const fetchData = async () => {
             try {
                 const API_URL = '';
-
                 const response = await axios.get(API_URL);
                 setData(response.data);
             } catch (error) {
@@ -23,8 +22,8 @@ export default function Myroom (){
 
     return (
         <div>
-            <h2>My room</h2>
-            <ul>
+            <h2 className='list-title'>My room</h2>
+            <ul className='list-char'>
                 {/* {data.map((item) => {
                     return (
                         <li key={item.id}>
@@ -38,6 +37,9 @@ export default function Myroom (){
                         </li>
                     );
                 })} */}
+            </ul>
+            <ul className='list-char'>
+                
             </ul>
         </div>
     );
