@@ -21,11 +21,8 @@ export default function SignUp() {
   const onSubmit: SubmitHandler<FormData> = (userdata) => {
     console.log('onSubmit', userdata);
     // error 뜨는 이유를 모르겠음 리더 님한테 물어볼 예정
-<<<<<<< HEAD
+
     dispatch(loginUser(userdata, navigate))
-=======
-    dispatch(loginUser(userdata));
->>>>>>> 7e482860795c5f1d260233dc41abcb66eb89eca6
   };
 
   const onError: SubmitErrorHandler<FormData> = (errors) => {
@@ -40,15 +37,9 @@ export default function SignUp() {
         </label>
         <input
           className='authInput'
-<<<<<<< HEAD
           type="text"
           id="userId"
           placeholder="아이디를 입력해주세요"
-=======
-          type='text'
-          id='userId'
-          placeholder='userId'
->>>>>>> 7e482860795c5f1d260233dc41abcb66eb89eca6
           {...register('userId', {
             required: '아이디를 입력해주세요',
           })}
@@ -65,15 +56,9 @@ export default function SignUp() {
         </label>
         <input
           className='authInput'
-<<<<<<< HEAD
           type="password"
           id="password"
           placeholder="비밀번호를 입력해주세요"
-=======
-          type='password'
-          id='password'
-          placeholder='password'
->>>>>>> 7e482860795c5f1d260233dc41abcb66eb89eca6
           {...register('password', {
             required: '비밀번호를 입력하세요',
             minLength: {
