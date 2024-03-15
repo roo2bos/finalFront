@@ -32,7 +32,7 @@
 
   .active {
     @apply text-white;
-    background-color: var(--heighlight-color);
+    background-color: var(--highlight-color);
   }
 
   .nav-menu-box {
