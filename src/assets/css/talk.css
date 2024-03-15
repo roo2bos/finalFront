@@ -1,12 +1,12 @@
 /* Talk */
 .list-talk {
   --bubble-bg:#faf5f0;
-  --bubble-bg-ov:var(--btn-bg-ov);
+  --bubble-bg-ov:var(--heighlight-color);
 	@apply flex h-full flex-col;
 }
 
 .list-talk .inner {
-	@apply flex-1 overflow-hidden overflow-y-auto px-5;
+	@apply flex-1 overflow-hidden overflow-y-auto px-5 pb-5;
 }
 .list-talk .head{
   @apply mb-8 flex flex-col lg:flex-row gap-8
@@ -21,7 +21,7 @@
   @apply font-bold
 }
 .list-talk .head a{
-  @apply text-inherit flex items-center gap-1;
+  @apply text-inherit inline-flex items-center gap-1;
 }
 .list-talk li {
 	@apply flex-row-reverse my-4 flex flex-1 text-base mx-auto gap-5;
@@ -43,6 +43,12 @@
 }
 .list-talk li:not(.ai) .info{
 	@apply items-end;
+}
+.list-talk li .info .message{
+	@apply whitespace-pre-wrap;
+}
+.list-talk li.user .info .message{
+	@apply text-right;
 }
 .list-talk li .info:before {
   content: '';
@@ -82,11 +88,35 @@
 .list-talk li a{
   @apply text-blue-500
 }
+.list-talk li .speaker{
+  @apply cursor-pointer inline-flex items-center p-1 text-sm leading-none px-2 text-black bg-white rounded-full
+}
+.list-talk li .icon{
+  transform:rotateY(180deg);
+}
 
 .list-talk .form {
-	@apply flex items-center gap-2 w-full md:pt-0 dark:border-white/20 md:border-transparent md:dark:border-transparent md:w-[calc(100%-.5rem)];
+	@apply flex flex-col items-center gap-2 w-full  dark:border-white/20 md:border-transparent md:dark:border-transparent md:w-[calc(100%-.5rem)];
 }
-.list-talk .form .btns{@apply flex}
-.list-talk .form .btn-send{@apply relative /* bottom-10  right-28*/ flex rounded-full text-xl text-black /*  bg-transparent border-0 */bg-gray-100}
-.list-talk .form .btn-mic{@apply flex rounded-full text-xl text-black bg-gray-100}
+.list-talk .form .btns{@apply flex justify-between w-full}
+.list-talk .form .btn-send{@apply inline-flex relative leading-none rounded-full  text-black /*  bg-transparent border-0 */bg-gray-100}
+.list-talk .form .btn-mic{@apply inline-flex rounded-full leading-none  text-black bg-gray-100}
+.list-talk .form textarea{resize: none;grid-area: 1 / 1 / 2 / 2;}
+.list-talk .form .textarea-wrap{@apply grid w-full}
+.list-talk .form .textarea-wrap:after{
+  content: attr(data-value) " ";
+  white-space: pre-wrap;
+  visibility: hidden;
+  grid-area: 1 / 1 / 2 / 2;
+  @apply grid
+}
+.list-talk .form .shortcuts{
+  @apply text-xs inline-flex items-center gap-1
+}
+.list-talk .form .shortcuts span{
+  @apply inline-flex items-center bg-gray-300 p-1 rounded-md
+}
+.list-talk .form .shortcuts svg{
+  @apply font-bold
+}
 
