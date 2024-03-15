@@ -1,7 +1,7 @@
 /* Talk */
 .list-talk {
   --bubble-bg:#faf5f0;
-  --bubble-bg-ov:var(--heighlight-color);
+  --bubble-bg-ov:var(--highlight-color);
 	@apply flex h-full flex-col;
 }
 
