@@ -32,7 +32,7 @@ io.on('connect_error', (error) => {
 io.on('disconnect', () => {
   console.log('연결이 끊어졌습니다.');
 });
-const PORT = 3001;
+const PORT = 3005;
 server.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });

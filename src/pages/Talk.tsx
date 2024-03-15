@@ -5,7 +5,7 @@ import { useEffect, useState, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import datas from '../../datas.json'; //임시 데이터
-const socket = io('http://localhost:3001', {
+const socket = io('http://localhost:3005', {
 	timeout: 5000, // 5초 동안 연결을 시도합니다.
 }); // 서버 주소
 // import axios from 'axios';
