@@ -12,10 +12,17 @@
 
   /* 검색창 */
   .header-search-bar {
-    width: 200px;
-    height: 40px;
-    overflow: hidden;
-    background: red;
+    @apply w-[200px] rounded-3xl overflow-hidden;
+    border: 1px solid var(--border-color);
+  }
+
+  #header-search-input {
+    @apply w-full p-1 border-none;
+    text-indent: 8px;
+  }
+
+  #header-search-input:focus {
+    @apply rounded-3xl;
   }
 
   /* 아이콘 */
@@ -24,15 +31,13 @@
   }
 
   .nav-btn-icon {
-    @apply w-[40px] h-[40px] bg-white;
-    border: none;
+    @apply w-[40px] h-[40px] bg-white border-none;
     font-size: 20px;
     color: var(--sub-font-color);
   }
 
   .nav-btn-icon:hover {
-    color: #fff;
-    border-radius: 100%;
+    @apply text-white border-none;
   }
 
   .nav-btn-icon > svg {
@@ -45,7 +50,7 @@
   }
   .nav-login-wrap > a {
     @apply block py-1.5 px-6 text-white text-right rounded-3xl;
-    background-color: var(--heighlight-color);
+    background-color: var(--highlight-color);
   }
   .nav-login-wrap > a:hover {
     background-color: var(--hover-highlight-color);

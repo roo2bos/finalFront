@@ -36,11 +36,12 @@
   -moz-osx-font-smoothing: grayscale;
 
   /* 색상 설정 */
-  --heighlight-color: #67c0cd;
+  --highlight-color: #67c0cd;
   --hover-highlight-color: #5dadb9;
+  --border-color: #ccc;
 
   /* 버튼 설정 */
-  --btn-bg: var(--heighlight-color); /* 버튼 : 배경 */
+  --btn-bg: var(--eighlight-color); /* 버튼 : 배경 */
   --btn-bg-hover: var(--hover-highlight-color); /* 버튼 오버 : 배경 */
 }
 
@@ -49,9 +50,6 @@
     font-weight: 500;
     color: var(--sub-font-color);
     text-decoration: inherit;
-  }
-  a:hover {
-    color: #fff;
   }
 
   html,

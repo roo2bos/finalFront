@@ -1,12 +1,22 @@
+// css
 import '../assets/css/header.css';
-import { Link } from 'react-router-dom';
 
-// 아이콘 import
+// 리액트 라이브러리, 함수
+import { Link } from 'react-router-dom';
+import { useState } from 'react';
+
+// 아이콘
 import { IoSearch } from 'react-icons/io5';
 import { FaBell } from 'react-icons/fa';
 // import { FaCircleUser } from 'react-icons/fa6';
 
 export default function Header() {
+  // 검색 기능
+  const [search, setSearch] = useState('');
+  const inputHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearch(e.target.value);
+  };
+
   return (
     <header id='header'>
       <nav id='header-nav'>
@@ -18,13 +28,15 @@ export default function Header() {
           <label className='hidden' htmlFor='header-search'>
             검색창
           </label>
-          {/* <input
-            id='header-search'
+          <input
+            id='header-search-input'
             type='search'
-            placeholder='궁금한 내용이 있으신가요?'
+            value={search}
+            onChange={inputHandler}
+            placeholder='검색어 입력'
             title='검색어 입력'
             autoFocus
-          /> */}
+          />
         </div>
         <div className='nav-icon-wrap'>
           <button className='nav-btn-icon' aria-label='검색'>
