@@ -1,8 +1,8 @@
 import { useForm, SubmitHandler} from 'react-hook-form';
 import { useDispatch } from 'react-redux';
-import {userNicknameCheck } from '../store/features/userIdCheck'
+import { userNicknameCheck } from '../store/features/userIdCheck';
 import { signUpUser } from '../store/features/signUpSlice';
-import '../assets/css/auth.css'
+import '../assets/css/auth.css';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
@@ -16,9 +16,9 @@ type FormData = {
 
 export default function SignUp() {
   const dispatch = useDispatch();
-  const [getUser, setGetUser] = useState<FormData | null>(null)
+  const [getUser, setGetUser] = useState<FormData | null>(null);
 
-  // 수정 페이지 form
+  // 수정페이지 form
   const {
     register,
     handleSubmit,
@@ -27,29 +27,29 @@ export default function SignUp() {
   } = useForm<FormData>();
 
   // 수정페이지 전송
-  const onSubmit: SubmitHandler<FormData> =  async (userdata) => {
-    try{
-     await axios.put(``, userdata)
-     setGetUser(userdata)
-    }catch(error){
-      console.error('에러라네',error)
+  const onSubmit: SubmitHandler<FormData> = async (userdata) => {
+    try {
+      await axios.put(``, userdata);
+      setGetUser(userdata);
+    } catch (error) {
+      console.error('에러라네',error);
     }
-
   };
 
   // 닉네임 실시간 수정
-  const nickname = watch('nickname')
+  const nickname = watch('nickname');
 
-  useEffect(()=>{
-    dispatch(userNicknameCheck(nickname))
-  },[nickname, dispatch])
+  useEffect(() => {
+    dispatch(userNicknameCheck(nickname));
+  }, [nickname, dispatch]);
+
+  const API_URL = 'https://jsonplaceholder.typicode.com';
 
   useEffect(() => {
     const fetchData = async () => {
-      const API_URL = '...';
       try {
-        const response = await axios.get(API_URL);
-        console.log(response);
+        const response = await axios.get(`${API_URL}/users`);
+        console.log(response.data);
       } catch (error) {
         console.error('에러', error);
       }
@@ -68,8 +68,7 @@ export default function SignUp() {
         <label className='authLable' htmlFor="username">이름</label>
         <input
           className='authInput'
-          value={getUser}
-          onChange={(e)=>setGetUser(e.target.value)}
+          value={getUser?.username || ''}
           type="text"
           id="username"
           disabled
@@ -78,54 +77,54 @@ export default function SignUp() {
         <label className='authLable' htmlFor="userId">아이디</label>
         <input
           className='authInput'
-          value={getUser}
+          value={getUser?.userId || ''}
           type="text"
           id="userId"
           disabled
         />
 
         <div className='relative'>
-        <label className='authLable' htmlFor='nickname'>닉네임</label>
-        <input
-          className='authInput'
-          value={getUser}
-          onChange={(e)=>setGetUser(e.target.value)}
-          type='text'
-          id='nickname'
-          placeholder='닉네임을 변경해주세요'
-          {...register('nickname',{
-            required : '닉네임을 입력해주세요'
-          })}
-        />
-        {errors.nickname && <span className='authSpan' role='alert'>{errors.nickname.message}</span>}
-        {nickname && <span className='text-blue-500 text-xs'>{nickname}은(는) 사용 가능한 닉네임입니다.</span>}
+          <label className='authLable' htmlFor='nickname'>닉네임</label>
+          <input
+            className='authInput'
+            value={getUser?.nickname || ''}
+            onChange={(e) => setGetUser({ ...getUser, nickname: e.target.value })}
+            type='text'
+            id='nickname'
+            placeholder='닉네임을 변경해주세요'
+            {...register('nickname', {
+              required: '닉네임을 입력해주세요'
+            })}
+          />
+          {errors.nickname && <span className='authSpan' role='alert'>{errors.nickname.message}</span>}
+          {nickname && <span className='text-blue-500 text-xs'>{nickname}은(는) 사용 가능한 닉네임입니다.</span>}
         </div>
 
         <div className='relative'>
-        <label className='authLable' htmlFor="email">이메일</label>
-        <input
-          className='authInput'
-          value={getUser}
-          onChange={(e)=>setGetUser(e.target.value)}
-          type="email"
-          id="email"
-          placeholder="이메일을 변경해주세요"
-          {...register('email', {
-            required: '이메일을 입력해주세요',
-            pattern: {
-              value: /\S+@\S+\.\S+/,
-              message: '유효한 이메일 주소를 입력하세요',
-            },
-          })}
-        />
-        {errors.email && <span className='authSpan' role="alert">{errors.email.message}</span>}
+          <label className='authLable' htmlFor="email">이메일</label>
+          <input
+            className='authInput'
+            value={getUser?.email || ''}
+            onChange={(e) => setGetUser({ ...getUser, email: e.target.value })}
+            type="email"
+            id="email"
+            placeholder="이메일을 변경해주세요"
+            {...register('email', {
+              required: '이메일을 입력해주세요',
+              pattern: {
+                value: /\S+@\S+\.\S+/,
+                message: '유효한 이메일 주소를 입력하세요',
+              },
+            })}
+          />
+          {errors.email && <span className='authSpan' role="alert">{errors.email.message}</span>}
         </div>
 
         <label className='authLable' htmlFor="password">비밀번호</label>
         <input
           className='authInput'
-          value={getUser}
-          onChange={(e)=>setGetUser(e.target.value)}
+          value={getUser?.password || ''}
+          onChange={(e) => setGetUser({ ...getUser, password: e.target.value })}
           type="password"
           id="password"
           placeholder="'영문, 숫자, 대문자, 특수문자 포함 8자리 이상'"
