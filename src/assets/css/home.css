@@ -3,23 +3,24 @@
   @apply grid grid-cols-2 lg:grid-cols-4 gap-3;
 }
 .list-char li {
-  @apply border rounded-xl overflow-hidden hover:shadow-[0_0_0_3px_var(--btn-bg-ov)] duration-300;
+  @apply rounded-xl overflow-hidden hover:shadow-md duration-300 border border-[var(--border-divide-color)];
 }
+
 .list-char a {
-	@apply flex flex-col text-[var(--btn)] hover:text-black rounded-lg bg-[#faf5f0];
+  @apply flex flex-col text-[var(--btn)] hover:text-black rounded-lg bg-[--bg-highlight-color];
 }
 .list-char li .img {
-	@apply relative pt-[85%] rounded-xl object-cover overflow-hidden;
+  @apply relative pt-[85%] rounded-xl object-cover overflow-hidden;
 }
 .list-char li img {
-	@apply absolute top-0 w-full h-full object-cover transition-all duration-300 ease-in-out bg-white;
+  @apply absolute top-0 w-full h-full object-cover transition-all duration-300 ease-in-out bg-white;
 }
 .list-char li:hover img {
-	@apply scale-110 ;
+  @apply scale-110;
 }
-.list-char li dl{
+.list-char li dl {
   @apply m-5;
 }
 .list-char li .name {
-	@apply truncate font-bold text-black;
+  @apply truncate font-bold text-black;
 }

@@ -3,43 +3,46 @@
 @tailwind utilities;
 
 @layer components {
-  #nav {
-    @apply h-full flex flex-col flex-shrink-0 overflow-x-hidden;
-    background-color: #faf5f0;
+  .sidebar-nav {
+    @apply h-full flex flex-col flex-shrink-0 overflow-x-hidden bg-[var(--bg-highlight-color)];
   }
 
-  .nav-container {
+  .sidebar-nav-container {
     @apply h-full w-[280px] flex flex-col justify-between px-3.5 py-8;
   }
 
-  .logo {
+  .desktop-mobie {
     @apply pl-4;
   }
 
+  .tablet {
+    @apply hidden;
+  }
+
   /* 메뉴 */
-  .nav-menu-item {
+  .sidebar-nav-item {
     @apply flex items-end mb-1;
   }
 
-  .nav-menu-item a {
-    @apply block w-full rounded-[32px] py-2 text-lg;
+  .sidebar-nav-item a {
+    @apply flex w-full rounded-[32px] py-2 text-lg duration-200;
   }
 
-  .nav-menu-item a:hover {
+  .sidebar-nav-item a:hover {
     @apply text-white;
     background-color: var(--hover-highlight-color);
   }
 
-  .active {
+  .sidebar-nav-item a.active {
     @apply text-white;
     background-color: var(--highlight-color);
   }
 
-  .nav-menu-box {
+  .icon-text-group {
     @apply flex items-center;
   }
 
-  .nav-menu-item .nav-icon {
+  .icon {
     @apply pl-4 pr-4 pb-1;
     font-size: 22px;
   }

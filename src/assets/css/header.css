@@ -4,55 +4,16 @@
 
 @layer components {
   #header {
-    @apply flex flex-row-reverse;
-  }
-  #header-nav {
-    @apply flex justify-center items-center p-8;
+    @apply hidden w-full bg-white;
   }
 
-  /* 검색창 */
-  .header-search-bar {
-    @apply w-[200px] rounded-3xl overflow-hidden;
-    border: 1px solid var(--border-color);
+  #header .logo {
+    @apply pb-0;
   }
 
-  #header-search-input {
-    @apply w-full p-1 border-none;
-    text-indent: 8px;
-  }
-
-  #header-search-input:focus {
-    @apply rounded-3xl;
-  }
-
-  /* 아이콘 */
-  .nav-icon-wrap {
-    @apply pr-5;
-  }
-
-  .nav-btn-icon {
-    @apply w-[40px] h-[40px] bg-white border-none;
+  .header-icon > button {
+    @apply px-0;
     font-size: 20px;
     color: var(--sub-font-color);
-  }
-
-  .nav-btn-icon:hover {
-    @apply text-white border-none;
-  }
-
-  .nav-btn-icon > svg {
-    vertical-align: initial;
-  }
-
-  /* 로그인 버튼 */
-  .nav-login-wrap {
-    @apply ml-1;
-  }
-  .nav-login-wrap > a {
-    @apply block py-1.5 px-6 text-white text-right rounded-3xl;
-    background-color: var(--highlight-color);
-  }
-  .nav-login-wrap > a:hover {
-    background-color: var(--hover-highlight-color);
   }
 }

@@ -1,0 +1,54 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .header-nav {
+    @apply flex justify-end px-3.5 py-8;
+  }
+  /* 검색창 */
+  .header-search-bar {
+    @apply flex w-[200px] rounded-3xl overflow-hidden;
+    border: 1px solid var(--border-color);
+  }
+
+  #header-search-input {
+    @apply w-full p-1 border-none;
+    text-indent: 8px;
+  }
+
+  #header-search-input:focus {
+    @apply rounded-3xl;
+  }
+
+  /* 아이콘 */
+  .nav-icon-group {
+    @apply pr-5;
+  }
+
+  .nav-icon {
+    @apply w-[40px] h-[40px] bg-white border-none rounded-full;
+    font-size: 20px;
+    color: var(--sub-font-color);
+  }
+
+  .nav-icon:hover {
+    @apply text-white border-none duration-200;
+  }
+
+  .nav-icon > svg {
+    vertical-align: initial;
+  }
+
+  /* 로그인 버튼 */
+  .nav-login {
+    @apply ml-1;
+  }
+  .nav-login > a {
+    @apply block py-1.5 px-6 text-white text-right rounded-3xl;
+    background-color: var(--highlight-color);
+  }
+  .nav-login > a:hover {
+    background-color: var(--hover-highlight-color);
+  }
+}
