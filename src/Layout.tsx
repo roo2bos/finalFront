@@ -8,7 +8,7 @@ export default function Layout() {
       <Nav />
       <main>
         <Header />
-        <div className='content'>
+        <div className='content relative'>
           <Outlet />
         </div>
       </main>
