@@ -8,7 +8,7 @@ import { FaBell } from 'react-icons/fa';
 
 export default function Nav() {
   return (
-    <nav id='nav' className="w-0 md:w-[320px]">
+    <nav id='nav'>
       <div className='nav-container'>
         <div className='nav-content'>
           <Link to='/'>
