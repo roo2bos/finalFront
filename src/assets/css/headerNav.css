@@ -8,8 +8,7 @@
   }
   /* 검색창 */
   .header-search-bar {
-    @apply flex w-[200px] rounded-3xl overflow-hidden;
-    border: 1px solid var(--border-color);
+    @apply flex w-[280px] border border-gray-300 rounded-3xl overflow-hidden;
   }
 
   #header-search-input {

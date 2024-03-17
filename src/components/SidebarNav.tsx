@@ -1,19 +1,13 @@
-// css
-import '../assets/css/sidebarNav.css';
-
-// 리액트 라이브러리, 함수
 import { NavLink, Link } from 'react-router-dom';
-
-// 아이콘
 import { GoHomeFill } from 'react-icons/go';
 import { CgMenuGridR } from 'react-icons/cg';
 import { BiSolidChat } from 'react-icons/bi';
 import { FaBell } from 'react-icons/fa';
+import '../assets/css/sidebarNav.css';
 
-export default function Nav() {
+export default function SidebarNav() {
   return (
     <nav className='sidebar-nav'>
-      {/* className="w-0 md:w-[320px]" */}
       <div className='sidebar-nav-container'>
         <div className='sidebar-nav-content'>
           <Link to='/'>

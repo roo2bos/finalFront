@@ -1,22 +1,21 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Dispatch } from "@reduxjs/toolkit";
-import signupApi from "../../api/signUp"; 
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { Dispatch } from '@reduxjs/toolkit';
+import signupApi from '../../api/signUp';
 
-
-interface User{
+interface User {
   username: string;
   userId: string;
-  nickname : string;
+  nickname: string;
   email: string;
   password: string;
   confirmPassword: string;
-  agree : boolean;
+  agree: boolean;
 }
 
 interface SignUpState {
   user: User | null;
   loading: boolean;
-  error: string | null; 
+  error: string | null;
 }
 
 const initialState: SignUpState = {
@@ -26,7 +25,7 @@ const initialState: SignUpState = {
 };
 
 const signUpSlice = createSlice({
-  name: "signUp",
+  name: 'signUp',
   initialState,
   reducers: {
     signUpStart: (state) => {
@@ -47,9 +46,9 @@ const signUpSlice = createSlice({
 export const signUpUser = (userdata: any) => async (dispatch: Dispatch) => {
   try {
     dispatch(signUpStart());
-    const user = await signupApi(userdata); 
+    const user = await signupApi(userdata);
     dispatch(signUpSuccess(user));
-  } catch (error : any) {
+  } catch (error: any) {
     dispatch(signUpError(error.message));
   }
 };

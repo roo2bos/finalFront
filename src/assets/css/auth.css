@@ -1,19 +1,60 @@
-.authForm {
-  @apply rounded p-6 pb-11 w-6/12 mx-auto border border-gray-300;
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-.authInput {
-  @apply border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500;
-}
+@layer components {
+  .form-container {
+    @apply w-full h-screen flex justify-center items-center bg-[var(--bg-highlight-color)];
+  }
 
-.authCheckbox {
-  @apply mr-5 ml-1 mt-2;
-}
+  .form-area {
+    @apply w-[640px] flex flex-col justify-center items-center py-40 px-40 bg-white rounded-3xl;
+  }
 
-.authLable {
-  @apply block mb-2 mt-4 text-sm font-medium dark:text-white;
-}
+  .form-area.signup {
+    @apply py-0;
+  }
 
-.authSpan {
-  @apply text-red-500 text-xs;
+  .form-elements {
+    @apply w-full;
+  }
+
+  .form-title h1 {
+    @apply pl-0 text-3xl text-center;
+  }
+
+  .form-title.signup h1 {
+    @apply pb-1 pt-5;
+  }
+
+  .auth-input {
+    @apply border border-gray-300 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500;
+  }
+
+  .auth-checkbox {
+    @apply mr-5 ml-1 mt-2;
+  }
+
+  .auth-label {
+    @apply block mt-5 mb-2 text-sm font-semibold dark:text-white;
+  }
+
+  .auth-span {
+    @apply text-red-500 text-xs;
+  }
+
+  /* 버튼 - 공통 css 수정 예정 */
+  .auth-form .auth-btn {
+    width: 100%;
+    padding: 12px 0;
+    color: #000;
+    background-color: var(--highlight-color);
+    color: #fff;
+    font-weight: 500;
+    margin: 30px 0;
+  }
+
+  .signup-link {
+    @apply text-center;
+  }
 }

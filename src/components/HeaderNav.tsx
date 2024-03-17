@@ -1,14 +1,9 @@
-// css
-import '../assets/css/headerNav.css';
-
-// 리액트 라이브러리, 함수
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
-
-// 아이콘
 import { IoSearch } from 'react-icons/io5';
 import { FaBell } from 'react-icons/fa';
 // import { FaCircleUser } from 'react-icons/fa6';
+import '../assets/css/headerNav.css';
 
 export default function Header() {
   // 검색 기능
