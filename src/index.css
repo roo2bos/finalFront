@@ -83,7 +83,7 @@
   [type='button'],
   [type='reset'],
   [type='submit'] {
-    @apply font-medium text-white text-center bg-[var(--btn-bg)] hover:bg-[var(--btn-bg-hover)] rounded border-none focus:outline-none;
+    @apply font-medium text-white text-center bg-[var(--btn-bg)] hover:bg-[var(--btn-bg-hover)] rounded border-0;
   }
   button + button:not(.w-full) {
     @apply ms-2;
@@ -168,16 +168,16 @@
     @apply inline-flex rounded-md shadow-sm;
   }
   .btn-group button {
-    @apply px-4 py-2 text-sm font-medium text-gray-900 bg-white border-t border-b border-gray-200 rounded-none hover:bg-gray-100 hover:text-[var(--btn-ov)] focus:z-10 focus:text-[var(--btn-ov)];
+    @apply px-4 py-2 text-sm font-medium text-gray-900 bg-white border-0 rounded-none hover:bg-gray-100 focus:bg-gray-100 outline outline-gray-200;
   }
   .btn-group button + button {
     @apply m-0;
   }
   .btn-group button:first-child {
-    @apply rounded-s-lg -me-1;
+    @apply rounded-s-lg;
   }
   .btn-group button:last-child {
-    @apply rounded-e-lg -ms-1;
+    @apply rounded-e-lg;
   }
 }
 
