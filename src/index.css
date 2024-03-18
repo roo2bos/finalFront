@@ -43,7 +43,7 @@
   /* border 색상: border-gray-300 */
 
   /* 버튼 설정 */
-  --btn-bg: var(--eighlight-color); /* 버튼 : 배경 */
+  --btn-bg: var(--highlight-color); /* 버튼 : 배경 */
   --btn-bg-hover: var(--hover-highlight-color); /* 버튼 오버 : 배경 */
 }
 
