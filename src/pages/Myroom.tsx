@@ -24,6 +24,7 @@ export default function Myroom (){
         <div>
             <h2 className='list-title'>My room</h2>
             <ul className='list-char'>
+                <h3>캐릭터 대화</h3>
                 {/* {data.map((item) => {
                     return (
                         <li key={item.id}>
@@ -39,8 +40,12 @@ export default function Myroom (){
                 })} */}
             </ul>
             <ul className='list-char'>
-                
+                <h3>영단어 학습장</h3>
             </ul>
+            <Link to={'/quiz'}>
+                <button>영어 퀴즈</button>
+            </Link>
+            
         </div>
     );
 }

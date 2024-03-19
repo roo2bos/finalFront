@@ -2350,7 +2350,7 @@ export default function Notfound() {
       </defs>
     </svg> */}
  <div className='flex flex-col items-center text-center'>
-      <img className='w-5/12' src={logo} alt="error"/>
+      <img className='w-4/12' src={logo} alt="error"/>
       <p className='w-6/12'>
         존재하지 않는 주소를 입력하였거나 요청하신 페이지의 주소가 변경, 삭제되어 찾을 수 없습니다. 궁금한 점이 있으시면 언제든 고객센터를 통해 문의해 주시기 바랍니다. 감사합니다.
       </p>

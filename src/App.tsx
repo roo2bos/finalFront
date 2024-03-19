@@ -7,8 +7,9 @@ import Guide from './components/Guide';
 import Home from './pages/Home';
 import Mypage from './pages/Mypage';
 import Talk from './pages/Talk';
-import Myroom from './components/Myroom';
+import Myroom from './pages/Myroom';
 import Character from './pages/Character';
+import Wordquiz from './components/Wordquiz';
 import './App.css';
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
           <Route path='/myroom' element={<Myroom />} />
           <Route path='/guide' element={<Guide />} />
           <Route path='/character/:id' element={<Character />} />
+          <Route path='/quiz' element={<Wordquiz />} />
           <Route path='*' element={<NotFound />} />
         </Route>
         <Route path='/signup' element={<SignUp />} />
