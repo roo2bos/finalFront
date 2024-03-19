@@ -9,6 +9,7 @@ import Mypage from './pages/Mypage';
 import Talk from './pages/Talk';
 import Myroom from './pages/Myroom';
 import Character from './pages/Character';
+import About from './pages/About';
 import Wordquiz from './components/Wordquiz';
 import './App.css';
 
@@ -23,6 +24,7 @@ function App() {
           <Route path='/myroom' element={<Myroom />} />
           <Route path='/guide' element={<Guide />} />
           <Route path='/character/:id' element={<Character />} />
+          <Route path='/about' element={<About />} />
           <Route path='/quiz' element={<Wordquiz />} />
           <Route path='*' element={<NotFound />} />
         </Route>
