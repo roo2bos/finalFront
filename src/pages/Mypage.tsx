@@ -1,5 +1,4 @@
 import Mypage1 from '../components/Mypage'
-
 function Mypage () {
   return (
     <>

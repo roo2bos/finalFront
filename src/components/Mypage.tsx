@@ -14,7 +14,7 @@ type FormData = {
   password: string;
 };
 
-export default function SignUp() {
+export default function Mypage() {
   const dispatch = useDispatch();
   const [getUser, setGetUser] = useState<FormData | null>(null);
 
