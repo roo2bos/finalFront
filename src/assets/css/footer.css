@@ -1,37 +1,19 @@
-@tailwind base;
 @tailwind components;
-@tailwind utilities;
 
 @layer components {
-  #mobile-footer {
-    @apply hidden bg-white;
+  #footer .container {
+    @apply lg:justify-start sm:justify-center;
   }
 
-  .footer-list {
-    @apply flex w-full justify-between px-1 text-center;
+  .footer-icon-text-group {
+    @apply py-2;
   }
 
-  .footer-item a {
-    @apply flex w-full duration-200;
+  .about-icon {
+    @apply lg:hidden sm:block sm:text-xl;
   }
 
-  .footer-item a:hover .footer-icon-text-group div {
-    @apply text-[var(--hover-highlight-color)];
-  }
-
-  .footer-item a.active .footer-icon-text-group div {
-    @apply text-[var(--highlight-color)];
-  }
-
-  .footer-icon-text-group div {
-    color: var(--sub-font-color);
-  }
-
-  .footer-icon {
-    font-size: 30px;
-  }
-
-  .footer-text {
-    font-size: 14px;
+  .about-text {
+    @apply sm:hidden lg:block;
   }
 }

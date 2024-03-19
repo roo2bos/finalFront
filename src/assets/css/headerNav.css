@@ -4,11 +4,11 @@
 
 @layer components {
   .header-nav {
-    @apply flex justify-end px-3.5 py-8;
+    @apply sm:flex sm:py-8;
   }
   /* 검색창 */
   .header-search-bar {
-    @apply flex w-[280px] border border-gray-300 rounded-3xl overflow-hidden;
+    @apply hidden sm:flex w-[280px] border border-gray-300 rounded-3xl overflow-hidden;
   }
 
   #header-search-input {
@@ -21,8 +21,8 @@
   }
 
   /* 아이콘 */
-  .nav-icon-group {
-    @apply pr-5;
+  .nav-search-icon {
+    @apply flex sm:pr-5;
   }
 
   .nav-icon {
@@ -39,9 +39,13 @@
     vertical-align: initial;
   }
 
+  .noti {
+    @apply hidden sm:block;
+  }
+
   /* 로그인 버튼 */
   .nav-login {
-    @apply ml-1;
+    @apply ml-1 hidden sm:block;
   }
   .nav-login > a {
     @apply block py-1.5 px-6 text-white text-right rounded-3xl;

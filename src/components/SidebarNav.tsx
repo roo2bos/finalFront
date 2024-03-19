@@ -12,8 +12,8 @@ export default function SidebarNav() {
         <div className='sidebar-nav-content'>
           <Link to='/'>
             <h1 className='logo'>
-              <span className='desktop-mobile'>DoRun-DoRun</span>
-              <span className='tablet'>DD</span>
+              <span className='nav-logo'>DoRun-DoRun</span>
+              <span className='nav-logo-tablet'>DD</span>
             </h1>
           </Link>
           <ul className='sidebar-nav-menu'>
@@ -70,9 +70,6 @@ export default function SidebarNav() {
               </NavLink>
             </li>
           </ul>
-        </div>
-        <div className='nav-footer'>
-          <p>@ copyright</p>
         </div>
       </div>
     </nav>

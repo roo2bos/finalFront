@@ -1,19 +1,23 @@
-@tailwind base;
 @tailwind components;
-@tailwind utilities;
 
 @layer components {
   #header {
-    @apply hidden w-full bg-white;
+    @apply w-full flex bg-white border-b border-[var(--border-divide-color)] sm:border-none;
   }
 
-  #header .logo {
-    @apply pb-0;
+  #header > .container {
+    @apply flex max-w-full;
+  }
+
+  .header-icon {
+    @apply sm:hidden;
   }
 
   .header-icon > button {
-    @apply px-0;
-    font-size: 20px;
-    color: var(--sub-font-color);
+    @apply px-0 sm:hidden text-xl text-[var(--sub-font-color)];
+  }
+
+  .logo.header {
+    @apply block sm:hidden;
   }
 }

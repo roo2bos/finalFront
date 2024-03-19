@@ -1,9 +1,7 @@
-// css
-import '../assets/css/header.css';
-
-// 아이콘
+// import { useState } from 'react';
+import HeaderNav from './HeaderNav';
 import { FaBars } from 'react-icons/fa6';
-import { IoSearch } from 'react-icons/io5';
+import '../assets/css/header.css';
 
 export default function Header() {
   return (
@@ -15,15 +13,9 @@ export default function Header() {
           </button>
         </div>
         <div>
-          <h1 className='logo'>
-            <span className='desktop-mobile'>DoRun-DoRun</span>
-          </h1>
+          <h1 className='logo header'>DoRun-DoRun</h1>
         </div>
-        <div className='header-icon'>
-          <button aria-label='검색'>
-            <IoSearch />
-          </button>
-        </div>
+        <HeaderNav />
       </div>
     </header>
   );

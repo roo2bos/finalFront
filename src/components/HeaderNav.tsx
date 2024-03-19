@@ -14,24 +14,24 @@ export default function Header() {
 
   return (
     <nav className='header-nav'>
-      <div className='header-search-bar'>
-        <label className='hide' htmlFor='header-search'>
-          검색창
-        </label>
-        <input
-          id='header-search-input'
-          type='search'
-          value={search}
-          onChange={inputHandler}
-          placeholder='검색어 입력'
-          title='검색어 입력'
-        />
-      </div>
-      <div className='nav-icon-group'>
-        <button className='nav-icon' aria-label='검색'>
+      <div className='nav-search-icon'>
+        <div className='header-search-bar'>
+          <label className='hide' htmlFor='header-search'>
+            검색창
+          </label>
+          <input
+            id='header-search-input'
+            type='search'
+            value={search}
+            onChange={inputHandler}
+            placeholder='검색어 입력'
+            title='검색어 입력'
+          />
+        </div>
+        <button className='nav-icon search' aria-label='검색'>
           <IoSearch />
         </button>
-        <button className='nav-icon' aria-label='알림'>
+        <button className='nav-icon noti' aria-label='알림'>
           <FaBell />
         </button>
       </div>

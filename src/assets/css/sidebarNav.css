@@ -1,54 +1,48 @@
-@tailwind base;
 @tailwind components;
-@tailwind utilities;
 
 @layer components {
   .sidebar-nav {
-    @apply h-full flex flex-col flex-shrink-0 overflow-x-hidden bg-[var(--bg-highlight-color)];
+    @apply flex flex-1 flex-col flex-shrink-0 overflow-x-hidden bg-[var(--bg-highlight-color)];
   }
 
   .sidebar-nav-container {
-    @apply h-full w-[280px] flex flex-col justify-between px-3.5 py-8;
+    @apply flex flex-col justify-between px-3.5 py-8 lg:w-[280px] sm:w-[80px];
   }
 
-  .desktop-mobie {
-    @apply pl-4;
+  .nav-logo {
+    @apply lg:block sm:hidden;
   }
 
-  .tablet {
-    @apply hidden;
+  .nav-logo-tablet {
+    @apply lg:hidden sm:block text-center;
   }
 
-  /* 메뉴 */
+  /* 사이드 내비바 메뉴 */
   .sidebar-nav-item {
     @apply flex items-end mb-1;
   }
 
   .sidebar-nav-item a {
-    @apply flex w-full rounded-[32px] py-2 text-lg duration-200;
+    @apply flex w-full rounded-[32px] py-2 text-lg duration-200 h-[50px] p-0 mb-2 rounded-full lg:w-full sm:w-[50px];
   }
 
   .sidebar-nav-item a:hover {
-    @apply text-white;
-    background-color: var(--hover-highlight-color);
+    @apply bg-[var(--hover-highlight-color)] text-white;
   }
 
   .sidebar-nav-item a.active {
-    @apply text-white;
-    background-color: var(--highlight-color);
+    @apply bg-[var(--highlight-color)] text-white;
   }
 
   .icon-text-group {
-    @apply flex items-center;
+    @apply flex w-full items-center lg:justify-start sm:justify-center;
   }
 
   .icon {
-    @apply pl-4 pr-4 pb-1;
-    font-size: 22px;
+    @apply text-2xl lg:px-4 sm:p-0 sm:pb-1;
   }
 
-  .nav-footer {
-    @apply pl-4;
-    color: var(--sub-font-color);
+  .icon-text-group .text {
+    @apply lg:block sm:hidden;
   }
 }
