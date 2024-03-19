@@ -1,19 +1,19 @@
-@tailwind base;
 @tailwind components;
-@tailwind utilities;
 
 @layer components {
   #header {
-    @apply hidden w-full bg-white;
+    @apply w-full flex bg-white border-b border-[var(--border-divide-color)] sm:border-none;
   }
 
-  #header .logo {
-    @apply pb-0;
+  #header > .container {
+    @apply max-w-full sm:justify-end;
   }
 
-  .header-icon > button {
-    @apply px-0;
-    font-size: 20px;
-    color: var(--sub-font-color);
+  button.bar {
+    @apply pl-5;
+  }
+
+  .header-icon {
+    @apply flex items-center sm:hidden py-4;
   }
 }

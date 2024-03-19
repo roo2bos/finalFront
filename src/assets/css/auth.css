@@ -4,11 +4,11 @@
 
 @layer components {
   .form-container {
-    @apply w-full h-screen flex justify-center items-center bg-[var(--bg-highlight-color)];
+    @apply w-full h-screen flex justify-center items-center sm:bg-[var(--bg-highlight-color)];
   }
 
   .form-area {
-    @apply w-[640px] flex flex-col justify-center items-center py-40 px-40 bg-white rounded-3xl;
+    @apply w-full sm:w-[640px] flex flex-col justify-center items-center p-0 sm:py-40 sm:px-32 bg-white rounded-none sm:rounded-3xl;
   }
 
   .form-area.signup {
@@ -16,7 +16,7 @@
   }
 
   .form-elements {
-    @apply w-full;
+    @apply w-full min-w-80 sm:p-0 p-8;
   }
 
   .form-title h1 {
@@ -28,7 +28,7 @@
   }
 
   .auth-input {
-    @apply border border-gray-300 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500;
+    @apply text-sm focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500;
   }
 
   .auth-checkbox {
@@ -43,15 +43,8 @@
     @apply text-red-500 text-xs;
   }
 
-  /* 버튼 - 공통 css 수정 예정 */
   .auth-form .auth-btn {
-    width: 100%;
-    padding: 12px 0;
-    color: #000;
-    background-color: var(--highlight-color);
-    color: #fff;
-    font-weight: 500;
-    margin: 30px 0;
+    @apply w-full;
   }
 
   .signup-link {

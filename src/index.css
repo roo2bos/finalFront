@@ -40,18 +40,15 @@
   --highlight-color: #67c0cd;
   --hover-highlight-color: #5dadb9;
   --border-divide-color: #f5f5f5;
-  /* border 색상: border-gray-300 */
 
-  /* 버튼 설정 */
-  --btn-bg: var(--highlight-color); /* 버튼 : 배경 */
-  --btn-bg-hover: var(--hover-highlight-color); /* 버튼 오버 : 배경 */
+  /* 버튼 색상 설정 */
+  --btn-bg: var(--highlight-color);
+  --btn-bg-hover: var(--hover-highlight-color);
 }
 
 @layer base {
   a {
-    font-weight: 500;
-    color: var(--sub-font-color);
-    text-decoration: inherit;
+    @apply font-medium text-[var(--sub-font-color)] hover:text-[var(--main-font-color)] hover:text-white;
   }
 
   html,
@@ -66,48 +63,38 @@
   }
 
   h1 {
-    @apply m-0 pb-10 pl-4 font-bold;
-    font-size: 1.5rem;
-    color: var(--main-font-color);
+    @apply m-0 sm:pb-10 text-2xl font-bold text-[var(--main-font-color)] lg:pl-4 sm:pl-0;
   }
 
   main {
     @apply flex-1 flex flex-col;
   }
 
+  aside {
+    @apply hidden sm:flex sm:flex-col sm:bg-[var(--bg-highlight-color)];
+  }
+
   svg {
     @apply inline;
   }
 
-  button,
-  [type='button'],
-  [type='reset'],
-  [type='submit'] {
-    @apply font-medium text-white text-center bg-[var(--btn-bg)] hover:bg-[var(--btn-bg-hover)] rounded border-0;
+  /* 버튼 공통 */
+  [type='button'] {
+    @apply p-2.5 text-xl text-center text-[var(--sub-font-color)] font-medium rounded border-0 hover:text-[var(--main-font-color)] duration-200;
   }
+
+  [type='submit'],
+  [type='reset'] {
+    @apply py-3 my-8 bg-[var(--btn-bg)] hover:bg-[var(--btn-bg-hover)] rounded border-0 text-white font-medium;
+  }
+
   button + button:not(.w-full) {
     @apply ms-2;
   }
   button + button.w-full {
     @apply mt-2;
   }
-  .btn-xs {
-    @apply px-3 py-2 text-xs;
-  }
-  .btn-sm {
-    @apply px-3 py-2 text-sm;
-  }
-  .btn-md {
-    @apply px-5 py-2.5 text-sm;
-  }
-  .btn-lg {
-    @apply px-5 py-3 text-base;
-  }
-  .btn-xl {
-    @apply px-6 py-3.5 text-base;
-  }
 
-  button,
   input,
   optgroup,
   select,
@@ -122,11 +109,11 @@
   }
 
   #wrap {
-    @apply h-full flex;
+    @apply h-full flex min-w-[360px];
   }
 
   .container {
-    @apply flex justify-between items-center w-full px-6 py-2;
+    @apply flex justify-between items-center w-full px-6 sm:py-0;
   }
 
   .content {
@@ -164,7 +151,7 @@
   }
 
   /* 버튼 그룹 */
-  .btn-group {
+  /* .btn-group {
     @apply inline-flex rounded-md shadow-sm;
   }
   .btn-group button {
@@ -178,7 +165,7 @@
   }
   .btn-group button:last-child {
     @apply rounded-e-lg;
-  }
+  } */
 }
 
 @layer utilities {
@@ -198,107 +185,11 @@
     overflow: hidden;
     text-overflow: ellipsis;
   }
-
-  /* 텍스트 숨기기 (웹 접근성) */
-  .hide {
-    position: absolute;
-    clip: rect(0 0 0 0);
-    width: 1px;
-    height: 1px;
-    margin: -1px;
-    overflow: hidden;
-  }
 }
 
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
     background-color: #ffffff;
-  }
-}
-
-/* 반응형 */
-/* 태블릿 */
-@media (max-width: 1024px) {
-  /* 로고 */
-  h1 {
-    @apply pl-0;
-  }
-  /* 사이드바 내비게이션 */
-  .sidebar-nav-container {
-    @apply w-[80px];
-  }
-
-  .desktop-mobile {
-    @apply hidden;
-  }
-
-  .tablet {
-    @apply block text-center;
-  }
-
-  .sidebar-nav-item a {
-    @apply w-[50px] h-[50px] p-0 mb-2 rounded-full;
-  }
-
-  .icon-text-group {
-    @apply w-full justify-center;
-  }
-
-  .icon-text-group .icon {
-    @apply p-0;
-    font-size: 24px;
-  }
-
-  .icon-text-group .icon > svg {
-    @apply block;
-  }
-
-  .icon-text-group .text {
-    @apply hidden;
-  }
-}
-
-/* 모바일 */
-@media (max-width: 640px) {
-  /* 헤더 */
-  #header {
-    @apply block border-b border-[var(--border-divide-color)];
-  }
-
-  .desktop-mobile {
-    @apply block;
-  }
-
-  /* 헤더 네비게이션 */
-  .header-nav {
-    @apply hidden;
-  }
-
-  /* 사이드바 네비게이션 */
-  .sidebar-nav {
-    @apply hidden;
-  }
-
-  /* 푸터 */
-  #mobile-footer {
-    @apply block;
-  }
-
-  /* 로그인 페이지 */
-  .form-area {
-    width: 100%;
-    height: 100vh;
-    padding: 0;
-    border-radius: 0;
-  }
-
-  .form-elements {
-    padding: 26px 28px;
-    width: 100%;
-    /* height: 100vh; */
-    overflow: auto;
-    border-radius: 0;
-    min-width: unset;
   }
 }
