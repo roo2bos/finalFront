@@ -8,11 +8,9 @@ export default function Header() {
     <header id='header'>
       <div className='container'>
         <div className='header-icon'>
-          <button>
+          <button type='button'>
             <FaBars />
           </button>
-        </div>
-        <div>
           <h1 className='logo header'>DoRun-DoRun</h1>
         </div>
         <HeaderNav />

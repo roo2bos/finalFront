@@ -6,18 +6,14 @@
   }
 
   #header > .container {
-    @apply flex max-w-full;
+    @apply sm:justify-end;
   }
 
   .header-icon {
-    @apply sm:hidden;
-  }
-
-  .header-icon > button {
-    @apply px-0 sm:hidden text-xl text-[var(--sub-font-color)];
+    @apply flex sm:hidden py-4;
   }
 
   .logo.header {
-    @apply block sm:hidden;
+    @apply block pl-3;
   }
 }

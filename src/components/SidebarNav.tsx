@@ -8,69 +8,67 @@ import '../assets/css/sidebarNav.css';
 export default function SidebarNav() {
   return (
     <nav className='sidebar-nav'>
-      <div className='sidebar-nav-container'>
-        <div className='sidebar-nav-content'>
-          <Link to='/'>
-            <h1 className='logo'>
-              <span className='nav-logo'>DoRun-DoRun</span>
-              <span className='nav-logo-tablet'>DD</span>
-            </h1>
-          </Link>
-          <ul className='sidebar-nav-menu'>
-            <li className='sidebar-nav-item'>
-              <NavLink
-                to='/'
-                className={({ isActive }) => (isActive ? 'active' : '')}
-              >
-                <div className='icon-text-group'>
-                  <div className='icon'>
-                    <GoHomeFill />
-                  </div>
-                  <div className='text'>Home</div>
+      <div className='container'>
+        <Link to='/'>
+          <h1 className='logo'>
+            <span className='nav-logo'>DoRun-DoRun</span>
+            <span className='nav-logo-tablet'>DD</span>
+          </h1>
+        </Link>
+        <ul className='sidebar-nav-menu'>
+          <li className='sidebar-nav-item'>
+            <NavLink
+              to='/'
+              className={({ isActive }) => (isActive ? 'active' : '')}
+            >
+              <div className='icon-text-group'>
+                <div className='icon'>
+                  <GoHomeFill />
                 </div>
-              </NavLink>
-            </li>
-            <li className='sidebar-nav-item'>
-              <NavLink
-                to='/menu'
-                className={({ isActive }) => (isActive ? 'active' : '')}
-              >
-                <div className='icon-text-group'>
-                  <div className='icon'>
-                    <CgMenuGridR />
-                  </div>
-                  <div className='text'>메뉴1</div>
+                <div className='text'>Home</div>
+              </div>
+            </NavLink>
+          </li>
+          <li className='sidebar-nav-item'>
+            <NavLink
+              to='/menu'
+              className={({ isActive }) => (isActive ? 'active' : '')}
+            >
+              <div className='icon-text-group'>
+                <div className='icon'>
+                  <CgMenuGridR />
                 </div>
-              </NavLink>
-            </li>
-            <li className='sidebar-nav-item'>
-              <NavLink
-                to='/menu'
-                className={({ isActive }) => (isActive ? 'active' : '')}
-              >
-                <div className='icon-text-group'>
-                  <div className='icon'>
-                    <BiSolidChat />
-                  </div>
-                  <div className='text'>메뉴2</div>
+                <div className='text'>메뉴1</div>
+              </div>
+            </NavLink>
+          </li>
+          <li className='sidebar-nav-item'>
+            <NavLink
+              to='/menu'
+              className={({ isActive }) => (isActive ? 'active' : '')}
+            >
+              <div className='icon-text-group'>
+                <div className='icon'>
+                  <BiSolidChat />
                 </div>
-              </NavLink>
-            </li>
-            <li className='sidebar-nav-item'>
-              <NavLink
-                to='/menu'
-                className={({ isActive }) => (isActive ? 'active' : '')}
-              >
-                <div className='icon-text-group'>
-                  <div className='icon'>
-                    <FaBell />
-                  </div>
-                  <div className='text'>메뉴3</div>
+                <div className='text'>메뉴2</div>
+              </div>
+            </NavLink>
+          </li>
+          <li className='sidebar-nav-item'>
+            <NavLink
+              to='/menu'
+              className={({ isActive }) => (isActive ? 'active' : '')}
+            >
+              <div className='icon-text-group'>
+                <div className='icon'>
+                  <FaBell />
                 </div>
-              </NavLink>
-            </li>
-          </ul>
-        </div>
+                <div className='text'>메뉴3</div>
+              </div>
+            </NavLink>
+          </li>
+        </ul>
       </div>
     </nav>
   );

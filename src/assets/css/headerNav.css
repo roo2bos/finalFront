@@ -4,53 +4,25 @@
 
 @layer components {
   .header-nav {
-    @apply sm:flex sm:py-8;
-  }
-  /* 검색창 */
-  .header-search-bar {
-    @apply hidden sm:flex w-[280px] border border-gray-300 rounded-3xl overflow-hidden;
+    @apply flex items-center sm:py-4 mr-0;
   }
 
-  #header-search-input {
-    @apply w-full p-1 border-none;
-    text-indent: 8px;
+  /* 알림 아이콘 */
+  .noti-icon {
+    @apply w-[40px] h-[40px];
+  }
+  button.noti-icon {
+    @apply p-0;
   }
 
-  #header-search-input:focus {
-    @apply rounded-3xl;
-  }
-
-  /* 아이콘 */
-  .nav-search-icon {
-    @apply flex sm:pr-5;
-  }
-
-  .nav-icon {
-    @apply w-[40px] h-[40px] bg-white border-none rounded-full;
-    font-size: 20px;
-    color: var(--sub-font-color);
-  }
-
-  .nav-icon:hover {
-    @apply text-white border-none duration-200;
-  }
-
-  .nav-icon > svg {
-    vertical-align: initial;
-  }
-
-  .noti {
-    @apply hidden sm:block;
-  }
-
-  /* 로그인 버튼 */
+  /* 로그인 */
   .nav-login {
-    @apply ml-1 hidden sm:block;
+    @apply ml-1;
   }
   .nav-login > a {
-    @apply block py-1.5 px-6 text-white text-right rounded-3xl;
-    background-color: var(--highlight-color);
+    @apply block py-1.5 px-6 bg-[var(--highlight-color)] text-white text-right whitespace-nowrap rounded-3xl;
   }
+
   .nav-login > a:hover {
     background-color: var(--hover-highlight-color);
   }

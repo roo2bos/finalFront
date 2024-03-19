@@ -28,7 +28,7 @@
   }
 
   .auth-input {
-    @apply border border-gray-300 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500;
+    @apply text-sm focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500;
   }
 
   .auth-checkbox {
@@ -43,15 +43,8 @@
     @apply text-red-500 text-xs;
   }
 
-  /* 버튼 - 공통 css 수정 예정 */
   .auth-form .auth-btn {
-    width: 100%;
-    padding: 12px 0;
-    color: #000;
-    background-color: var(--highlight-color);
-    color: #fff;
-    font-weight: 500;
-    margin: 30px 0;
+    @apply w-full;
   }
 
   .signup-link {
