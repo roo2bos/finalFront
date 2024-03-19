@@ -4,7 +4,7 @@
 
 @layer components {
   .header-nav {
-    @apply flex items-center sm:py-4 mr-0;
+    @apply flex items-center pr-5 sm:py-4 mr-0;
   }
 
   /* 알림 아이콘 */

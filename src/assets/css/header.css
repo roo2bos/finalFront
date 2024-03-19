@@ -6,14 +6,14 @@
   }
 
   #header > .container {
-    @apply sm:justify-end;
+    @apply max-w-full sm:justify-end;
+  }
+
+  button.bar {
+    @apply pl-5;
   }
 
   .header-icon {
-    @apply flex sm:hidden py-4;
-  }
-
-  .logo.header {
-    @apply block pl-3;
+    @apply flex items-center sm:hidden py-4;
   }
 }
