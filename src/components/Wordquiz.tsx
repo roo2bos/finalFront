@@ -10,8 +10,8 @@ export default function Wordquiz() {
 
     
 
-    const handleNextQuestion = () => {
-        if (question < datas.quiz.length - 1) {
+    const nextPage = () => {
+        if (question < datas.quiz.length -1) {
             setQuestion(question + 1);
             setCorrect(true);
             setClickedAnswer(null);
@@ -22,7 +22,7 @@ export default function Wordquiz() {
 
     const checkAnswer = (quizItem, selectedAnswer) => {
         if (quizItem.answer[`asw${selectedAnswer}`] === quizItem.correctAnswer) {
-            handleNextQuestion();
+            nextPage();
             firework()
         } else {
             setCorrect(false);
@@ -72,7 +72,7 @@ export default function Wordquiz() {
                 {datas.quiz.map((quizItem, index) => (
                     index === question && (
                         <div key={quizItem.id}>
-                            <h3 className="text-xl font-bold mb-4">문제{quizItem.id}: {quizItem.question}</h3>
+                            <h3 className="text-xl font-bold mb-4">문제{quizItem.id}. {quizItem.question}</h3>
                             <ul>
                                 <li className={`mb-2 cursor-pointer ${clickedAnswer === 1 && !correct ? 'text-red-500' : ''}`} onClick={() => checkAnswer(quizItem, 1)}><span className="font-bold">1. </span>{quizItem.answer.asw1}</li>
                                 <li className={`mb-2 cursor-pointer ${clickedAnswer === 2 && !correct ? 'text-red-500' : ''}`} onClick={() => checkAnswer(quizItem, 2)}><span className="font-bold">2. </span>{quizItem.answer.asw2}</li>

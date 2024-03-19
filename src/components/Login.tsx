@@ -24,7 +24,6 @@ export default function SignUp() {
   const navigate = useNavigate();
   const onSubmit: SubmitHandler<FormData> = (userdata) => {
     console.log('onSubmit', userdata);
-    // error 뜨는 이유를 모르겠음 리더 님한테 물어볼 예정
 
     dispatch(loginUser(userdata, navigate));
   };
