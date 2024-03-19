@@ -1,4 +1,5 @@
 // import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import HeaderNav from './HeaderNav';
 import { FaBars } from 'react-icons/fa6';
 import '../assets/css/header.css';
@@ -11,7 +12,9 @@ export default function Header() {
           <button type='button' className='bar'>
             <FaBars />
           </button>
-          <h1 className='logo header'>DoRun-DoRun</h1>
+          <Link to='/'>
+            <h1 className='logo header'>DoRun-DoRun</h1>
+          </Link>
         </div>
         <HeaderNav />
       </div>

@@ -11,6 +11,7 @@ import Myroom from './pages/Myroom';
 import Character from './pages/Character';
 import About from './pages/About';
 import Wordquiz from './components/Wordquiz';
+import Preview from './components/Previwe';
 import './App.css';
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
           <Route path='/character/:id' element={<Character />} />
           <Route path='/about' element={<About />} />
           <Route path='/quiz' element={<Wordquiz />} />
+          <Route path='/preview' element={<Preview />} />
           <Route path='*' element={<NotFound />} />
         </Route>
         <Route path='/signup' element={<SignUp />} />

@@ -43,6 +43,7 @@
 
   /* 버튼 색상 설정 */
   --btn-bg: var(--highlight-color);
+  --btn-sub-bg: #d9d9d9;
   --btn-bg-hover: var(--hover-highlight-color);
 }
 
@@ -149,23 +150,6 @@
   .form li label {
     @apply block mb-2 text-sm font-medium text-gray-900;
   }
-
-  /* 버튼 그룹 */
-  /* .btn-group {
-    @apply inline-flex rounded-md shadow-sm;
-  }
-  .btn-group button {
-    @apply px-4 py-2 text-sm font-medium text-gray-900 bg-white border-0 rounded-none hover:bg-gray-100 focus:bg-gray-100 outline outline-gray-200;
-  }
-  .btn-group button + button {
-    @apply m-0;
-  }
-  .btn-group button:first-child {
-    @apply rounded-s-lg;
-  }
-  .btn-group button:last-child {
-    @apply rounded-e-lg;
-  } */
 }
 
 @layer utilities {
