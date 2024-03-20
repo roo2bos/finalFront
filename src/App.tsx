@@ -14,7 +14,6 @@ import Spinner from './components/Spinner';
 import './App.css';
 
 function App() {
-
   return (
     <>
         <Routes>

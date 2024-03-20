@@ -31,14 +31,14 @@ export default function SidebarNav() {
           </li>
           <li className='sidebar-nav-item'>
             <NavLink
-              to='/menu'
+              to='/preview'
               className={({ isActive }) => (isActive ? 'active' : '')}
             >
               <div className='icon-text-group'>
                 <div className='icon'>
                   <CgMenuGridR />
                 </div>
-                <div className='text'>메뉴1</div>
+                <div className='text'>예습하기</div>
               </div>
             </NavLink>
           </li>
