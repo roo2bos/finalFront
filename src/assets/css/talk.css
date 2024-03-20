@@ -1,289 +1,419 @@
 @tailwind components;
 
 @layer components {
-  /* Talk */
-  .list-talk {
-    --bubble-bg: #faf5f0;
-    --bubble-bg-ov: var(--hover-highlight-color);
-    @apply flex h-full flex-col;
-  }
+	/* Talk */
+	.list-talk {
+		--bubble-bg: #faf5f0;
+		--bubble-bg-ov: var(--hover-highlight-color);
+		@apply flex h-full flex-col;
+	}
 
-  .list-talk .inner {
-    @apply flex-1 overflow-hidden overflow-y-auto px-5 pb-5;
-  }
-  .list-talk .head {
-    @apply mb-8 flex justify-center items-center flex-col gap-8;
-  }
-  .list-talk .head .profile {
-    @apply relative shrink-0 w-[200px] h-[200px]  rounded-2xl overflow-hidden border shadow-[10px_10px_0_0px_var(--hover-highlight-color)] duration-300;
-  }
-  .list-talk .head .profile img {
-    @apply w-full h-full object-cover;
-  }
-  .list-talk .head .char-info {
-    @apply flex items-center gap-3;
-  }
-  .list-talk .head dt {
-    @apply flex items-center font-bold h-full;
-  }
-  .list-talk .head a {
-    @apply text-inherit inline-flex items-center gap-1;
-  }
-  .list-talk .inner li {
-    @apply flex-row-reverse my-4 flex flex-1 text-base mx-auto gap-5;
-  }
-  .list-talk .inner li .profile {
-    @apply w-[50px] h-[50px] flex-shrink-0 flex flex-col relative items-end overflow-hidden rounded-lg;
-  }
-  .list-talk .inner li .profile img {
-    @apply w-full h-full object-cover;
-  }
-  .list-talk .inner li .info {
-    @apply relative flex w-full flex-col p-2 px-3 rounded-lg rounded-tr-none bg-[var(--bubble-bg-ov)] text-white shadow-lg;
-  }
-  .list-talk .inner li.ai {
-    @apply flex-row;
-  }
-  .list-talk .inner li.ai .info {
-    @apply items-start text-inherit rounded-lg rounded-tl-none bg-[var(--bubble-bg)];
-  }
-  .list-talk .inner li:not(.ai) .info {
-    @apply items-end;
-  }
-  .list-talk .inner li .info .message {
-    @apply whitespace-pre-wrap;
-  }
-  .list-talk .inner li.user .info .message {
-    @apply text-right;
-  }
-  .list-talk .inner li .info:before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 100%;
-    width: 10px;
-    height: 20px;
-    background-color: var(--bubble-bg-ov);
-  }
-  .list-talk .inner li .info:after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 100%;
-    width: 10px;
-    height: 20px;
-    border-radius: 20px 0 0;
-    background-color: white;
-  }
-  .list-talk .inner li.ai .info:before {
-    left: auto;
-    right: 100%;
-    background: var(--bubble-bg);
-  }
-  .list-talk .inner li.ai .info:after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: auto;
-    right: 100%;
-    width: 10px;
-    height: 20px;
-    border-radius: 0 20px 0 0;
-    background-color: white;
-  }
-  .list-talk .inner li a {
-    @apply text-blue-500;
-  }
-  .list-talk .inner li .speaker {
-    @apply cursor-pointer inline-flex items-center p-1 text-sm leading-none px-2 text-black bg-white rounded-full;
-  }
-  .list-talk .inner li .icon {
-    transform: rotateY(180deg);
-  }
-  .list-talk .bg-char {
-    filter: blur(8px);
-    @apply absolute left-0 top-0 right-0 bottom-0 bg-no-repeat bg-cover opacity-50 z-[-1];
-  }
+	.list-talk .inner {
+		@apply flex-1 overflow-hidden overflow-y-auto px-5 pb-5 min-h-[2.5rem];
+	}
+	.list-talk .head {
+		@apply mb-8 flex justify-center items-center flex-col gap-8;
+	}
+	.list-talk .head .btn-mission {
+		@apply self-end w-[30px] h-[30px] text-white leading-none rounded-full bg-[var(--btn-bg)] hover:bg-[var(--btn-bg-hover)];
+	}
+	.list-talk .head .profile {
+		@apply relative shrink-0 w-[200px] h-[200px]  rounded-2xl overflow-hidden border shadow-[10px_10px_0_0px_var(--hover-highlight-color)] duration-300;
+	}
+	.list-talk .head .profile img {
+		@apply w-full h-full object-cover;
+	}
+	.list-talk .head .char-info {
+		@apply flex items-center gap-3;
+	}
+	.list-talk .head dt {
+		@apply flex items-center font-bold h-full;
+	}
+	.list-talk .head a {
+		@apply text-inherit inline-flex items-center gap-1;
+	}
+	/* .list-talk .inner li {
+		@apply flex-row-reverse my-4 flex flex-1 text-base mx-auto gap-5;
+	}
+	.list-talk .inner li .profile {
+		@apply w-[50px] h-[50px] flex-shrink-0 flex flex-col relative items-end overflow-hidden rounded-lg;
+	}
+	.list-talk .inner li .profile img {
+		@apply w-full h-full object-cover;
+	}
+	.list-talk .inner li .info {
+		@apply relative flex w-full flex-col p-2 px-3 rounded-lg rounded-tr-none bg-[var(--bubble-bg-ov)] text-white shadow-lg;
+	}
+	.list-talk .inner li.ai {
+		@apply flex-row;
+	}
+	.list-talk .inner li.ai .info {
+		@apply items-start text-inherit rounded-lg rounded-tl-none bg-[var(--bubble-bg)];
+	}
+	.list-talk .inner li:not(.ai) .info {
+		@apply items-end;
+	}
+	.list-talk .inner li .info .message {
+		@apply whitespace-pre-wrap;
+	}
+	.list-talk .inner li.user .info .message {
+		@apply text-right;
+	}
+	.list-talk .inner li .info:before {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 100%;
+		width: 10px;
+		height: 20px;
+		background-color: var(--bubble-bg-ov);
+	}
+	.list-talk .inner li .info:after {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 100%;
+		width: 10px;
+		height: 20px;
+		border-radius: 20px 0 0;
+		background-color: white;
+	}
+	.list-talk .inner li.ai .info:before {
+		left: auto;
+		right: 100%;
+		background: var(--bubble-bg);
+	}
+	.list-talk .inner li.ai .info:after {
+		content: '';
+		position: absolute;
+		bottom: 0;
+		left: auto;
+		right: 100%;
+		width: 10px;
+		height: 20px;
+		border-radius: 0 20px 0 0;
+		background-color: white;
+	}
+	.list-talk .inner li a {
+		@apply text-blue-500;
+	}
+	.list-talk .inner li .speaker {
+		@apply cursor-pointer inline-flex items-center p-1 text-sm leading-none px-2 text-black bg-white rounded-full;
+	}
+	.list-talk .inner li .icon {
+		transform: rotateY(180deg);
+	} */
+	.list-talk .bg-char {
+		filter: blur(8px);
+		@apply absolute left-0 top-0 right-0 bottom-0 bg-no-repeat bg-cover opacity-50 z-[-1];
+	}
 
-  .list-talk .form {
-    @apply flex flex-col items-center gap-2 w-full  dark:border-white/20 md:border-transparent md:dark:border-transparent md:w-[calc(100%-.5rem)];
-  }
-  .list-talk .form .btns {
-    @apply flex justify-between w-full;
-  }
-  .list-talk .form .btn-stop {
-    @apply inline-flex relative leading-none rounded-full  text-black /*  bg-transparent border-0 */bg-gray-100;
-  }
-  .list-talk .form .btn-send {
-    @apply inline-flex relative leading-none rounded-full p-3 text-black /*  bg-transparent border-0 */bg-gray-100;
-  }
-  .list-talk .form .btn-mic {
-    @apply inline-flex rounded-full leading-none  text-black bg-gray-100;
-  }
-  .list-talk .form textarea {
-    resize: none;
-    grid-area: 1 / 1 / 2 / 2;
-  }
-  .list-talk .form .textarea-wrap {
-    @apply grid w-full;
-  }
-  .list-talk .form .textarea-wrap:after {
-    content: attr(data-value) ' ';
-    white-space: pre-wrap;
-    visibility: hidden;
-    grid-area: 1 / 1 / 2 / 2;
-    @apply grid;
-  }
-  .list-talk .form .shortcuts {
-    @apply text-xs inline-flex items-center gap-1;
-  }
-  .list-talk .form .shortcuts span {
-    @apply inline-flex items-center bg-gray-300 p-1 rounded-md;
-  }
-  .list-talk .form .shortcuts svg {
-    @apply font-bold;
-  }
+	.list-talk .form {
+		@apply flex flex-col items-center gap-2 w-full  dark:border-white/20 md:border-transparent md:dark:border-transparent md:w-[calc(100%-.5rem)];
+	}
+	.list-talk .form .foot {
+		@apply flex justify-between w-full pb-3;
+	}
+	.list-talk .form .btns {
+		@apply flex gap-2;
+	}
+	.list-talk .form .btns button {
+		@apply m-0;
+	}
+	.list-talk .form .btn-stop {
+		@apply inline-flex relative leading-none rounded-full  text-black bg-gray-100;
+	}
+	.list-talk .form .btn-send {
+		@apply m-0 p-3 inline-flex relative leading-none rounded-full  text-black bg-gray-100;
+	}
+	.list-talk .form .btn-mic {
+		@apply inline-flex rounded-full leading-none  text-black bg-gray-100;
+	}
+	.list-talk .form textarea {
+		resize: none;
+		grid-area: 1 / 1 / 2 / 2;
+	}
+	.list-talk .form .textarea-wrap {
+		@apply w-full;
+	}
+	.list-talk .form .textarea-wrap:after {
+		content: attr(data-value) ' ';
+		white-space: pre-wrap;
+		visibility: hidden;
+		grid-area: 1 / 1 / 2 / 2;
+		@apply grid;
+	}
+	.list-talk .form .shortcuts {
+		@apply text-xs inline-flex items-center gap-1;
+	}
+	.list-talk .form .shortcuts span {
+		@apply inline-flex items-center bg-gray-300 p-1 rounded-md;
+	}
+	.list-talk .form .shortcuts svg {
+		@apply font-bold;
+	}
 
-  .list-talk .progress {
-    @apply h-[2px] bg-[var(--hover-highlight-color)] overflow-hidden;
-  }
-  .list-talk .progress .bar {
-    @apply h-full bg-gray-300;
-  }
+	.list-talk .progress {
+		@apply h-[2px] bg-[var(--hover-highlight-color)] overflow-hidden;
+	}
+	.list-talk .progress .bar {
+		@apply h-full bg-gray-300;
+	}
 
-  .list-talk .foot-talking-wrap {
-    @apply relative bg-[rgba(255,255,255,.5)];
-  }
-  .list-talk .talking {
-    @apply py-3 /* border-t-2 */;
-  }
-  .list-talk .talking dt {
-    @apply font-bold;
-  }
-  .list-talk .talking .message {
-    @apply mt-2 p-3 pt-2.5 h-[5.4em] overflow-auto bg-gray-50 rounded-lg;
-  }
-  .voiceContainer {
-    position: absolute;
-    width: 100%;
-    bottom: 5px;
-    @apply flex justify-center;
-  }
-  .voiceContainer > div {
-    display: flex;
-    justify-content: space-between;
-    height: 60px;
-    --boxSize: 8px;
-    --gutter: 4px;
-    width: calc((var(--boxSize) + var(--gutter)) * 5);
-  }
-  .voice {
-    transform: scaleY(0.3);
-    height: 100%;
-    width: var(--boxSize);
-    /* background: var(--hover-highlight-color); */
-    background: rgba(255, 255, 255, 0.5);
-    animation-duration: 1.2s;
-    animation-timing-function: ease-in-out;
-    animation-iteration-count: infinite;
-    border-radius: 100px;
-  }
-  .voiceContainer.on .voice {
-    transform: scaleY(0.3);
-  }
-  .voice1 {
-    animation-name: quiet;
-  }
+	.list-talk .foot-talking-wrap {
+		@apply relative bg-[rgba(255,255,255,.5)];
+	}
+	.list-talk .talking {
+		@apply py-3 /* border-t-2 */;
+	}
+	.list-talk .talking dt {
+		@apply font-bold;
+	}
+	.list-talk .talking .message {
+		@apply mt-2 p-3 pt-2.5 h-[5.4em] overflow-auto bg-gray-50 rounded-lg;
+	}
+	.list-talk .history {
+		@apply sticky bottom-0 w-full min-h-[5rem] max-h-[11rem] overflow-auto border-t-2 border-dotted border-gray-300 bg-white;
+	}
 
-  .voice2 {
-    animation-name: normal;
-  }
+	.list-talk .history li {
+		@apply flex-row-reverse my-4 flex flex-1 text-base mx-auto gap-5;
+	}
+	.list-talk .history li .profile {
+		@apply w-[50px] h-[50px] flex-shrink-0 flex flex-col relative items-end overflow-hidden rounded-lg;
+	}
+	.list-talk .history li .profile img {
+		@apply w-full h-full object-cover;
+	}
+	.list-talk .history li .info {
+		@apply relative flex w-full flex-col p-2 px-3 rounded-lg rounded-tr-none bg-[var(--bubble-bg-ov)] text-white shadow-lg;
+	}
+	.list-talk .history li.ai {
+		@apply flex-row;
+	}
+	.list-talk .history li.ai .info {
+		@apply items-start text-inherit rounded-lg rounded-tl-none bg-[var(--bubble-bg)];
+	}
+	.list-talk .history li:not(.ai) .info {
+		@apply items-end;
+	}
+	.list-talk .history li .info .message {
+		@apply whitespace-pre-wrap;
+	}
+	.list-talk .history li.user .info .message {
+		@apply text-right;
+	}
+	.list-talk .history li .info:before {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 100%;
+		width: 10px;
+		height: 20px;
+		background-color: var(--bubble-bg-ov);
+	}
+	.list-talk .history li .info:after {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 100%;
+		width: 10px;
+		height: 20px;
+		border-radius: 20px 0 0;
+		background-color: white;
+	}
+	.list-talk .history li.ai .info:before {
+		left: auto;
+		right: 100%;
+		background: var(--bubble-bg);
+	}
+	.list-talk .history li.ai .info:after {
+		content: '';
+		position: absolute;
+		bottom: 0;
+		left: auto;
+		right: 100%;
+		width: 10px;
+		height: 20px;
+		border-radius: 0 20px 0 0;
+		background-color: white;
+	}
+	.list-talk .history li a {
+		@apply text-blue-500;
+	}
+	.list-talk .history li .speaker {
+		@apply cursor-pointer inline-flex items-center p-1 text-sm leading-none px-2 text-black bg-white rounded-full;
+	}
+	.list-talk .history li .icon {
+		transform: rotateY(180deg);
+	}
+	.list-talk .talking .btn-history {
+		@apply bg-transparent p-0 text-black border-0;
+	}
+	.voiceContainer {
+		position: absolute;
+		width: 100%;
+		bottom: 5px;
+		@apply flex justify-center;
+	}
+	.voiceContainer > div {
+		display: flex;
+		justify-content: space-between;
+		height: 60px;
+		--boxSize: 8px;
+		--gutter: 4px;
+		width: calc((var(--boxSize) + var(--gutter)) * 5);
+	}
+	.voice {
+		transform: scaleY(0.3);
+		height: 100%;
+		width: var(--boxSize);
+		/* background: var(--hover-highlight-color); */
+		background: rgba(255, 255, 255, 0.5);
+		animation-duration: 1.2s;
+		animation-timing-function: ease-in-out;
+		animation-iteration-count: infinite;
+		border-radius: 100px;
+	}
+	.voiceContainer.on .voice {
+		transform: scaleY(0.3);
+	}
+	.voice1 {
+		animation-name: quiet;
+	}
 
-  .voice3 {
-    animation-name: quiet;
-    animation-delay: 0.2s;
-  }
+	.voice2 {
+		animation-name: normal;
+	}
 
-  .voice4 {
-    animation-name: loud;
-    animation-delay: 0.2s;
-  }
+	.voice3 {
+		animation-name: quiet;
+		animation-delay: 0.2s;
+	}
 
-  .voice5 {
-    animation-name: quiet;
-  }
+	.voice4 {
+		animation-name: loud;
+		animation-delay: 0.2s;
+	}
 
-  .voiceContainer.off .voice1 {
-    animation-name: none;
-    animation-play-state: paused;
-    transform: scaleY(0.35);
-  }
+	.voice5 {
+		animation-name: quiet;
+	}
 
-  .voiceContainer.off .voice2 {
-    animation-name: none;
-    animation-play-state: paused;
-    transform: scaleY(0.5);
-  }
+	.voiceContainer.off .voice1 {
+		animation-name: none;
+		animation-play-state: paused;
+		transform: scaleY(0.35);
+	}
 
-  .voiceContainer.off .voice3 {
-    animation-name: none;
-    animation-play-state: paused;
-    transform: scaleY(0.3);
-  }
+	.voiceContainer.off .voice2 {
+		animation-name: none;
+		animation-play-state: paused;
+		transform: scaleY(0.5);
+	}
 
-  .voiceContainer.off .voice4 {
-    animation-name: none;
-    animation-play-state: paused;
-    transform: scaleY(0.25);
-  }
+	.voiceContainer.off .voice3 {
+		animation-name: none;
+		animation-play-state: paused;
+		transform: scaleY(0.3);
+	}
 
-  .voiceContainer.off .voice5 {
-    animation-name: none;
-    animation-play-state: paused;
-    transform: scaleY(0.35);
-  }
+	.voiceContainer.off .voice4 {
+		animation-name: none;
+		animation-play-state: paused;
+		transform: scaleY(0.25);
+	}
 
-  @keyframes quiet {
-    25% {
-      transform: scaleY(0.6);
-      opacity: 0.6;
-    }
-    50% {
-      transform: scaleY(0.4);
-      opacity: 0.9;
-    }
-    75% {
-      transform: scaleY(0.8);
-      opacity: 0.7;
-    }
-  }
+	.voiceContainer.off .voice5 {
+		animation-name: none;
+		animation-play-state: paused;
+		transform: scaleY(0.35);
+	}
 
-  @keyframes normal {
-    25% {
-      transform: scaleY(1);
-      opacity: 0.4;
-    }
-    50% {
-      transform: scaleY(0.4);
-      opacity: 0.5;
-    }
-    75% {
-      transform: scaleY(0.6);
-      opacity: 0.7;
-    }
-  }
-  @keyframes loud {
-    25% {
-      transform: scaleY(1);
-      opacity: 0.4;
-    }
-    50% {
-      transform: scaleY(0.4);
-      opacity: 0.8;
-    }
-    75% {
-      transform: scaleY(1.2);
-      opacity: 0.3;
-    }
-  }
-}
+	@keyframes quiet {
+		25% {
+			transform: scaleY(0.6);
+			opacity: 0.6;
+		}
+		50% {
+			transform: scaleY(0.4);
+			opacity: 0.9;
+		}
+		75% {
+			transform: scaleY(0.8);
+			opacity: 0.7;
+		}
+	}
+
+	@keyframes normal {
+		25% {
+			transform: scaleY(1);
+			opacity: 0.4;
+		}
+		50% {
+			transform: scaleY(0.4);
+			opacity: 0.5;
+		}
+		75% {
+			transform: scaleY(0.6);
+			opacity: 0.7;
+		}
+	}
+	@keyframes loud {
+		25% {
+			transform: scaleY(1);
+			opacity: 0.4;
+		}
+		50% {
+			transform: scaleY(0.4);
+			opacity: 0.8;
+		}
+		75% {
+			transform: scaleY(1.2);
+			opacity: 0.3;
+		}
+	}
+
+	.ly-mission {
+		@apply fixed top-0 left-0 right-0 bottom-0 z-10 p-3 bg-[rgba(0,0,0,.5)] overflow-auto text-center;
+	}
+	.ly-mission:before {
+		content: '';
+		@apply inline-block h-full w-[1px] m-[-1px] align-middle;
+	}
+	.ly-mission .ly-inner {
+		@apply inline-block align-middle max-w-[640px] max-h-[640px] p-5 bg-white rounded-xl overflow-auto text-left;
+	}
+	.ly-mission .ly-inner .ly-head {
+		@apply mb-3 flex justify-between items-center font-bold text-xl;
+	}
+	.ly-mission .ly-inner .ly-head span {
+		@apply text-sm font-normal;
+	}
+
+	.ly-mission .ly-inner .ly-head button,
+	.ly-mission .ly-inner .ly-head svg {
+		font-size: inherit;
+		@apply text-2xl leading-none;
+	}
+	.ly-mission .ly-inner .ly-body .todo {
+		@apply flex justify-between;
+	}
+	.ly-mission .list-mission li {
+		@apply flex items-start gap-1;
+	}
+
+	.ly-mission .list-mission li:before {
+		content: '';
+		background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" fill="%23fff" viewBox="0 0 24 24" stroke-width="1.5" stroke="%2367c0cd" class="w-6 h-6"> <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" /></svg>');
+		@apply shrink-0 w-[20px] h-[20px] align-middle items-center mt-1;
+	}
+	.ly-mission .list-mission li.complete {
+		@apply line-through;
+	}
+	.ly-mission .list-mission li.complete:before {
+		content: '';
+		background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%2367c0cd" class="w-6 h-6"> <path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12Zm13.36-1.814a.75.75 0 1 0-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 0 0-1.06 1.06l2.25 2.25a.75.75 0 0 0 1.14-.094l3.75-5.25Z" clip-rule="evenodd" /></svg> ');
+		@apply inline-flex items-center;
+	}
+} /* components */

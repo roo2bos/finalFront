@@ -1,4 +1,3 @@
-// import { AiOutlineHighlight } from 'react-icons/ai';
 import '../assets/css/talk.css';
 import { useEffect, useState, useRef } from 'react';
 import { useParams } from 'react-router-dom';
@@ -14,21 +13,45 @@ import { MdOutlineKeyboardReturn } from 'react-icons/md';
 import { BsShiftFill } from 'react-icons/bs';
 import { IoStop } from 'react-icons/io5';
 import { IoPlay } from 'react-icons/io5';
+import { PiListMagnifyingGlassDuotone } from 'react-icons/pi';
+import { MdChecklist } from 'react-icons/md';
+import { IoMdCloseCircle } from 'react-icons/io';
 
+import wavfile from '/test.wav';
 function Talk() {
 	const { id } = useParams();
-	// const [account] = useState('test');
+	const [account] = useState('test');
 	// const [beforeMessage, setBeforeMessage] = useState([]);//api로 사용예정
 	const [beforeMessage] = useState(datas.chats.filter((chat) => chat.roomId === id)); //임시:기존 대화한 내역 메세지
 	const [mic, setMic] = useState(false);
 	const [audioState, setAudioState] = useState(false);
+	const [history, setHistory] = useState(false);
+	const [missions] = useState([
+		// 더미
+		{
+			id: 1,
+			message: 'mission1 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 ',
+			complete: true,
+		},
+		{
+			id: 2,
+			message: 'mission2 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 ',
+			complete: false,
+		},
+		{
+			id: 3,
+			message: 'mission3 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 ',
+			complete: false,
+		},
+	]);
 
 	const textareaRef = useRef();
 	const innerRef = useRef();
 	const audioRef = useRef();
 	const [duration, setDuration] = useState(0);
+	const [isPop, setIsPop] = useState(false);
 
-	// const [userInfo] = useState(datas.users.find((user) => user.userid === account)); //임시
+	const [userInfo] = useState(datas.users.find((user) => user.userid === account)); //임시
 	const [characterInfo] = useState(datas.characters.find((character) => character.id === id)); //임시
 
 	useEffect(() => {
@@ -61,6 +84,33 @@ function Talk() {
 				<div className="bg-char"></div>
 				<div ref={innerRef} className="inner">
 					<div className="head">
+						<button className="btn-mission" onClick={() => setIsPop(!isPop)}>
+							<MdChecklist />
+						</button>
+						<div className={`ly-mission${isPop ? '' : ' !hidden'}`}>
+							<div className="ly-inner">
+								<div className="ly-head">
+									<strong>오늘의 학습 미션</strong>
+									<button onClick={() => setIsPop(!isPop)}>
+										<IoMdCloseCircle className="text-[var(--highlight-color)]" />
+									</button>
+								</div>
+								<div className="ly-body">
+									<p className="todo">
+										<span>오늘의 학습 목표: 미달(1/3)</span> <span>전체 목표량 : 1/30일</span>
+									</p>
+									<ul className="list-mission">
+										{missions.map((mission) => {
+											return (
+												<li key={mission.id} className={`${mission.complete ? 'complete' : ''}`}>
+													<span>{mission.message}</span>
+												</li>
+											);
+										})}
+									</ul>
+								</div>
+							</div>
+						</div>
 						<div className="profile">
 							<img src={beforeMessage[0]?.img} alt="" />
 
@@ -95,30 +145,77 @@ function Talk() {
 					</div>
 				</div>
 
+				<div className={`history ${history ? '' : 'hidden'}`}>
+					<ul>
+						<li className="user">
+							<div className="profile">
+								<img src="/user-default.png" alt="" />
+							</div>
+							<div className="info">
+								<div className="name">{userInfo.userid}</div>
+								<div className="msg">대화 내용</div>
+							</div>
+						</li>
+						<li className="ai">
+							<div className="profile">
+								<img src={beforeMessage[0]?.img} alt="" />
+							</div>
+							<div className="info">
+								<div className="name">{characterInfo.name}</div>
+								<div className="msg">대화 내용</div>
+							</div>
+						</li>
+						<li className="ai">
+							<div className="profile">
+								<img src={beforeMessage[0]?.img} alt="" />
+							</div>
+							<div className="info">
+								<div className="name">{characterInfo.name}</div>
+								<div className="msg">대화 내용</div>
+							</div>
+						</li>
+						<li className="ai">
+							<div className="profile">
+								<img src={beforeMessage[0]?.img} alt="" />
+							</div>
+							<div className="info">
+								<div className="name">{characterInfo.name}</div>
+								<div className="msg">대화 내용</div>
+							</div>
+						</li>
+					</ul>
+				</div>
 				{/* foot */}
 				<div className="foot-talking-wrap ">
 					<div className="progress">
 						<div className="bar" style={{ transform: `translateX(${duration}%)` }} />
 					</div>
-					<dl className="talking">
-						<dt>{characterInfo.name}</dt>
-						<dd className="message">
-							대화가 출력될 데이터. 대화가 출력될 데이터. 대화가 출력될 데이터. 대화가 출력될 데이터. 대화가 출력될
-							데이터. 대화가 출력될 데이터. 대화가 출력될 데이터. 대화가 출력될 데이터. 대화가 출력될 데이터. 대화가
-							출력될 데이터. 대화가 출력될 데이터. 대화가 출력될 데이터. 대화가 출력될 데이터. 대화가 출력될 데이터.
-							대화가 출력될 데이터. 대화가 출력될 데이터. 대화가 출력될 데이터. 대화가 출력될 데이터. 대화가 출력될
-							데이터. 대화가 출력될 데이터. 대화가 출력될 데이터. 대화가 출력될 데이터. 대화가 출력될 데이터. 대화가
-							출력될 데이터. 대화가 출력될 데이터. 대화가 출력될 데이터. 대화가 출력될 데이터. 대화가 출력될 데이터.
-							대화가 출력될 데이터. 대화가 출력될 데이터. 대화가 출력될 데이터. 대화가 출력될 데이터. 대화가 출력될
-							데이터. 대화가 출력될 데이터.
-						</dd>
-						<dd className="hidden">
-							<audio id="myAudio" ref={audioRef}>
-								<source src="/test.wav" type="audio/wav" />
-								Your browser does not support the audio element.
-							</audio>
-						</dd>
-					</dl>
+					<div className="talking">
+						<dl>
+							<dt className="flex justify-between">
+								<span>{characterInfo.name}</span>
+								<button className="btn-history" onClick={() => setHistory(!history)}>
+									<PiListMagnifyingGlassDuotone className="text-2xl" />
+								</button>
+							</dt>
+							<dd className="message">
+								대화가 출력될 데이터. 대화가 출력될 데이터. 대화가 출력될 데이터. 대화가 출력될 데이터. 대화가 출력될
+								데이터. 대화가 출력될 데이터. 대화가 출력될 데이터. 대화가 출력될 데이터. 대화가 출력될 데이터. 대화가
+								출력될 데이터. 대화가 출력될 데이터. 대화가 출력될 데이터. 대화가 출력될 데이터. 대화가 출력될 데이터.
+								대화가 출력될 데이터. 대화가 출력될 데이터. 대화가 출력될 데이터. 대화가 출력될 데이터. 대화가 출력될
+								데이터. 대화가 출력될 데이터. 대화가 출력될 데이터. 대화가 출력될 데이터. 대화가 출력될 데이터. 대화가
+								출력될 데이터. 대화가 출력될 데이터. 대화가 출력될 데이터. 대화가 출력될 데이터. 대화가 출력될 데이터.
+								대화가 출력될 데이터. 대화가 출력될 데이터. 대화가 출력될 데이터. 대화가 출력될 데이터. 대화가 출력될
+								데이터. 대화가 출력될 데이터.
+							</dd>
+							<dd className="hidden">
+								<audio id="myAudio" ref={audioRef}>
+									<source src={wavfile} type="audio/wav" />
+									Your browser does not support the audio element.
+								</audio>
+							</dd>
+						</dl>
+					</div>
 					<form className="form" onSubmit={(e) => sendMessage(e)}>
 						<div className="textarea-wrap hidden">
 							<textarea
@@ -133,7 +230,7 @@ function Talk() {
 								onInput={inputHandler}
 							/>
 						</div>
-						<div className="btns">
+						<div className="foot">
 							<div className="shortcuts invisible">
 								* Send:{' '}
 								<span>
@@ -148,7 +245,7 @@ function Talk() {
 									<MdOutlineKeyboardReturn />
 								</span>
 							</div>
-							<div>
+							<div className="btns">
 								<button type="button" className="btn-stop" onClick={playAudio}>
 									{audioState ? <IoStop /> : <IoPlay />}
 								</button>
