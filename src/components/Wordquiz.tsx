@@ -1,32 +1,52 @@
-import { useState, useEffect } from "react";
-import datas from '../../datas.json';
-
-
+import { useState } from 'react';
 
 export default function Wordquiz() {
-    const [question, setQuestion] = useState(0);
-    const [correct, setCorrect] = useState(true);
-    const [clickedAnswer, setClickedAnswer] = useState(null);
+    const krAnswer = '해석 : 이것은 셔플링에 대한 샘플 문장입니다'
+    const enAnswer = "This is a sample sentence for shuffling";
+    const [newArr, setNewArr] = useState(enAnswer.split(" "));
+    const [userAnswer, setUserAnswer] = useState("");
+    const [correctAnswer, setCorrectAnswer] = useState(false);
+    const [clickedWords, setClickedWords] = useState([]);
+    const [showUndoButton, setShowUndoButton] = useState(false);
 
-    
-
-    const nextPage = () => {
-        if (question < datas.quiz.length -1) {
-            setQuestion(question + 1);
-            setCorrect(true);
-            setClickedAnswer(null);
+    const checkAnswer = () => {
+        if (enAnswer === userAnswer) {
+            alert("정답입니다!");
+            firework();
+            setShowUndoButton(false);
+            setUserAnswer('아래 버튼을 눌러 다음 문제로 넘어가시오')
         } else {
-            console.log("모든 문제를 풀었습니다.");
+            alert("오답입니다.");
+            setCorrectAnswer(true);
+            setShowUndoButton(true);
         }
     };
 
-    const checkAnswer = (quizItem, selectedAnswer) => {
-        if (quizItem.answer[`asw${selectedAnswer}`] === quizItem.correctAnswer) {
-            nextPage();
-            firework()
-        } else {
-            setCorrect(false);
-            setClickedAnswer(selectedAnswer); 
+    const userAnswerHandler = (word) => {
+        setUserAnswer((prevAnswer) => {
+            if (prevAnswer === "") {
+                return word;
+            } else {
+                return prevAnswer + (prevAnswer.endsWith(' ') ? '' : ' ') + word;
+            }
+        });
+        setNewArr((prevArr) => prevArr.filter((val) => val !== word));
+        setClickedWords((prevClickedWords) => [...prevClickedWords, word]);
+        setShowUndoButton(true);
+    };
+
+    const undoClick = () => {
+        if (clickedWords.length > 0) {
+            const lastClickedWord = clickedWords[clickedWords.length - 1];
+            setUserAnswer((prevAnswer) => {
+                const regex = new RegExp(`\\b${lastClickedWord}\\b`);
+                return prevAnswer.replace(regex, "").trim();
+            });
+            setNewArr((prevArr) => [...prevArr, lastClickedWord]);
+            setClickedWords((prevClickedWords) => prevClickedWords.slice(0, -1));
+            if (clickedWords.length === 1) {
+                setShowUndoButton(false);
+            }
         }
     };
 
@@ -65,27 +85,37 @@ export default function Wordquiz() {
       }
 
     return (
-        <div className="container mx-auto py-8">
-            {/* 퀴즈 */}
-            <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-                {/* 문제 */}
-                {datas.quiz.map((quizItem, index) => (
-                    index === question && (
-                        <div key={quizItem.id}>
-                            <h3 className="text-xl font-bold mb-4">문제{quizItem.id}. {quizItem.question}</h3>
-                            <ul>
-                                <li className={`mb-2 cursor-pointer ${clickedAnswer === 1 && !correct ? 'text-red-500' : ''}`} onClick={() => checkAnswer(quizItem, 1)}><span className="font-bold">1. </span>{quizItem.answer.asw1}</li>
-                                <li className={`mb-2 cursor-pointer ${clickedAnswer === 2 && !correct ? 'text-red-500' : ''}`} onClick={() => checkAnswer(quizItem, 2)}><span className="font-bold">2. </span>{quizItem.answer.asw2}</li>
-                                <li className={`mb-2 cursor-pointer ${clickedAnswer === 3 && !correct ? 'text-red-500' : ''}`} onClick={() => checkAnswer(quizItem, 3)}><span className="font-bold">3. </span>{quizItem.answer.asw3}</li>
-                            </ul>
-                            <p className="text-sm mt-4">힌트: {quizItem.hint}</p>
-                            {!correct && <p className="text-red-500">오답입니다. 정답은 {quizItem.correctAnswer}입니다.</p>}
-                        </div>
-                    )
+        <div className="mx-auto mt-10 text-center p-5 border-2">
+            <p className="text-xl mb-4">{krAnswer}</p>
+            <input 
+                type="text" 
+                value={userAnswer} 
+                onChange={(e) => setUserAnswer(e.target.value)}
+                className="border border-gray-300 rounded-md px-4 py-2 mb-4 w-full max-w-md mx-auto"
+            />
+
+            <div className="flex flex-wrap justify-center">
+                {newArr.map((val, index) => (
+                    <span key={index} onClick={() => userAnswerHandler(val)} className="bg-gray-200 px-4 py-2 rounded-md text-sm m-1 cursor-pointer">{val}</span>
                 ))}
-                {/* 진행 상황 바 */}
-                <div className="bg-blue-500 mt-4 h-2" style={{ width: `${((question + 1) / datas.quiz.length) * 100}%` }}></div>
             </div>
+            
+            <button onClick={checkAnswer} className="mt-8 bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">
+                확인
+            </button>
+
+            {correctAnswer && (
+                <div className="mt-4">
+                    <h1 className="text-red-600">틀렸습니다.</h1>
+                    <strong>정답은 <span className="text-blue-500">'{enAnswer}'</span>입니다.</strong>
+                </div>
+            )}
+
+            {showUndoButton && (
+                <button onClick={undoClick} className="mt-4 bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded">
+                    되돌리기
+                </button>
+            )}
         </div>
     );
 }

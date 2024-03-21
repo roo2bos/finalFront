@@ -14,8 +14,10 @@ import Spinner from './components/Spinner';
 import './App.css';
 
 function App() {
+ 
   return (
     <>
+     
         <Routes>
           <Route element={<Layout />}>
             <Route path='/' element={<Home />} />

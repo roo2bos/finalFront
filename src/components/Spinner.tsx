@@ -6,6 +6,7 @@ function Spinner() {
     <div className="flex justify-center items-center w-screen h-screen">
       <div className="w-40">
         <Lottie animationData={loadingCat} />
+        {/* <h2 className='mt-4'>Loading ...</h2> */}
       </div>
     </div>
   );
