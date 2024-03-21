@@ -63,7 +63,6 @@ function Talk() {
         const blob = await response.blob();
         const objectURL = URL.createObjectURL(blob);
         // 오디오 요소에 파일 URL을 설정하여 재생합니다.
-        console.log(objectURL);
         audioRef.current.src = objectURL;
         // audioRef.current.play();
       } catch (error) {
