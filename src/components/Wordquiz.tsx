@@ -12,7 +12,7 @@ export default function Wordquiz() {
   const checkAnswer = () => {
     if (enAnswer === userAnswer) {
       alert('정답입니다!');
-      // firework(); // 이 부분은 정의되지 않았으므로 주석 처리했습니다.
+      firework();
       setShowUndoButton(false);
       setUserAnswer('아래 버튼을 눌러 다음 문제로 넘어가시오');
     } else {
@@ -49,6 +49,41 @@ export default function Wordquiz() {
       }
     }
   };
+
+  const firework = () => {
+    var duration = 20 * 100;
+    var animationEnd = Date.now() + duration;
+    var defaults = { startVelocity: 20, spread: 360, ticks: 100, zIndex: 0 };
+    //  startVelocity: 범위, spread: 방향, ticks: 갯수
+  
+    function randomInRange(min, max) {
+      return Math.random() * (max - min) + min;
+    }
+  
+    var interval = setInterval(function () {
+      var timeLeft = animationEnd - Date.now();
+  
+      if (timeLeft <= 0) {
+        return clearInterval(interval);
+      }
+  
+      var particleCount = 50 * (timeLeft / duration);
+      // since particles fall down, start a bit higher than random
+      confetti(
+        Object.assign({}, defaults, {
+          particleCount,
+          origin: { x: randomInRange(-0.1, 0.3), y: Math.random() - 0.2 }
+        })
+      );
+      confetti(
+        Object.assign({}, defaults, {
+          particleCount,
+          origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 }
+        })
+      );
+    }, 250);
+  }
+
 
   return (
     <div className='mx-auto mt-10 text-center p-5 border-2'>
