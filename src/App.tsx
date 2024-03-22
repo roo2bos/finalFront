@@ -1,9 +1,9 @@
 import { Route, Routes } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 import Layout from './Layout';
 import Login from './components/Login';
 import SignUp from './components/SignUp';
 import NotFound from './components/NotFound';
-import Guide from './components/Guide';
 import Home from './pages/Home';
 import Mypage from './pages/Mypage';
 import Talk from './pages/Talk';

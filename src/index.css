@@ -72,7 +72,15 @@
   }
 
   aside {
-    @apply hidden sm:flex sm:flex-col sm:bg-[var(--bg-highlight-color)];
+    @apply hidden sm:flex sm:flex-col bg-[var(--bg-highlight-color)];
+  }
+
+  aside.on {
+    @apply flex flex-col w-3/5 h-full absolute z-10;
+  }
+
+  aside.off {
+    @apply hidden;
   }
 
   svg {
