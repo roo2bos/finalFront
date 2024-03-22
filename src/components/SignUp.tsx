@@ -28,6 +28,7 @@ export default function SignUp() {
   } = useForm<FormData>();
 
   const [nicknameAvailable, setNicknameAvailable] = useState<boolean | null>(null);
+  const [userIdAvailable, setUserIdAvailable] = useState<boolean | null>(null);
 
   const onSubmit: SubmitHandler<FormData> = (userdata) => {
 
@@ -41,10 +42,18 @@ export default function SignUp() {
 
   const userId = watch('userId');
   const nickname = watch('nickname');
-  // const password = watch('password')
 
   useEffect(() => {
     dispatch(userIdCheck(userId));
+
+    userIdCheckApi(userId)
+      .then((response)=>{
+        setUserIdAvailable(response)
+      })
+      .catch((error) => {
+        console.log('오류 발생:', error)
+      })
+
   }, [userId, dispatch]);
 
   useEffect(() => {
@@ -114,14 +123,13 @@ export default function SignUp() {
                   {errors.userId.message}
                 </span>
               )}
-              {userId && (
+              {userIdAvailable !== null && (
                 <span className='text-blue-500 text-xs'>
-                  {' '}
-                  {userId}은(는) 사용 가능한 아이디입니다.
+                  {!userIdAvailable ? '사용 가능한 닉네임입니다.' : '이미 사용 중인 닉네임입니다.'}
                 </span>
               )}
 
-              <label className='auth-label' htmlFor='nickname'>
+<label className='auth-label' htmlFor='nickname'>
                 닉네임
               </label>
               <input
@@ -138,9 +146,9 @@ export default function SignUp() {
                   {errors.nickname.message}
                 </span>
               )}
-              {nickname && (
+              {nicknameAvailable !== null && (
                 <span className='text-blue-500 text-xs'>
-                  {nickname}은(는) 사용 가능한 닉네임입니다.
+                  {!nicknameAvailable ? '사용 가능한 닉네임입니다.' : '이미 사용 중인 닉네임입니다.'}
                 </span>
               )}
 
