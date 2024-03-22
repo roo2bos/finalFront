@@ -44,28 +44,35 @@ export default function SignUp() {
   const nickname = watch('nickname');
 
   useEffect(() => {
-    dispatch(userIdCheck(userId));
-
-    userIdCheckApi(userId)
-      .then((response)=>{
-        setUserIdAvailable(response)
-      })
-      .catch((error) => {
-        console.log('오류 발생:', error)
-      })
-
+    if (userId.trim() !== '') {
+      dispatch(userIdCheck(userId));
+  
+      userIdCheckApi(userId)
+        .then((response)=>{
+          setUserIdAvailable(response)
+        })
+        .catch((error) => {
+          console.log('오류 발생:', error)
+        });
+    } else {
+      setUserIdAvailable(null);
+    }
   }, [userId, dispatch]);
-
+  
   useEffect(() => {
-    dispatch(userNicknameCheck(nickname));
-    
-    userNicknameCheckApi(nickname)
-      .then((response) => {
-        setNicknameAvailable(response);
-      })
-      .catch((error) => {
-        console.error('오류 발생:', error);
-      });
+    if (nickname.trim() !== '') {
+      dispatch(userNicknameCheck(nickname));
+      
+      userNicknameCheckApi(nickname)
+        .then((response) => {
+          setNicknameAvailable(response);
+        })
+        .catch((error) => {
+          console.error('오류 발생:', error);
+        });
+    } else {
+      setNicknameAvailable(null);
+    }
   }, [nickname, dispatch]);
 
   
@@ -124,7 +131,7 @@ export default function SignUp() {
                 </span>
               )}
               {userIdAvailable !== null && (
-                <span className='text-blue-500 text-xs'>
+                <span className={!userIdAvailable ? 'text-blue-500 text-xs' : 'text-red-500 text-xs' }>
                   {!userIdAvailable ? '사용 가능한 닉네임입니다.' : '이미 사용 중인 닉네임입니다.'}
                 </span>
               )}
@@ -147,7 +154,7 @@ export default function SignUp() {
                 </span>
               )}
               {nicknameAvailable !== null && (
-                <span className='text-blue-500 text-xs'>
+                <span className={!nicknameAvailable ? 'text-blue-500 text-xs' : 'text-red-500 text-xs'}>
                   {!nicknameAvailable ? '사용 가능한 닉네임입니다.' : '이미 사용 중인 닉네임입니다.'}
                 </span>
               )}
