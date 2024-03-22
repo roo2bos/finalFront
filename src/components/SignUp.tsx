@@ -1,6 +1,6 @@
 import { useForm, SubmitHandler, SubmitErrorHandler } from 'react-hook-form';
-// import { useDispatch } from 'react-redux';
-import { useEffect } from 'react';
+import { userNicknameCheckApi, userIdCheckApi } from '../api/userCheck';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAppDispatch } from '../hooks';
 import { userIdCheck, userNicknameCheck } from '../store/features/userIdCheck';
@@ -18,7 +18,6 @@ type FormData = {
 };
 
 export default function SignUp() {
-  // const dispatch = useDispatch();
   const dispatch = useAppDispatch();
 
   const {
@@ -28,7 +27,10 @@ export default function SignUp() {
     watch,
   } = useForm<FormData>();
 
+  const [nicknameAvailable, setNicknameAvailable] = useState<boolean | null>(null);
+
   const onSubmit: SubmitHandler<FormData> = (userdata) => {
+
     console.log('onSubmit', userdata);
     dispatch(signUpUser(userdata));
   };
@@ -47,7 +49,17 @@ export default function SignUp() {
 
   useEffect(() => {
     dispatch(userNicknameCheck(nickname));
+    
+    userNicknameCheckApi(nickname)
+      .then((response) => {
+        setNicknameAvailable(response);
+      })
+      .catch((error) => {
+        console.error('오류 발생:', error);
+      });
   }, [nickname, dispatch]);
+
+  
 
   return (
     <div className='form-container'>
