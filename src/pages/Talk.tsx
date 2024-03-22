@@ -3,7 +3,7 @@ import { useEffect, useState, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import datas from '../../datas.json'; //임시 데이터
-// import axios from 'axios';
+import axios from 'axios';
 import { RiThumbUpFill, RiThumbDownFill } from 'react-icons/ri';
 import { BiSolidUserDetail } from 'react-icons/bi';
 import { PiMicrophoneFill } from 'react-icons/pi';
@@ -18,6 +18,7 @@ import { MdChecklist } from 'react-icons/md';
 import { IoMdCloseCircle } from 'react-icons/io';
 
 import wavfile from '/test.wav';
+
 function Talk() {
 	const { id } = useParams();
 	const [account] = useState('test');
@@ -54,9 +55,9 @@ function Talk() {
 	const [userInfo] = useState(datas.users.find((user) => user.userid === account)); //임시
 	const [characterInfo] = useState(datas.characters.find((character) => character.id === id)); //임시
 
-	useEffect(() => {
-		setMic(false);
-	}, []);
+	// useEffect(() => {
+	// 	setMic(false);
+	// }, []);
 
 	function playAudio() {
 		const player = audioRef.current;
@@ -77,6 +78,66 @@ function Talk() {
 	const inputHandler = () => {
 		return (textareaRef.current.parentNode.dataset.value = textareaRef.current.value);
 	};
+
+
+
+	// 마이크 캡처
+	const mediaRecorderRef = useRef<MediaRecorder | null>(null);
+	const chunksRef = useRef<Blob[]>([]);
+
+	const handleStartRecording = async () => {
+		try {
+			const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+			const mediaRecorder = new MediaRecorder(stream);
+			mediaRecorderRef.current = mediaRecorder;
+
+			mediaRecorder.ondataavailable = (e) => {
+				if (e.data.size > 0) {
+					chunksRef.current.push(e.data);
+			}
+		};
+
+		mediaRecorder.onstop = () => {
+			const recordedBlob = new Blob(chunksRef.current, { type: 'audio/wav' });
+			chunksRef.current = [];
+
+			sendAudioData(recordedBlob);
+		};
+
+		mediaRecorder.start();
+		setMic(true);
+		} catch (error) {
+			console.error('Error accessing microphone:', error);
+		}
+	};
+
+	const handleStopRecording = () => {
+		const mediaRecorder = mediaRecorderRef.current;
+		if (mediaRecorder && mediaRecorder.state !== 'inactive') {
+			mediaRecorder.stop();
+			setMic(false);
+		}
+	};
+
+	const sendAudioData = async (audioBlob: Blob) => {
+		try {
+			// Blob을 File 객체로 변환 (파일 이름은 recording.wav로 지정)
+			const audioFile = new File([audioBlob], 'recording.wav', { type: 'audio/wav' });
+
+			const formData = new FormData();
+			formData.append('audio', audioFile);	
+			const response = await axios.post(' http://localhost:8000/speech', formData, {
+				headers: {
+				'Content-Type': 'multipart/form-data'
+				}
+			});	
+			console.log('Audio data sent successfully:', response.data);
+		} catch (error) {
+			console.error('Error sending audio data:', error);
+		}
+	};
+
+
 
 	return (
 		<>
@@ -252,7 +313,7 @@ function Talk() {
 								<button type="submit" className="btn-send">
 									<RiSendPlaneFill />
 								</button>
-								<button type="button" className="btn-mic" onClick={() => setMic(!mic)}>
+								<button type="button" className="btn-mic" onClick={mic? handleStopRecording : handleStartRecording}>
 									{mic ? <PiMicrophoneFill /> : <PiMicrophoneSlash />}
 								</button>
 							</div>
