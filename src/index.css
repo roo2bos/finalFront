@@ -144,6 +144,9 @@
     border-radius: 9999px;
     border-width: 1px;
   }
+  *::-webkit-scrollbar-track {
+    margin: 16px 0;
+  }
 
   .list-title {
     @apply text-2xl font-bold mb-2;

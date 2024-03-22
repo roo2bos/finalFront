@@ -1,10 +1,13 @@
 import { Outlet } from 'react-router-dom';
+import { useRef, useState, useMemo } from 'react';
+// import { useEffect } from 'react';
 import SidebarNav from './components/SidebarNav';
 import Header from './components/Header';
 import Footer from './components/Footer';
-import { useRef, useState, useMemo } from 'react';
+// import Spinner from './components/Spinner';
 
 export default function Layout() {
+  // 모바일 화면에서 nav 열고 닫기
   const [navToggle, setNavToggle] = useState<boolean>(false);
   const navOpen = () => {
     setNavToggle(!navToggle);
@@ -24,6 +27,16 @@ export default function Layout() {
       aside?.classList.remove('on');
     };
   }, []);
+
+  // const [loading, setLoading] = useState(true)
+
+  // useEffect(()=>{
+  //   const isLoading = setTimeout(()=>{
+  //     setLoading(false)
+  //   },2000)
+
+  //   clearTimeout(isLoading)
+  // },[])
 
   return (
     <>

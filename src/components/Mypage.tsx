@@ -1,7 +1,8 @@
 import { useForm, SubmitHandler} from 'react-hook-form';
-import { useDispatch } from 'react-redux';
+import { useAppDispatch } from '../hooks';
+// import { useDispatch } from 'react-redux';
 import { userNicknameCheck } from '../store/features/userIdCheck';
-import { signUpUser } from '../store/features/signUpSlice';
+// import { signUpUser } from '../store/features/signUpSlice';
 import '../assets/css/auth.css';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
@@ -15,7 +16,9 @@ type FormData = {
 };
 
 export default function Mypage() {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
+
   const [getUser, setGetUser] = useState<FormData | null>(null);
 
   // 수정페이지 form
@@ -59,24 +62,27 @@ export default function Mypage() {
 
   return (
     <>
-      <form className='authForm' onSubmit={handleSubmit(onSubmit)}>
+  
+      <div className='form-area'>
+        <div className='form-elements'>
+        <form className='auth-form' onSubmit={handleSubmit(onSubmit)}>
         <div className=''>
           <img src='' alt=''/>
         </div>
         <p>프로필 이미지를 추가해주세요.</p>
 
-        <label className='authLable' htmlFor="username">이름</label>
+        <label className='auth-label' htmlFor="username">이름</label>
         <input
-          className='authInput'
+          className='auth-input'
           value={getUser?.username || ''}
           type="text"
           id="username"
           disabled
         />
 
-        <label className='authLable' htmlFor="userId">아이디</label>
+        <label className='auth-label' htmlFor="userId">아이디</label>
         <input
-          className='authInput'
+          className='auth-input'
           value={getUser?.userId || ''}
           type="text"
           id="userId"
@@ -84,9 +90,9 @@ export default function Mypage() {
         />
 
         <div className='relative'>
-          <label className='authLable' htmlFor='nickname'>닉네임</label>
+          <label className='auth-label' htmlFor='nickname'>닉네임</label>
           <input
-            className='authInput'
+            className='auth-input'
             value={getUser?.nickname || ''}
             onChange={(e) => setGetUser({ ...getUser, nickname: e.target.value })}
             type='text'
@@ -101,9 +107,9 @@ export default function Mypage() {
         </div>
 
         <div className='relative'>
-          <label className='authLable' htmlFor="email">이메일</label>
+          <label className='auth-label' htmlFor="email">이메일</label>
           <input
-            className='authInput'
+            className='auth-input'
             value={getUser?.email || ''}
             onChange={(e) => setGetUser({ ...getUser, email: e.target.value })}
             type="email"
@@ -120,9 +126,9 @@ export default function Mypage() {
           {errors.email && <span className='authSpan' role="alert">{errors.email.message}</span>}
         </div>
 
-        <label className='authLable' htmlFor="password">비밀번호</label>
+        <label className='auth-label' htmlFor="password">비밀번호</label>
         <input
-          className='authInput'
+          className='auth-input'
           value={getUser?.password || ''}
           onChange={(e) => setGetUser({ ...getUser, password: e.target.value })}
           type="password"
@@ -151,8 +157,12 @@ export default function Mypage() {
         />
         {errors.password && <span className='authSpan' role="alert">{errors.password.message}</span>}
 
-        <button className='authInput mt-11'  type="submit">수정하기</button>
+        <button className='auth-input mt-11'  type="submit">수정하기</button>
       </form>
+        </div>
+      </div>
+  
+     
     </>
   );
 }
