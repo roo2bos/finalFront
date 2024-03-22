@@ -56,18 +56,12 @@ export default function Preview() {
                 B: You're right. I won't give up. No matter how tough it gets,
                 I'll keep pushing forward.
                 <br />
-                A: That's the spirit! Your determination will get you through
-                anything.
-                <br />
-                B: Thanks for the pep talk. I needed that reminder.
               </p>
               <p className='dialogue-korea'>
                 A: 요즘 낙담한 기분이야? <br /> B: 응, 좀 그래. 모든 게 내게
                 반대되는 것 같아. <br /> A: 걱정 마. 나는 네가 할 수 있다고
                 믿어. 꿈을 이루기 위해 포기하지 않겠다고 말했었잖아. <br /> B:
                 맞아. 포기하지 않을 거야. 어려울 때라도 계속 나아갈 거야. <br />{' '}
-                A: 그게 바로 자세야! 네 끈기가 어떤 일이든 이겨낼 거야. <br />{' '}
-                B: 격려해 줘서 고마워. 그런 상기가 필요했어.
               </p>
             </div>
           </div>

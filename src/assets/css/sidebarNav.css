@@ -2,11 +2,11 @@
 
 @layer components {
   .sidebar-nav {
-    @apply flex flex-1 flex-col flex-shrink-0 overflow-x-hidden bg-[var(--bg-highlight-color)];
+    @apply flex flex-1 flex-col flex-shrink-0 overflow-x-hidden relative /*bg-[var(--bg-highlight-color)]*/;
   }
 
   .sidebar-nav .container {
-    @apply flex flex-col justify-between md:items-center lg:items-start px-3.5 py-4 lg:w-[280px] sm:w-[80px];
+    @apply flex flex-col justify-between md:items-center lg:items-start px-3.5 py-6 lg:w-[280px] sm:w-[80px];
   }
 
   .nav-logo {

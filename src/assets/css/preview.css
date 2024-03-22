@@ -38,7 +38,7 @@
   }
 
   .key-sentence-english {
-    @apply text-2xl font-bold;
+    @apply text-3xl font-bold;
   }
 
   .preview-text-btn {
@@ -50,7 +50,7 @@
   }
 
   .dialogue-english {
-    @apply pb-4 text-lg font-medium;
+    @apply pb-4 text-xl font-medium;
   }
 
   .dialogue-korea {

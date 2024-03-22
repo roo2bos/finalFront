@@ -17,7 +17,7 @@ import { PiListMagnifyingGlassDuotone } from 'react-icons/pi';
 import { MdChecklist } from 'react-icons/md';
 import { IoMdCloseCircle } from 'react-icons/io';
 
-import wavfile from '/test.wav';
+// import wavfile from '/test.wav';
 
 function Talk() {
 	const { id } = useParams();
@@ -55,9 +55,25 @@ function Talk() {
 	const [userInfo] = useState(datas.users.find((user) => user.userid === account)); //임시
 	const [characterInfo] = useState(datas.characters.find((character) => character.id === id)); //임시
 
-	// useEffect(() => {
-	// 	setMic(false);
-	// }, []);
+
+	useEffect(() => {
+		setMic(false);
+
+    const fetchAndPlayAudio = async () => {
+      try {
+        const response = await fetch('https://market-imgs.s3.ap-northeast-2.amazonaws.com/test.mp3');
+        const blob = await response.blob();
+        const objectURL = URL.createObjectURL(blob);
+        // 오디오 요소에 파일 URL을 설정하여 재생합니다.
+        audioRef.current.src = objectURL;
+        // audioRef.current.play();
+      } catch (error) {
+        console.error('Fetch and play audio error:', error);
+      }
+    };
+
+    fetchAndPlayAudio();
+	}, []);
 
 	function playAudio() {
 		const player = audioRef.current;
@@ -271,7 +287,8 @@ function Talk() {
 							</dd>
 							<dd className="hidden">
 								<audio id="myAudio" ref={audioRef}>
-									<source src={wavfile} type="audio/wav" />
+									{/* <source src={wavfile} type="audio/wav" /> */}
+									{/* <source src={`blob:https://hackingbeauty.github.io/fc3116f0-53c9-4cae-9680-b2978e5bd6f4`} /> */}
 									Your browser does not support the audio element.
 								</audio>
 							</dd>
