@@ -44,25 +44,23 @@ export default function SignUp() {
   const nickname = watch('nickname');
 
   useEffect(() => {
-    if (userId.trim() !== '') {
+    if (userId !== '') {
       dispatch(userIdCheck(userId));
-  
       userIdCheckApi(userId)
-        .then((response)=>{
-          setUserIdAvailable(response)
+        .then((response) => {
+          setUserIdAvailable(response);
         })
         .catch((error) => {
-          console.log('오류 발생:', error)
+          console.log('오류 발생:', error);
         });
     } else {
       setUserIdAvailable(null);
     }
   }, [userId, dispatch]);
-  
+
   useEffect(() => {
-    if (nickname.trim() !== '') {
+    if (nickname !== '') { 
       dispatch(userNicknameCheck(nickname));
-      
       userNicknameCheckApi(nickname)
         .then((response) => {
           setNicknameAvailable(response);
