@@ -16,7 +16,7 @@ import { IoPlay } from 'react-icons/io5';
 import { PiListMagnifyingGlassDuotone } from 'react-icons/pi';
 import { MdChecklist } from 'react-icons/md';
 import { IoMdCloseCircle } from 'react-icons/io';
-
+import { RiLoader2Fill } from 'react-icons/ri';
 // import wavfile from '/test.wav';
 
 function Talk() {
@@ -24,19 +24,21 @@ function Talk() {
 	const [account] = useState('test');
 	// const [beforeMessage, setBeforeMessage] = useState([]);//api로 사용예정
 	const [beforeMessage] = useState(datas.chats.filter((chat) => chat.roomId === id)); //임시:기존 대화한 내역 메세지
-	const [mic, setMic] = useState(false);//마이크 활성 체크
-	const [history, setHistory] = useState(false);//대화 내역
+	const [mic, setMic] = useState(false); //마이크 활성 체크
+	const [history, setHistory] = useState(false); //대화 내역
 
 	const textareaRef = useRef();
 	const innerRef = useRef();
 	const audioRef = useRef();
-	const [audioState, setAudioState] = useState(false);//오디오 재생 중인지 체크
-	const [duration, setDuration] = useState(0);//오디오 재생 중
-	const [isPop, setIsPop] = useState(false);//대화내역 활성 체크
-	const [audioEnd, setAudioEnd] = useState(false);//오디오 종료 체크
-	const [isAudioFetched, setIsAudioFetched] = useState(false);//오디오 파일 fetch 체크
-	const [count,setCount] = useState(0);//임시 : 대화 메세지 전송 개수 체크(api 적용시 삭제예정)
-	const [file] = useState(['https://market-imgs.s3.ap-northeast-2.amazonaws.com/test.mp3','/test.wav']);//임시 : 음성메세제 개수 (api 적용시 삭제예정)
+	const [audioState, setAudioState] = useState(false); //오디오 재생 중인지 체크
+	const [duration, setDuration] = useState(0); //오디오 재생 중
+	const [isPop, setIsPop] = useState(false); //대화내역 활성 체크
+	const [audioEnd, setAudioEnd] = useState(false); //오디오 종료 체크
+	const [isAudioFetched, setIsAudioFetched] = useState(false); //오디오 파일 fetch 체크
+	const [audioLoad, setAudioLoad] = useState(false); //오디오 파일 fetch 체크
+	// const [count,setCount] = useState(0);//임시 : 대화 메세지 전송 개수 체크(api 적용시 삭제예정)
+	// const [file] = useState(['https://market-imgs.s3.ap-northeast-2.amazonaws.com/test.mp3','/test.wav']);//임시 : 음성메세제 개수 (api 적용시 삭제예정)
+	const [aiMsg, setAiMsg] = useState({}); //임시 : 대화 메세지 전송 개수 체크(api 적용시 삭제예정)
 
 	const [userInfo] = useState(datas.users.find((user) => user.userid === account)); //임시
 	const [characterInfo] = useState(datas.characters.find((character) => character.id === id)); //임시
@@ -44,33 +46,43 @@ function Talk() {
 		// 더미
 		{
 			id: 1,
-			message: 'mission1 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 ',
+			message:
+				'mission1 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 ',
 			complete: true,
 		},
 		{
 			id: 2,
-			message: 'mission2 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 ',
+			message:
+				'mission2 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 ',
 			complete: false,
 		},
 		{
 			id: 3,
-			message: 'mission3 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 ',
+			message:
+				'mission3 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 ',
 			complete: false,
 		},
 	]);
-
 
 	useEffect(() => {
 		setMic(false);
 	}, []);
 
-
-	const fetchAndPlayAudio = async (file) => {
+	const fetchAndPlayAudio = async (inputText) => {
 		try {
-			// const response = await fetch('https://market-imgs.s3.ap-northeast-2.amazonaws.com/test.mp3');// api 적용시 호출할 경로
-			const response = await fetch(file);
-			const blob = await response.blob();
+			const response = await axios.post(
+				'http://43.203.227.36:8080/chat/SendChat',
+				{
+					messages: [`user: ${inputText}`],
+				},
+				{ withCredentials: true }
+			);
+			const file = await fetch('http://43.203.227.36:8080/pooh.wav'); // api 적용시 호출할 경로
+			const result = await response.data;
+			const blob = await file.blob();
 			const objectURL = URL.createObjectURL(blob);
+			setAiMsg((prevData) => ({ ...prevData, result: result }));
+			setAudioLoad(false);
 			return objectURL;
 		} catch (error) {
 			console.error('Fetch and play audio error:', error);
@@ -87,34 +99,33 @@ function Talk() {
 			const percentage = Math.floor((currentTime / end) * 100);
 			setDuration(percentage);
 			if (percentage >= 100) {
-        setAudioEnd(true);//오디오 총료 체크
-        setAudioState(false);//오디오 재생 중인 상태 체크
-        setIsAudioFetched(false);
-				setTimeout(()=>audioRef.current.src = '', 100);//음성재생완료시 새로운 메세지 받기위해서 초기화
+				setAudioEnd(true); //오디오 총료 체크
+				setAudioState(false); //오디오 재생 중인 상태 체크
+				setIsAudioFetched(false);
+				setTimeout(() => (audioRef.current.src = ''), 100); //음성재생완료시 새로운 메세지 받기위해서 초기화
 			} else {
 				setAudioEnd(false);
 			}
 		});
 	}
 	const sendMessage = async (e) => {
-		e.preventDefault();
-    let src;
-
-    setCount(prevCount => prevCount > 0 ? 0 : prevCount+1); // 배열 2개이하일때만
-    const fetchAudioAndPlay = async () => {
-      src = await fetchAndPlayAudio(file[count]);
-      return src;
-    };
-    const audioSrc = await fetchAudioAndPlay();
-		audioEnd ? audioRef.current.src = '' : audioRef.current.src = audioSrc;
-    setIsAudioFetched(true);
-		playAudio();
+		try {
+			e.preventDefault();
+			setAudioLoad(true);
+      console.log(textareaRef.current.value);
+      const inputText = textareaRef.current.value;
+			const audioSrc = await fetchAndPlayAudio(inputText);
+			audioEnd ? (audioRef.current.src = '') : (audioRef.current.src = audioSrc);
+			setIsAudioFetched(true);
+			playAudio();
+      textareaRef.current.value='';//textarea clear
+		} catch (error) {
+			console.log(error);
+		}
 	};
 	const inputHandler = () => {
 		return (textareaRef.current.parentNode.dataset.value = textareaRef.current.value);
 	};
-
-
 
 	// 마이크 캡처
 	const mediaRecorderRef = useRef<MediaRecorder | null>(null);
@@ -129,18 +140,18 @@ function Talk() {
 			mediaRecorder.ondataavailable = (e) => {
 				if (e.data.size > 0) {
 					chunksRef.current.push(e.data);
-			}
-		};
+				}
+			};
 
-		mediaRecorder.onstop = () => {
-			const recordedBlob = new Blob(chunksRef.current, { type: 'audio/AMR-WB' });
-			chunksRef.current = [];
+			mediaRecorder.onstop = () => {
+				const recordedBlob = new Blob(chunksRef.current, { type: 'audio/AMR-WB' });
+				chunksRef.current = [];
 
-			sendAudioData(recordedBlob);
-		};
+				sendAudioData(recordedBlob);
+			};
 
-		mediaRecorder.start();
-		setMic(true);
+			mediaRecorder.start();
+			setMic(true);
 		} catch (error) {
 			console.error('Error accessing microphone:', error);
 		}
@@ -161,21 +172,19 @@ function Talk() {
 
 			const formData = new FormData();
 
-			formData.append('audio', audioFile);	
+			formData.append('audio', audioFile);
 			const response = await axios.post(' http://localhost:8080/speech', formData, {
 				headers: {
-				'Content-Type': 'multipart/form-data'
-				}
+					'Content-Type': 'multipart/form-data',
+				},
 				// ,withCredentials: true,
-			});	
+			});
 
 			console.log('Audio data sent successfully:', response.data);
 		} catch (error) {
 			console.error('Error sending audio data:', error);
 		}
 	};
-
-
 
 	return (
 		<>
@@ -297,27 +306,14 @@ function Talk() {
 									<PiListMagnifyingGlassDuotone className="text-2xl" />
 								</button>
 							</dt>
-							<dd className="message">
-								대화가 출력될 데이터. 대화가 출력될 데이터. 대화가 출력될 데이터. 대화가 출력될 데이터. 대화가 출력될
-								데이터. 대화가 출력될 데이터. 대화가 출력될 데이터. 대화가 출력될 데이터. 대화가 출력될 데이터. 대화가
-								출력될 데이터. 대화가 출력될 데이터. 대화가 출력될 데이터. 대화가 출력될 데이터. 대화가 출력될 데이터.
-								대화가 출력될 데이터. 대화가 출력될 데이터. 대화가 출력될 데이터. 대화가 출력될 데이터. 대화가 출력될
-								데이터. 대화가 출력될 데이터. 대화가 출력될 데이터. 대화가 출력될 데이터. 대화가 출력될 데이터. 대화가
-								출력될 데이터. 대화가 출력될 데이터. 대화가 출력될 데이터. 대화가 출력될 데이터. 대화가 출력될 데이터.
-								대화가 출력될 데이터. 대화가 출력될 데이터. 대화가 출력될 데이터. 대화가 출력될 데이터. 대화가 출력될
-								데이터. 대화가 출력될 데이터.
-							</dd>
+							<dd className="message">{aiMsg.result ? aiMsg.result.aimsg : '대화를 시작 해보세요~'}</dd>
 							<dd className="hidden">
-								<audio id="myAudio" ref={audioRef}>
-									{/* <source src={wavfile} type="audio/wav" /> */}
-									{/* <source src={`blob:https://hackingbeauty.github.io/fc3116f0-53c9-4cae-9680-b2978e5bd6f4`} /> */}
-									Your browser does not support the audio element.
-								</audio>
+								<audio id="myAudio" ref={audioRef}></audio>
 							</dd>
 						</dl>
 					</div>
 					<form className="form" onSubmit={(e) => sendMessage(e)}>
-						<div className="textarea-wrap hidden">
+						<div className="textarea-wrap ">
 							<textarea
 								id="talkInput"
 								className="w-full"
@@ -350,9 +346,9 @@ function Talk() {
 									{audioState ? <IoStop /> : <IoPlay />}
 								</button>
 								<button type="submit" className="btn-send" disabled={audioState ? true : false}>
-									<RiSendPlaneFill />
+									{(audioLoad) ? <RiLoader2Fill className="animate-spin" /> : <RiSendPlaneFill />  }
 								</button>
-								<button type="button" className="btn-mic" onClick={mic? handleStopRecording : handleStartRecording}>
+								<button type="button" className="btn-mic" onClick={mic ? handleStopRecording : handleStartRecording}>
 									{mic ? <PiMicrophoneFill /> : <PiMicrophoneSlash />}
 								</button>
 							</div>
