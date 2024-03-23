@@ -4,10 +4,13 @@ import '../assets/css/headerNav.css';
 import { useSelector} from 'react-redux';
 import { useAppDispatch } from '../hooks';
 import { logoutUser } from '../store/features/loginSlice'
+import { loginSuccess } from '../store/features/loginSlice';
 
 export default function Header() {
   const dispatch = useAppDispatch(); 
   const isLogged = useSelector(state => state.login.user);
+  
+
 
   const handleLogout = () => {
     dispatch(logoutUser());
@@ -22,7 +25,7 @@ export default function Header() {
         {/* 조건부 렌더링 */}
         {isLogged ?  
           ( <>
-            <p>{isLogged.userId}</p>
+            <p>{isLogged.user.userId}</p>
             <button onClick={handleLogout}>로그아웃</button>
           </>
           ) : (<Link to='/login' title='로그인'>

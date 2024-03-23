@@ -30,14 +30,14 @@ export default function Mypage() {
   } = useForm<FormData>();
 
   // 수정페이지 전송
-  const onSubmit: SubmitHandler<FormData> = async (userdata) => {
-    try {
-      await axios.put(``, userdata);
-      setGetUser(userdata);
-    } catch (error) {
-      console.error('에러라네',error);
-    }
-  };
+  // const onSubmit: SubmitHandler<FormData> = async (userdata) => {
+  //   try {
+  //     await axios.put(``, userdata);
+  //     setGetUser(userdata);
+  //   } catch (error) {
+  //     console.error('에러라네',error);
+  //   }
+  // };
 
   // 닉네임 실시간 수정
   const nickname = watch('nickname');
@@ -46,23 +46,22 @@ export default function Mypage() {
     dispatch(userNicknameCheck(nickname));
   }, [nickname, dispatch]);
 
-  const API_URL = 'https://jsonplaceholder.typicode.com';
+  // const API_URL = 'https://jsonplaceholder.typicode.com';
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(`${API_URL}/users`);
-        console.log(response.data);
-      } catch (error) {
-        console.error('에러', error);
-      }
-    };
-    fetchData();
-  }, []);
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const response = await axios.get(`${API_URL}/users`);
+  //       console.log(response.data);
+  //     } catch (error) {
+  //       console.error('에러', error);
+  //     }
+  //   };
+  //   fetchData();
+  // }, []);
 
   return (
     <>
-  
       <div className='form-area'>
         <div className='form-elements'>
         <form className='auth-form' onSubmit={handleSubmit(onSubmit)}>
