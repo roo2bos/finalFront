@@ -24,9 +24,22 @@ function Talk() {
 	const [account] = useState('test');
 	// const [beforeMessage, setBeforeMessage] = useState([]);//api로 사용예정
 	const [beforeMessage] = useState(datas.chats.filter((chat) => chat.roomId === id)); //임시:기존 대화한 내역 메세지
-	const [mic, setMic] = useState(false);
-	const [audioState, setAudioState] = useState(false);
-	const [history, setHistory] = useState(false);
+	const [mic, setMic] = useState(false);//마이크 활성 체크
+	const [history, setHistory] = useState(false);//대화 내역
+
+	const textareaRef = useRef();
+	const innerRef = useRef();
+	const audioRef = useRef();
+	const [audioState, setAudioState] = useState(false);//오디오 재생 중인지 체크
+	const [duration, setDuration] = useState(0);//오디오 재생 중
+	const [isPop, setIsPop] = useState(false);//대화내역 활성 체크
+	const [audioEnd, setAudioEnd] = useState(false);//오디오 종료 체크
+	const [isAudioFetched, setIsAudioFetched] = useState(false);//오디오 파일 fetch 체크
+	const [count,setCount] = useState(0);//임시 : 대화 메세지 전송 개수 체크(api 적용시 삭제예정)
+	const [file] = useState(['https://market-imgs.s3.ap-northeast-2.amazonaws.com/test.mp3','/test.wav']);//임시 : 음성메세제 개수 (api 적용시 삭제예정)
+
+	const [userInfo] = useState(datas.users.find((user) => user.userid === account)); //임시
+	const [characterInfo] = useState(datas.characters.find((character) => character.id === id)); //임시
 	const [missions] = useState([
 		// 더미
 		{
@@ -46,34 +59,23 @@ function Talk() {
 		},
 	]);
 
-	const textareaRef = useRef();
-	const innerRef = useRef();
-	const audioRef = useRef();
-	const [duration, setDuration] = useState(0);
-	const [isPop, setIsPop] = useState(false);
-
-	const [userInfo] = useState(datas.users.find((user) => user.userid === account)); //임시
-	const [characterInfo] = useState(datas.characters.find((character) => character.id === id)); //임시
-
 
 	useEffect(() => {
 		setMic(false);
-
-    const fetchAndPlayAudio = async () => {
-      try {
-        const response = await fetch('https://market-imgs.s3.ap-northeast-2.amazonaws.com/test.mp3');
-        const blob = await response.blob();
-        const objectURL = URL.createObjectURL(blob);
-        // 오디오 요소에 파일 URL을 설정하여 재생합니다.
-        audioRef.current.src = objectURL;
-        // audioRef.current.play();
-      } catch (error) {
-        console.error('Fetch and play audio error:', error);
-      }
-    };
-
-    fetchAndPlayAudio();
 	}, []);
+
+
+	const fetchAndPlayAudio = async (file) => {
+		try {
+			// const response = await fetch('https://market-imgs.s3.ap-northeast-2.amazonaws.com/test.mp3');// api 적용시 호출할 경로
+			const response = await fetch(file);
+			const blob = await response.blob();
+			const objectURL = URL.createObjectURL(blob);
+			return objectURL;
+		} catch (error) {
+			console.error('Fetch and play audio error:', error);
+		}
+	};
 
 	function playAudio() {
 		const player = audioRef.current;
@@ -84,11 +86,28 @@ function Talk() {
 			const end = player.duration;
 			const percentage = Math.floor((currentTime / end) * 100);
 			setDuration(percentage);
-			percentage >= 100 && setAudioState(false);
+			if (percentage >= 100) {
+        setAudioEnd(true);//오디오 총료 체크
+        setAudioState(false);//오디오 재생 중인 상태 체크
+        setIsAudioFetched(false);
+				setTimeout(()=>audioRef.current.src = '', 100);//음성재생완료시 새로운 메세지 받기위해서 초기화
+			} else {
+				setAudioEnd(false);
+			}
 		});
 	}
-	const sendMessage = (e) => {
+	const sendMessage = async (e) => {
 		e.preventDefault();
+    let src;
+
+    setCount(prevCount => prevCount > 0 ? 0 : prevCount+1); // 배열 2개이하일때만
+    const fetchAudioAndPlay = async () => {
+      src = await fetchAndPlayAudio(file[count]);
+      return src;
+    };
+    const audioSrc = await fetchAudioAndPlay();
+		audioEnd ? audioRef.current.src = '' : audioRef.current.src = audioSrc;
+    setIsAudioFetched(true);
 		playAudio();
 	};
 	const inputHandler = () => {
@@ -141,12 +160,12 @@ function Talk() {
 			const audioFile = new File([audioBlob], 'recording.wav', { type: 'audio/wav' });
 
 			const formData = new FormData();
-			formData.append('audio', audioFile);	
+			formData.append('audio', audioFile);
 			const response = await axios.post(' http://localhost:8000/speech', formData, {
 				headers: {
 				'Content-Type': 'multipart/form-data'
 				}
-			});	
+			});
 			console.log('Audio data sent successfully:', response.data);
 		} catch (error) {
 			console.error('Error sending audio data:', error);
@@ -324,10 +343,10 @@ function Talk() {
 								</span>
 							</div>
 							<div className="btns">
-								<button type="button" className="btn-stop" onClick={playAudio}>
+								<button type="button" className="btn-stop" onClick={playAudio} disabled={isAudioFetched ? false : true}>
 									{audioState ? <IoStop /> : <IoPlay />}
 								</button>
-								<button type="submit" className="btn-send">
+								<button type="submit" className="btn-send" disabled={audioState ? true : false}>
 									<RiSendPlaneFill />
 								</button>
 								<button type="button" className="btn-mic" onClick={mic? handleStopRecording : handleStartRecording}>
