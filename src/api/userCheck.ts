@@ -16,11 +16,11 @@ export const userNicknameCheckApi = async (nickname: any): Promise<any> => {
     try {
         const response = await axios.get(`${API_URL}/user/checkDupNick`, { params: { nickname } });
         // console.log(response);
-        if (response.data) {
-            console.log('닉네임 중복됨');
-        } else {
-            console.log('사용 가능한 닉네임');
-        }
+        // if (response.data) {
+        //     console.log('닉네임 중복됨');
+        // } else {
+        //     console.log('사용 가능한 닉네임');
+        // }
         return response.data; 
     } catch (error) {
         console.error('오류 발생:', error);

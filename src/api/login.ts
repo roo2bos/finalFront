@@ -4,7 +4,7 @@ const API_URL: string = 'http://43.203.227.36:8080';
 
 export const loginApi = async (userdata: any): Promise<any> => {
   try {
-    const response = await axios.post(`${API_URL}/user/login`, userdata);
+    const response = await axios.post(`${API_URL}/user/login`, userdata, {withCredentials: true});
     console.log(response);
     return response.data;
   } catch (error) {
