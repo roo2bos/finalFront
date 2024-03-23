@@ -114,7 +114,7 @@ function Talk() {
 		};
 
 		mediaRecorder.onstop = () => {
-			const recordedBlob = new Blob(chunksRef.current, { type: 'audio/wav' });
+			const recordedBlob = new Blob(chunksRef.current, { type: 'audio/AMR-WB' });
 			chunksRef.current = [];
 
 			sendAudioData(recordedBlob);
@@ -137,15 +137,16 @@ function Talk() {
 
 	const sendAudioData = async (audioBlob: Blob) => {
 		try {
-			// Blob을 File 객체로 변환 (파일 이름은 recording.wav로 지정)
-			const audioFile = new File([audioBlob], 'recording.wav', { type: 'audio/wav' });
+			// Blob을 File 객체로 변환 (파일 이름은 recording.amr로 지정)
+			const audioFile = new File([audioBlob], 'recording.amr', { type: 'audio/AMR-WB' });
 
 			const formData = new FormData();
 			formData.append('audio', audioFile);	
-			const response = await axios.post(' http://localhost:8000/speech', formData, {
+			const response = await axios.post(' http://localhost:8080/speech', formData, {
 				headers: {
 				'Content-Type': 'multipart/form-data'
 				}
+				// ,withCredentials: true,
 			});	
 			console.log('Audio data sent successfully:', response.data);
 		} catch (error) {
