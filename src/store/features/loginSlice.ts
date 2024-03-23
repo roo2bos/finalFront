@@ -45,12 +45,12 @@ const loginSlice = createSlice({
 });
 
 export const loginUser =
-  (userdata: any, navigate: any) => async (dispatch: Dispatch) => {
+  (userdata: any) => async (dispatch: Dispatch) => {
     try {
       dispatch(loginStart());
       const user = await loginApi(userdata);
       dispatch(loginSuccess(user));
-      navigate('/');
+      // navigate('/');
     } catch (error: any) {
       dispatch(loginError(error));
     }

@@ -121,10 +121,13 @@
 		@apply m-0;
 	}
 	.list-talk .form .btn-stop {
-		@apply inline-flex relative leading-none rounded-full  text-black bg-gray-100;
+		@apply inline-flex relative leading-none rounded-full  text-black bg-gray-100 disabled:text-gray-400;
+	}
+	.list-talk .form .btn-stop.disabled {
+		@apply  text-gray-400;
 	}
 	.list-talk .form .btn-send {
-		@apply m-0 p-3 inline-flex relative leading-none rounded-full  text-black bg-gray-100;
+		@apply m-0 p-3 inline-flex relative leading-none rounded-full  text-black bg-gray-100 disabled:text-gray-400;
 	}
 	.list-talk .form .btn-mic {
 		@apply inline-flex rounded-full leading-none  text-black bg-gray-100;
