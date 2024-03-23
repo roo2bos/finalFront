@@ -350,7 +350,7 @@ function Talk() {
 						</div>
 						<div className="foot">
 							<div className="shortcuts">
-								{/* <div className="shortcut">
+								<div className="shortcut hidden">
 									* Send:{' '}
 									<span>
 										<MdOutlineKeyboardReturn />
@@ -363,7 +363,7 @@ function Talk() {
 									<span>
 										<MdOutlineKeyboardReturn />
 									</span>
-								</div> */}
+								</div>
 								<button type="button" className="btn-finishchat" onClick={finishChat}>
 									저장 후 대화 종료/교정 확인 {correctLoad && <RiLoader2Fill className="animate-spin" />}
 								</button>

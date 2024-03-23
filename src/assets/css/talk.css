@@ -405,7 +405,7 @@
 	.ly-modal .ly-inner .ly-head button,
 	.ly-modal .ly-inner .ly-head svg {
 		font-size: inherit;
-		@apply text-2xl leading-none;
+		@apply text-2xl leading-none p-0;
 	}
 	.ly-modal .ly-inner .ly-body .todo {
 		@apply flex justify-between;
