@@ -35,10 +35,13 @@ function Talk() {
 	const [isPop, setIsPop] = useState(false); //대화내역 활성 체크
 	const [audioEnd, setAudioEnd] = useState(false); //오디오 종료 체크
 	const [isAudioFetched, setIsAudioFetched] = useState(false); //오디오 파일 fetch 체크
-	const [audioLoad, setAudioLoad] = useState(false); //오디오 파일 fetch 체크
+	const [correctLoad, setCorrectLoad] = useState(false); //교정 fetching 체크
+	const [audioLoad, setAudioLoad] = useState(false); //오디오 fetching 체크
 	// const [count,setCount] = useState(0);//임시 : 대화 메세지 전송 개수 체크(api 적용시 삭제예정)
 	// const [file] = useState(['https://market-imgs.s3.ap-northeast-2.amazonaws.com/test.mp3','/test.wav']);//임시 : 음성메세제 개수 (api 적용시 삭제예정)
 	const [aiMsg, setAiMsg] = useState({}); //임시 : 대화 메세지 전송 개수 체크(api 적용시 삭제예정)
+	const [isFinishChat, setIsFinishChat] = useState(false);
+	const [finishChatList, setFinishChatList] = useState([]);
 
 	const [userInfo] = useState(datas.users.find((user) => user.userid === account)); //임시
 	const [characterInfo] = useState(datas.characters.find((character) => character.id === id)); //임시
@@ -112,15 +115,34 @@ function Talk() {
 		try {
 			e.preventDefault();
 			setAudioLoad(true);
-      console.log(textareaRef.current.value);
-      const inputText = textareaRef.current.value;
+			const inputText = textareaRef.current.value;
 			const audioSrc = await fetchAndPlayAudio(inputText);
 			audioEnd ? (audioRef.current.src = '') : (audioRef.current.src = audioSrc);
 			setIsAudioFetched(true);
 			playAudio();
-      textareaRef.current.value='';//textarea clear
+			textareaRef.current.value = ''; //textarea clear
 		} catch (error) {
 			console.log(error);
+		}
+	};
+	const finishChat = async () => {
+		try {
+
+      setCorrectLoad(true);
+			const inputText = textareaRef.current.value;
+			const response = await axios.post(
+				'http://43.203.227.36:8080/chat/getCorrection',
+				{
+					messages: [`user: ${inputText}`],
+				},
+				{ withCredentials: true }
+			);
+			const result = await response.data;
+			setFinishChatList((prevData) => [...prevData, result]);
+			setIsFinishChat(true);
+      setCorrectLoad(false);
+		} catch (error) {
+			console.error('Fetch and play audio error:', error);
 		}
 	};
 	const inputHandler = () => {
@@ -195,11 +217,11 @@ function Talk() {
 						<button className="btn-mission" onClick={() => setIsPop(!isPop)}>
 							<MdChecklist />
 						</button>
-						<div className={`ly-mission${isPop ? '' : ' !hidden'}`}>
+						<div className={`ly-modal${isPop ? '' : ' !hidden'}`}>
 							<div className="ly-inner">
 								<div className="ly-head">
 									<strong>오늘의 학습 미션</strong>
-									<button onClick={() => setIsPop(!isPop)}>
+									<button type="button" onClick={() => setIsPop(!isPop)}>
 										<IoMdCloseCircle className="text-[var(--highlight-color)]" />
 									</button>
 								</div>
@@ -327,26 +349,56 @@ function Talk() {
 							/>
 						</div>
 						<div className="foot">
-							<div className="shortcuts invisible">
-								* Send:{' '}
-								<span>
-									<MdOutlineKeyboardReturn />
-								</span>{' '}
-								/ New Line:{' '}
-								<span>
-									<BsShiftFill />
-								</span>{' '}
-								+{' '}
-								<span>
-									<MdOutlineKeyboardReturn />
-								</span>
+							<div className="shortcuts">
+								{/* <div className="shortcut">
+									* Send:{' '}
+									<span>
+										<MdOutlineKeyboardReturn />
+									</span>{' '}
+									/ New Line:{' '}
+									<span>
+										<BsShiftFill />
+									</span>{' '}
+									+{' '}
+									<span>
+										<MdOutlineKeyboardReturn />
+									</span>
+								</div> */}
+								<button type="button" className="btn-finishchat" onClick={finishChat}>
+									저장 후 대화 종료/교정 확인 {correctLoad && <RiLoader2Fill className="animate-spin" />}
+								</button>
+								<div className={`ly-modal${isFinishChat ? '' : ' !hidden'}`}>
+									<div className="ly-inner">
+										<div className="ly-head">
+											<strong>교정 목록</strong>
+											<button type="button" onClick={() => setIsFinishChat(!isFinishChat)}>
+												<IoMdCloseCircle className="text-[var(--highlight-color)]" />
+											</button>
+										</div>
+										<div className="ly-body">
+											<ul className="list-correct">
+												{finishChatList === 0 ? (
+													<li>Perfect Grammar</li>
+												) : (
+													finishChatList.map((correct,i) => {
+														return (
+															<li key={i}>
+																{correct}
+															</li>
+														);
+													})
+												)}
+											</ul>
+										</div>
+									</div>
+								</div>
 							</div>
 							<div className="btns">
 								<button type="button" className="btn-stop" onClick={playAudio} disabled={isAudioFetched ? false : true}>
 									{audioState ? <IoStop /> : <IoPlay />}
 								</button>
 								<button type="submit" className="btn-send" disabled={audioState ? true : false}>
-									{(audioLoad) ? <RiLoader2Fill className="animate-spin" /> : <RiSendPlaneFill />  }
+									{audioLoad ? <RiLoader2Fill className="animate-spin" /> : <RiSendPlaneFill />}
 								</button>
 								<button type="button" className="btn-mic" onClick={mic ? handleStopRecording : handleStartRecording}>
 									{mic ? <PiMicrophoneFill /> : <PiMicrophoneSlash />}
