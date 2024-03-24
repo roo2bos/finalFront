@@ -291,9 +291,13 @@ function Talk() {
 				</div>
 
 				<div className={`history ${history ? '' : 'hidden'}`}>
-
-						<ul className={talkMessages.length== 0?'h-full':''}>
-							{talkMessages.length== 0 ? <li key={0} className="h-full !m-0 flex justify-center items-center">대화 내역이 아직 없습니다.</li> : talkMessages.map((talkMessage, i) => {
+					<ul className={talkMessages.length == 0 ? 'h-full' : ''}>
+						{talkMessages.length == 0 ? (
+							<li key={0} className="h-full !m-0 flex justify-center items-center">
+								대화 내역이 아직 없습니다.
+							</li>
+						) : (
+							talkMessages.map((talkMessage, i) => {
 								return (
 									<li key={i} className={talkMessage?.includes('user:') ? 'user' : 'ai'}>
 										<div className="profile">
@@ -301,14 +305,15 @@ function Talk() {
 										</div>
 										<div className="info">
 											<div className="name">
-												{talkMessage?.includes('user:') ? userInfo.userid : characterInfo.name}
+												{talkMessage?.includes('user:') ? userInfo.userid : talkMessage.split(': ')[0]}
 											</div>
-											<div className="msg">{talkMessage}</div>
+											<div className="msg">{talkMessage.split(': ')[1]}</div>
 										</div>
 									</li>
 								);
-							})}
-          </ul>
+							})
+						)}
+					</ul>
 				</div>
 				{/* foot */}
 				<div className="foot-talking-wrap ">
@@ -319,8 +324,10 @@ function Talk() {
 						<dl>
 							<dt className="flex justify-between">
 								<span>{characterInfo.name}</span>
-								<button className="btn-history" onClick={()=>setHistory(!history)}>
-									<PiListMagnifyingGlassDuotone className={`text-2xl ${talkMessages.length== 0?' text-gray-400':''}`} />
+								<button className="btn-history" onClick={() => setHistory(!history)}>
+									<PiListMagnifyingGlassDuotone
+										className={`text-2xl ${talkMessages.length == 0 ? ' text-gray-400' : ''}`}
+									/>
 								</button>
 							</dt>
 							<dd className="message">{aiMsg.result ? aiMsg.result.aimsg : '대화를 시작 해보세요~'}</dd>
