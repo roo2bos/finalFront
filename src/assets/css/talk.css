@@ -109,10 +109,10 @@
 	}
 
 	.list-talk .form {
-		@apply flex flex-col items-center gap-2 w-full  dark:border-white/20 md:border-transparent md:dark:border-transparent md:w-[calc(100%-.5rem)];
+		@apply flex flex-col items-center gap-2 w-full  dark:border-white/20 md:border-transparent md:dark:border-transparent /* md:w-[calc(100%-.5rem)] */;
 	}
 	.list-talk .form .foot {
-		@apply flex justify-between w-full pb-3;
+		@apply flex justify-between w-full pb-3 flex-row-reverse;
 	}
 	.list-talk .form .btns {
 		@apply flex gap-2;
@@ -137,22 +137,30 @@
 		grid-area: 1 / 1 / 2 / 2;
 	}
 	.list-talk .form .textarea-wrap {
-		@apply w-full;
+		@apply w-full grid;
 	}
-	.list-talk .form .textarea-wrap:after {
+/* 	.list-talk .form .textarea-wrap:after {
 		content: attr(data-value) ' ';
 		white-space: pre-wrap;
 		visibility: hidden;
 		grid-area: 1 / 1 / 2 / 2;
 		@apply grid;
-	}
+	} */
 	.list-talk .form .shortcuts {
-		@apply text-xs inline-flex items-center gap-1;
+		@apply text-xs inline-flex gap-1 flex-col items-start;
 	}
-	.list-talk .form .shortcuts span {
+  .list-talk .form .shortcuts .btn-finishchat{
+    font-size:inherit;
+		@apply text-white bg-[var(--btn-bg)] py-1 px-3 rounded-full;
+	}
+	.list-talk .form .shortcut button{
+    font-size:inherit;
+		@apply text-white bg-[var(--btn-bg)] py-1 px-3 rounded-full;
+	}
+	.list-talk .form .shortcut span {
 		@apply inline-flex items-center bg-gray-300 p-1 rounded-md;
 	}
-	.list-talk .form .shortcuts svg {
+	.list-talk .form .shortcut svg {
 		@apply font-bold;
 	}
 
@@ -176,7 +184,7 @@
 		@apply mt-2 p-3 pt-2.5 h-[5.4em] overflow-auto bg-gray-50 rounded-lg;
 	}
 	.list-talk .history {
-		@apply sticky bottom-0 w-full min-h-[5rem] max-h-[11rem] overflow-auto border-t-2 border-dotted border-gray-300 bg-white;
+		@apply sticky bottom-0 w-full min-h-[5rem] max-h-[11.1rem] overflow-auto border-t-2 border-dotted border-gray-300 bg-white;
 	}
 
 	.list-talk .history li {
@@ -377,46 +385,55 @@
 		}
 	}
 
-	.ly-mission {
+	.ly-modal {
 		@apply fixed top-0 left-0 right-0 bottom-0 z-10 p-3 bg-[rgba(0,0,0,.5)] overflow-auto text-center;
 	}
-	.ly-mission:before {
+	.ly-modal:before {
 		content: '';
 		@apply inline-block h-full w-[1px] m-[-1px] align-middle;
 	}
-	.ly-mission .ly-inner {
-		@apply inline-block align-middle max-w-[640px] max-h-[640px] p-5 bg-white rounded-xl overflow-auto text-left;
+	.ly-modal .ly-inner {
+		@apply inline-block align-middle min-w-[280px] max-w-[640px] max-h-[640px] p-5 bg-white rounded-xl overflow-auto text-left;
 	}
-	.ly-mission .ly-inner .ly-head {
+	.ly-modal .ly-inner .ly-head {
 		@apply mb-3 flex justify-between items-center font-bold text-xl;
 	}
-	.ly-mission .ly-inner .ly-head span {
+	.ly-modal .ly-inner .ly-head span {
 		@apply text-sm font-normal;
 	}
 
-	.ly-mission .ly-inner .ly-head button,
-	.ly-mission .ly-inner .ly-head svg {
+	.ly-modal .ly-inner .ly-head button,
+	.ly-modal .ly-inner .ly-head svg {
 		font-size: inherit;
-		@apply text-2xl leading-none;
+		@apply text-2xl leading-none p-0;
 	}
-	.ly-mission .ly-inner .ly-body .todo {
+	.ly-modal .ly-inner .ly-body .todo {
 		@apply flex justify-between;
 	}
-	.ly-mission .list-mission li {
+	.ly-modal .list-mission li {
 		@apply flex items-start gap-1;
 	}
 
-	.ly-mission .list-mission li:before {
+	.ly-modal .list-mission li:before {
 		content: '';
 		background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" fill="%23fff" viewBox="0 0 24 24" stroke-width="1.5" stroke="%2367c0cd" class="w-6 h-6"> <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" /></svg>');
 		@apply shrink-0 w-[20px] h-[20px] align-middle items-center mt-1;
 	}
-	.ly-mission .list-mission li.complete {
+	.ly-modal .list-mission li.complete {
 		@apply line-through;
 	}
-	.ly-mission .list-mission li.complete:before {
+	.ly-modal .list-mission li.complete:before {
 		content: '';
 		background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%2367c0cd" class="w-6 h-6"> <path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12Zm13.36-1.814a.75.75 0 1 0-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 0 0-1.06 1.06l2.25 2.25a.75.75 0 0 0 1.14-.094l3.75-5.25Z" clip-rule="evenodd" /></svg> ');
 		@apply inline-flex items-center;
+	}
+	.ly-modal .list-correct{
+    counter-reset:num;
+  }
+	.ly-modal .list-correct li {
+		@apply flex flex-row gap-2;
+	}
+	.ly-modal .list-correct li:before {
+		content: counter(num) '. ';counter-increment: num;;
 	}
 } /* components */

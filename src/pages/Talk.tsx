@@ -16,7 +16,7 @@ import { IoPlay } from 'react-icons/io5';
 import { PiListMagnifyingGlassDuotone } from 'react-icons/pi';
 import { MdChecklist } from 'react-icons/md';
 import { IoMdCloseCircle } from 'react-icons/io';
-
+import { RiLoader2Fill } from 'react-icons/ri';
 // import wavfile from '/test.wav';
 
 function Talk() {
@@ -24,19 +24,26 @@ function Talk() {
 	const [account] = useState('test');
 	// const [beforeMessage, setBeforeMessage] = useState([]);//api로 사용예정
 	const [beforeMessage] = useState(datas.chats.filter((chat) => chat.roomId === id)); //임시:기존 대화한 내역 메세지
-	const [mic, setMic] = useState(false);//마이크 활성 체크
-	const [history, setHistory] = useState(false);//대화 내역
+	const [mic, setMic] = useState(false); //마이크 활성 체크
+	const [history, setHistory] = useState(false); //대화 내역
 
 	const textareaRef = useRef();
 	const innerRef = useRef();
 	const audioRef = useRef();
-	const [audioState, setAudioState] = useState(false);//오디오 재생 중인지 체크
-	const [duration, setDuration] = useState(0);//오디오 재생 중
-	const [isPop, setIsPop] = useState(false);//대화내역 활성 체크
-	const [audioEnd, setAudioEnd] = useState(false);//오디오 종료 체크
-	const [isAudioFetched, setIsAudioFetched] = useState(false);//오디오 파일 fetch 체크
-	const [count,setCount] = useState(0);//임시 : 대화 메세지 전송 개수 체크(api 적용시 삭제예정)
-	const [file] = useState(['https://market-imgs.s3.ap-northeast-2.amazonaws.com/test.mp3','/test.wav']);//임시 : 음성메세제 개수 (api 적용시 삭제예정)
+	const [playState, setPlayState] = useState(false); //오디오 재생 중인지 체크
+	const [duration, setDuration] = useState(0); //오디오 재생 중
+	const [isPop, setIsPop] = useState(false); //대화내역 활성 체크
+	const [audioEnd, setAudioEnd] = useState(false); //오디오 종료 체크
+	const [isAudioFetched, setIsAudioFetched] = useState(false); //오디오 파일 fetch 체크
+	const [correctLoad, setCorrectLoad] = useState(false); //교정 fetching 체크
+	const [audioLoad, setAudioLoad] = useState(false); //오디오 fetching 체크
+	// const [count,setCount] = useState(0);//임시 : 대화 메세지 전송 개수 체크(api 적용시 삭제예정)
+	// const [file] = useState(['https://market-imgs.s3.ap-northeast-2.amazonaws.com/test.mp3','/test.wav']);//임시 : 음성메세제 개수 (api 적용시 삭제예정)
+	const [aiMsg, setAiMsg] = useState({}); //임시 : 대화 메세지 전송 개수 체크(api 적용시 삭제예정)
+	const [talkMessages, setTalkMessages] = useState([]); //둘의 대화 메세지 목록
+	const [correctList, setCorrectList] = useState([]); //교정 할 리스트
+	const [isFinishPop, setIsFinishPop] = useState(false);//대화 종료 팝업 체크
+	const [isFinish, setIsFinish] = useState(false); //대화 종료
 
 	const [userInfo] = useState(datas.users.find((user) => user.userid === account)); //임시
 	const [characterInfo] = useState(datas.characters.find((character) => character.id === id)); //임시
@@ -44,33 +51,44 @@ function Talk() {
 		// 더미
 		{
 			id: 1,
-			message: 'mission1 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 ',
+			message:
+				'mission1 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 ',
 			complete: true,
 		},
 		{
 			id: 2,
-			message: 'mission2 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 ',
+			message:
+				'mission2 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 ',
 			complete: false,
 		},
 		{
 			id: 3,
-			message: 'mission3 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 ',
+			message:
+				'mission3 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 ',
 			complete: false,
 		},
 	]);
-
 
 	useEffect(() => {
 		setMic(false);
 	}, []);
 
-
-	const fetchAndPlayAudio = async (file) => {
+	const fetchAndPlayAudio = async (inputText) => {
 		try {
-			// const response = await fetch('https://market-imgs.s3.ap-northeast-2.amazonaws.com/test.mp3');// api 적용시 호출할 경로
-			const response = await fetch(file);
-			const blob = await response.blob();
+			const response = await axios.post(
+				'http://43.203.227.36:8080/chat/SendChat',
+				{
+					messages: [`user: ${inputText}`],
+				},
+				{ withCredentials: true }
+			);
+			const file = await fetch('http://43.203.227.36:8080/pooh.wav'); // api 적용시 호출할 경로
+			const result = await response.data;
+			const blob = await file.blob();
 			const objectURL = URL.createObjectURL(blob);
+			setTalkMessages((prevData) => [...prevData, `pooh: ${result.aimsg}`]);
+			setAiMsg((prevData) => ({ ...prevData, result: result }));
+			setAudioLoad(false);
 			return objectURL;
 		} catch (error) {
 			console.error('Fetch and play audio error:', error);
@@ -79,42 +97,74 @@ function Talk() {
 
 	function playAudio() {
 		const player = audioRef.current;
-		setAudioState(!audioState);
-		audioState ? player.pause() : player.play();
+		setPlayState(!playState);
+		playState ? player.pause() : player.play();
 		player.addEventListener('timeupdate', function () {
 			const currentTime = player.currentTime;
 			const end = player.duration;
 			const percentage = Math.floor((currentTime / end) * 100);
 			setDuration(percentage);
 			if (percentage >= 100) {
-        setAudioEnd(true);//오디오 총료 체크
-        setAudioState(false);//오디오 재생 중인 상태 체크
-        setIsAudioFetched(false);
-				setTimeout(()=>audioRef.current.src = '', 100);//음성재생완료시 새로운 메세지 받기위해서 초기화
+				setAudioEnd(true); //오디오 총료 체크
+				setPlayState(false); //오디오 재생 중인 상태 체크
+				setIsAudioFetched(false);
+				setTimeout(() => (audioRef.current.src = ''), 100); //음성재생완료시 새로운 메세지 받기위해서 초기화
 			} else {
 				setAudioEnd(false);
 			}
 		});
 	}
 	const sendMessage = async (e) => {
-		e.preventDefault();
-    let src;
+		try {
+			e.preventDefault();
+			setAudioLoad(true);
+			const inputText = textareaRef.current.value;
+			setTalkMessages((prevData) => [...prevData, `user: ${inputText}`]);
+			const audioSrc = await fetchAndPlayAudio(inputText);
+			audioEnd ? (audioRef.current.src = '') : (audioRef.current.src = audioSrc);
+			setIsAudioFetched(true);
+			playAudio();
+			textareaRef.current.value = ''; //textarea clear
+		} catch (error) {
+			console.log(error);
+		}
+	};
+	const finishChat = async () => {
+		try {
+			setCorrectLoad(true);
+			await axios
+				.post(
+					'http://43.203.227.36:8080/chat/getCorrection',
+					{
+						messages: talkMessages,
+					},
+					{ withCredentials: true }
+				)
+				.then(function (response) {
+					const correctedMsg = response.data;
+					correctedMsg.forEach(function (msg) {
+						if (msg.includes('->')) {
+							setCorrectList((prevData) => [...prevData, msg]);
+						}
+					});
 
-    setCount(prevCount => prevCount > 0 ? 0 : prevCount+1); // 배열 2개이하일때만
-    const fetchAudioAndPlay = async () => {
-      src = await fetchAndPlayAudio(file[count]);
-      return src;
-    };
-    const audioSrc = await fetchAudioAndPlay();
-		audioEnd ? audioRef.current.src = '' : audioRef.current.src = audioSrc;
-    setIsAudioFetched(true);
-		playAudio();
+					if (correctedMsg.length === 0) {
+						setCorrectList(['Perfect Grammar']);
+					}
+          setIsFinish(true);
+				})
+				.catch(function (error) {
+					console.error('에러 발생:', error);
+				});
+			setIsFinishPop(true);
+			setCorrectLoad(false);
+		} catch (error) {
+			console.error('Fetch and play audio error:', error);
+		}
 	};
 	const inputHandler = () => {
 		return (textareaRef.current.parentNode.dataset.value = textareaRef.current.value);
 	};
-
-
 
 	// 마이크 캡처
 	const mediaRecorderRef = useRef<MediaRecorder | null>(null);
@@ -129,18 +179,18 @@ function Talk() {
 			mediaRecorder.ondataavailable = (e) => {
 				if (e.data.size > 0) {
 					chunksRef.current.push(e.data);
-			}
-		};
+				}
+			};
 
-		mediaRecorder.onstop = () => {
-			const recordedBlob = new Blob(chunksRef.current, { type: 'audio/AMR-WB' });
-			chunksRef.current = [];
+			mediaRecorder.onstop = () => {
+				const recordedBlob = new Blob(chunksRef.current, { type: 'audio/AMR-WB' });
+				chunksRef.current = [];
 
-			sendAudioData(recordedBlob);
-		};
+				sendAudioData(recordedBlob);
+			};
 
-		mediaRecorder.start();
-		setMic(true);
+			mediaRecorder.start();
+			setMic(true);
 		} catch (error) {
 			console.error('Error accessing microphone:', error);
 		}
@@ -161,21 +211,19 @@ function Talk() {
 
 			const formData = new FormData();
 
-			formData.append('audio', audioFile);	
+			formData.append('audio', audioFile);
 			const response = await axios.post(' http://localhost:8080/speech', formData, {
 				headers: {
-				'Content-Type': 'multipart/form-data'
-				}
+					'Content-Type': 'multipart/form-data',
+				},
 				// ,withCredentials: true,
-			});	
+			});
 
 			console.log('Audio data sent successfully:', response.data);
 		} catch (error) {
 			console.error('Error sending audio data:', error);
 		}
 	};
-
-
 
 	return (
 		<>
@@ -186,11 +234,11 @@ function Talk() {
 						<button className="btn-mission" onClick={() => setIsPop(!isPop)}>
 							<MdChecklist />
 						</button>
-						<div className={`ly-mission${isPop ? '' : ' !hidden'}`}>
+						<div className={`ly-modal${isPop ? '' : ' !hidden'}`}>
 							<div className="ly-inner">
 								<div className="ly-head">
 									<strong>오늘의 학습 미션</strong>
-									<button onClick={() => setIsPop(!isPop)}>
+									<button type="button" onClick={() => setIsPop(!isPop)}>
 										<IoMdCloseCircle className="text-[var(--highlight-color)]" />
 									</button>
 								</div>
@@ -213,7 +261,7 @@ function Talk() {
 						<div className="profile">
 							<img src={beforeMessage[0]?.img} alt="" />
 
-							<div className={`voiceContainer ${audioState ? 'on' : 'off'}`}>
+							<div className={`voiceContainer ${playState ? 'on' : 'off'}`}>
 								<div>
 									<div className="voice voice1"></div>
 									<div className="voice voice2"></div>
@@ -245,43 +293,28 @@ function Talk() {
 				</div>
 
 				<div className={`history ${history ? '' : 'hidden'}`}>
-					<ul>
-						<li className="user">
-							<div className="profile">
-								<img src="/user-default.png" alt="" />
-							</div>
-							<div className="info">
-								<div className="name">{userInfo.userid}</div>
-								<div className="msg">대화 내용</div>
-							</div>
-						</li>
-						<li className="ai">
-							<div className="profile">
-								<img src={beforeMessage[0]?.img} alt="" />
-							</div>
-							<div className="info">
-								<div className="name">{characterInfo.name}</div>
-								<div className="msg">대화 내용</div>
-							</div>
-						</li>
-						<li className="ai">
-							<div className="profile">
-								<img src={beforeMessage[0]?.img} alt="" />
-							</div>
-							<div className="info">
-								<div className="name">{characterInfo.name}</div>
-								<div className="msg">대화 내용</div>
-							</div>
-						</li>
-						<li className="ai">
-							<div className="profile">
-								<img src={beforeMessage[0]?.img} alt="" />
-							</div>
-							<div className="info">
-								<div className="name">{characterInfo.name}</div>
-								<div className="msg">대화 내용</div>
-							</div>
-						</li>
+					<ul className={talkMessages.length == 0 ? 'h-full' : ''}>
+						{talkMessages.length == 0 ? (
+							<li key={0} className="h-full !m-0 flex justify-center items-center">
+								대화 내역이 아직 없습니다.
+							</li>
+						) : (
+							talkMessages.map((talkMessage, i) => {
+								return (
+									<li key={i} className={talkMessage?.includes('user:') ? 'user' : 'ai'}>
+										<div className="profile">
+											<img src={talkMessage?.includes('user:') ? '/user-default.png' : beforeMessage[0]?.img} alt="" />
+										</div>
+										<div className="info">
+											<div className="name">
+												{talkMessage?.includes('user:') ? userInfo.userid : talkMessage.split(': ')[0]}
+											</div>
+											<div className="msg">{talkMessage.split(': ')[1]}</div>
+										</div>
+									</li>
+								);
+							})
+						)}
 					</ul>
 				</div>
 				{/* foot */}
@@ -294,30 +327,19 @@ function Talk() {
 							<dt className="flex justify-between">
 								<span>{characterInfo.name}</span>
 								<button className="btn-history" onClick={() => setHistory(!history)}>
-									<PiListMagnifyingGlassDuotone className="text-2xl" />
+									<PiListMagnifyingGlassDuotone
+										className={`text-2xl ${talkMessages.length == 0 ? ' text-gray-400' : ''}`}
+									/>
 								</button>
 							</dt>
-							<dd className="message">
-								대화가 출력될 데이터. 대화가 출력될 데이터. 대화가 출력될 데이터. 대화가 출력될 데이터. 대화가 출력될
-								데이터. 대화가 출력될 데이터. 대화가 출력될 데이터. 대화가 출력될 데이터. 대화가 출력될 데이터. 대화가
-								출력될 데이터. 대화가 출력될 데이터. 대화가 출력될 데이터. 대화가 출력될 데이터. 대화가 출력될 데이터.
-								대화가 출력될 데이터. 대화가 출력될 데이터. 대화가 출력될 데이터. 대화가 출력될 데이터. 대화가 출력될
-								데이터. 대화가 출력될 데이터. 대화가 출력될 데이터. 대화가 출력될 데이터. 대화가 출력될 데이터. 대화가
-								출력될 데이터. 대화가 출력될 데이터. 대화가 출력될 데이터. 대화가 출력될 데이터. 대화가 출력될 데이터.
-								대화가 출력될 데이터. 대화가 출력될 데이터. 대화가 출력될 데이터. 대화가 출력될 데이터. 대화가 출력될
-								데이터. 대화가 출력될 데이터.
-							</dd>
+							<dd className="message">{aiMsg.result ? aiMsg.result.aimsg : '대화를 시작 해보세요~'}</dd>
 							<dd className="hidden">
-								<audio id="myAudio" ref={audioRef}>
-									{/* <source src={wavfile} type="audio/wav" /> */}
-									{/* <source src={`blob:https://hackingbeauty.github.io/fc3116f0-53c9-4cae-9680-b2978e5bd6f4`} /> */}
-									Your browser does not support the audio element.
-								</audio>
+								<audio id="myAudio" ref={audioRef}></audio>
 							</dd>
 						</dl>
 					</div>
 					<form className="form" onSubmit={(e) => sendMessage(e)}>
-						<div className="textarea-wrap hidden">
+						<div className="textarea-wrap ">
 							<textarea
 								id="talkInput"
 								className="w-full"
@@ -331,30 +353,57 @@ function Talk() {
 							/>
 						</div>
 						<div className="foot">
-							<div className="shortcuts invisible">
-								* Send:{' '}
-								<span>
-									<MdOutlineKeyboardReturn />
-								</span>{' '}
-								/ New Line:{' '}
-								<span>
-									<BsShiftFill />
-								</span>{' '}
-								+{' '}
-								<span>
-									<MdOutlineKeyboardReturn />
-								</span>
-							</div>
 							<div className="btns">
 								<button type="button" className="btn-stop" onClick={playAudio} disabled={isAudioFetched ? false : true}>
-									{audioState ? <IoStop /> : <IoPlay />}
+									{playState ? <IoStop /> : <IoPlay />}
 								</button>
-								<button type="submit" className="btn-send" disabled={audioState ? true : false}>
-									<RiSendPlaneFill />
+								<button type="submit" className="btn-send" disabled={playState||isFinish ? true : false}>
+									{audioLoad ? <RiLoader2Fill className="animate-spin" /> : <RiSendPlaneFill />}
 								</button>
-								<button type="button" className="btn-mic" onClick={mic? handleStopRecording : handleStartRecording}>
+								<button type="button" className="btn-mic" onClick={mic ? handleStopRecording : handleStartRecording}>
 									{mic ? <PiMicrophoneFill /> : <PiMicrophoneSlash />}
 								</button>
+							</div>
+
+							<div className="shortcuts">
+								<div className="shortcut hidden">
+									* Send:{' '}
+									<span>
+										<MdOutlineKeyboardReturn />
+									</span>{' '}
+									/ New Line:{' '}
+									<span>
+										<BsShiftFill />
+									</span>{' '}
+									+{' '}
+									<span>
+										<MdOutlineKeyboardReturn />
+									</span>
+								</div>
+								<button type="button" className="btn-finishchat" onClick={finishChat}>
+									저장 후 대화 종료/교정 확인 {correctLoad && <RiLoader2Fill className="animate-spin" />}
+								</button>
+								<div className={`ly-modal${isFinishPop ? '' : ' !hidden'}`}>
+									<div className="ly-inner">
+										<div className="ly-head">
+											<strong>교정 목록</strong>
+											<button type="button" onClick={() => setIsFinishPop(!isFinishPop)}>
+												<IoMdCloseCircle className="text-[var(--highlight-color)]" />
+											</button>
+										</div>
+										<div className="ly-body">
+											{correctList.length === 0 ? (
+												<div>Perfect Grammar</div>
+											) : (
+												<ul className="list-correct">
+													{correctList.map((msg, i) => {
+														return <li key={i}>{msg}</li>;
+													})}
+												</ul>
+											)}
+										</div>
+									</div>
+								</div>
 							</div>
 						</div>
 					</form>

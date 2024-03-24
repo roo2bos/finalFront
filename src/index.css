@@ -13,9 +13,9 @@
 /* 전체 스타일 설정 */
 :root {
   /* 모드 변경 설정 */
-  color-scheme: light dark;
+  color-scheme: light;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  /* background-color: #242424; */
 
   /* 폰트 설정 */
   font-family: 'Pretendard', Inter, system-ui, Avenir, Helvetica, Arial,
@@ -26,10 +26,6 @@
   --sub-font-color: #7b7e83;
 
   /* 폰트 렌더링 설정 */
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -130,7 +126,7 @@
   }
 
   *::-webkit-scrollbar {
-    height: 1rem;
+    height: 0.5rem;
     width: 0.5rem;
   }
   *::-webkit-scrollbar-thumb:hover {
@@ -143,6 +139,9 @@
     border-color: rgba(255, 255, 255, var(--tw-border-opacity));
     border-radius: 9999px;
     border-width: 1px;
+  }
+  *::-webkit-scrollbar-track {
+    margin: 1.2em;
   }
 
   .list-title {
