@@ -1,5 +1,4 @@
 import { Route, Routes } from 'react-router-dom';
-import { useState, useEffect } from 'react';
 import Layout from './Layout';
 import Login from './components/Login';
 import SignUp from './components/SignUp';
@@ -11,7 +10,8 @@ import Myroom from './pages/Myroom';
 import Character from './pages/Character';
 import About from './pages/About';
 import Wordquiz from './components/Wordquiz';
-import Preview from './components/Previwe';
+import Preview from './components/Preview';
+import Review from './components/Review';
 import Spinner from './components/Spinner';
 import './App.css';
 
@@ -27,6 +27,7 @@ function App() {
         <Route path='/about' element={<About />} />
         <Route path='/quiz' element={<Wordquiz />} />
         <Route path='/preview' element={<Preview />} />
+        <Route path='/Review' element={<Review />} />
         <Route path='*' element={<NotFound />} />
       </Route>
       <Route path='/signup' element={<SignUp />} />

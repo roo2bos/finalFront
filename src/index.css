@@ -169,6 +169,7 @@
     overflow: hidden;
     text-overflow: ellipsis;
   }
+
   .truncate-3 {
     display: -webkit-box;
     word-wrap: break-word;
@@ -176,6 +177,16 @@
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
+  }
+
+  .hide {
+    position: absolute;
+    clip: rect(0 0 0 0);
+    /* rect(top, right, bottom, left) */
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
   }
 }
 

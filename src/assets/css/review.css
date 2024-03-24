@@ -1,0 +1,47 @@
+@tailwind components;
+
+@layer components {
+  .review {
+    @apply w-full flex justify-center;
+  }
+
+  .review .container {
+    @apply flex-col p-0 sm:w-[640px];
+  }
+
+  .conversation-controls {
+    @apply w-full flex flex-row-reverse py-5;
+  }
+
+  .review-conversation-lists {
+    @apply w-full;
+  }
+
+  .date {
+    @apply py-5 text-lg text-[var(--sub-font-color)];
+  }
+
+  .review-item {
+    @apply flex;
+  }
+
+  .character-img {
+    @apply w-60 h-48 mr-10 border border-[var(--border-divide-color)] overflow-hidden rounded-lg shadow;
+  }
+
+  .character-img img {
+    @apply w-full h-full object-cover;
+  }
+
+  .character-name {
+    @apply text-2xl;
+  }
+
+  .corrected-sentence-count {
+    @apply inline-block ml-3 w-8 h-8 text-lg text-center text-white rounded-full bg-[var(--highlight-color)];
+  }
+
+  .conversation-time {
+    @apply py-2;
+  }
+}

@@ -8,9 +8,10 @@ import '../assets/css/sidebarNav.css';
 const navMenu = [
   { id: 1, link: '/', icon: <GoHomeFill />, text: 'Home' },
   { id: 2, link: '/preview', icon: <CgMenuGridR />, text: '예습하기' },
-  { id: 3, link: '/mypage', icon: <BiSolidChat />, text: '마이페이지' },
-  { id: 4, link: '/myroom', icon: <FaBell />, text: '마이룸' },
-  { id: 5, link: '/quiz', icon: <FaBell />, text: '퀴즈' },
+  { id: 3, link: '/Review', icon: <CgMenuGridR />, text: '복습하기' },
+  { id: 4, link: '/mypage', icon: <BiSolidChat />, text: '마이페이지' },
+  { id: 5, link: '/myroom', icon: <FaBell />, text: '마이룸' },
+  { id: 6, link: '/quiz', icon: <FaBell />, text: '퀴즈' },
 ];
 
 export default function SidebarNav() {
