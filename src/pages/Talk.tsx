@@ -41,7 +41,8 @@ function Talk() {
 	// const [file] = useState(['https://market-imgs.s3.ap-northeast-2.amazonaws.com/test.mp3','/test.wav']);//임시 : 음성메세제 개수 (api 적용시 삭제예정)
 	const [aiMsg, setAiMsg] = useState({}); //임시 : 대화 메세지 전송 개수 체크(api 적용시 삭제예정)
 	const [isFinishChat, setIsFinishChat] = useState(false);
-	const [finishChatList, setFinishChatList] = useState([]);
+	const [talkMessages, setTalkMessages] = useState([]); //둘의 대화 메세지 목록
+	const [correctList, setCorrectList] = useState([]); //교정 할 리스트
 
 	const [userInfo] = useState(datas.users.find((user) => user.userid === account)); //임시
 	const [characterInfo] = useState(datas.characters.find((character) => character.id === id)); //임시
@@ -84,6 +85,7 @@ function Talk() {
 			const result = await response.data;
 			const blob = await file.blob();
 			const objectURL = URL.createObjectURL(blob);
+			setTalkMessages((prevData) => [...prevData, `pooh: ${result.aimsg}`]);
 			setAiMsg((prevData) => ({ ...prevData, result: result }));
 			setAudioLoad(false);
 			return objectURL;
@@ -116,6 +118,7 @@ function Talk() {
 			e.preventDefault();
 			setAudioLoad(true);
 			const inputText = textareaRef.current.value;
+			setTalkMessages((prevData) => [...prevData, `user: ${inputText}`]);
 			const audioSrc = await fetchAndPlayAudio(inputText);
 			audioEnd ? (audioRef.current.src = '') : (audioRef.current.src = audioSrc);
 			setIsAudioFetched(true);
@@ -127,20 +130,32 @@ function Talk() {
 	};
 	const finishChat = async () => {
 		try {
+			setCorrectLoad(true);
+			await axios
+				.post(
+					'http://43.203.227.36:8080/chat/getCorrection',
+					{
+						messages: talkMessages,
+					},
+					{ withCredentials: true }
+				)
+				.then(function (response) {
+					const correctedMsg = response.data;
+					correctedMsg.forEach(function (msg) {
+						if (msg.includes('->')) {
+							setCorrectList((prevData) => [...prevData, msg]);
+						}
+					});
 
-      setCorrectLoad(true);
-			const inputText = textareaRef.current.value;
-			const response = await axios.post(
-				'http://43.203.227.36:8080/chat/getCorrection',
-				{
-					messages: [`user: ${inputText}`],
-				},
-				{ withCredentials: true }
-			);
-			const result = await response.data;
-			setFinishChatList((prevData) => [...prevData, result]);
+					if (correctedMsg.length === 0) {
+						setCorrectList(['Perfect Grammar']);
+					}
+				})
+				.catch(function (error) {
+					console.error('에러 발생:', error);
+				});
 			setIsFinishChat(true);
-      setCorrectLoad(false);
+			setCorrectLoad(false);
 		} catch (error) {
 			console.error('Fetch and play audio error:', error);
 		}
@@ -276,44 +291,24 @@ function Talk() {
 				</div>
 
 				<div className={`history ${history ? '' : 'hidden'}`}>
-					<ul>
-						<li className="user">
-							<div className="profile">
-								<img src="/user-default.png" alt="" />
-							</div>
-							<div className="info">
-								<div className="name">{userInfo.userid}</div>
-								<div className="msg">대화 내용</div>
-							</div>
-						</li>
-						<li className="ai">
-							<div className="profile">
-								<img src={beforeMessage[0]?.img} alt="" />
-							</div>
-							<div className="info">
-								<div className="name">{characterInfo.name}</div>
-								<div className="msg">대화 내용</div>
-							</div>
-						</li>
-						<li className="ai">
-							<div className="profile">
-								<img src={beforeMessage[0]?.img} alt="" />
-							</div>
-							<div className="info">
-								<div className="name">{characterInfo.name}</div>
-								<div className="msg">대화 내용</div>
-							</div>
-						</li>
-						<li className="ai">
-							<div className="profile">
-								<img src={beforeMessage[0]?.img} alt="" />
-							</div>
-							<div className="info">
-								<div className="name">{characterInfo.name}</div>
-								<div className="msg">대화 내용</div>
-							</div>
-						</li>
-					</ul>
+
+						<ul className={talkMessages.length== 0?'h-full':''}>
+							{talkMessages.length== 0 ? <li key={0} className="h-full !m-0 flex justify-center items-center">대화 내역이 아직 없습니다.</li> : talkMessages.map((talkMessage, i) => {
+								return (
+									<li key={i} className={talkMessage?.includes('user:') ? 'user' : 'ai'}>
+										<div className="profile">
+											<img src={talkMessage?.includes('user:') ? '/user-default.png' : beforeMessage[0]?.img} alt="" />
+										</div>
+										<div className="info">
+											<div className="name">
+												{talkMessage?.includes('user:') ? userInfo.userid : characterInfo.name}
+											</div>
+											<div className="msg">{talkMessage}</div>
+										</div>
+									</li>
+								);
+							})}
+          </ul>
 				</div>
 				{/* foot */}
 				<div className="foot-talking-wrap ">
@@ -324,7 +319,7 @@ function Talk() {
 						<dl>
 							<dt className="flex justify-between">
 								<span>{characterInfo.name}</span>
-								<button className="btn-history" onClick={() => setHistory(!history)}>
+								<button className="btn-history" onClick={()=>setHistory(!history)}>
 									<PiListMagnifyingGlassDuotone className="text-2xl" />
 								</button>
 							</dt>
@@ -349,6 +344,18 @@ function Talk() {
 							/>
 						</div>
 						<div className="foot">
+							<div className="btns">
+								<button type="button" className="btn-stop" onClick={playAudio} disabled={isAudioFetched ? false : true}>
+									{audioState ? <IoStop /> : <IoPlay />}
+								</button>
+								<button type="submit" className="btn-send" disabled={audioState ? true : false}>
+									{audioLoad ? <RiLoader2Fill className="animate-spin" /> : <RiSendPlaneFill />}
+								</button>
+								<button type="button" className="btn-mic" onClick={mic ? handleStopRecording : handleStartRecording}>
+									{mic ? <PiMicrophoneFill /> : <PiMicrophoneSlash />}
+								</button>
+							</div>
+
 							<div className="shortcuts">
 								<div className="shortcut hidden">
 									* Send:{' '}
@@ -376,33 +383,18 @@ function Talk() {
 											</button>
 										</div>
 										<div className="ly-body">
-											<ul className="list-correct">
-												{finishChatList === 0 ? (
-													<li>Perfect Grammar</li>
-												) : (
-													finishChatList.map((correct,i) => {
-														return (
-															<li key={i}>
-																{correct}
-															</li>
-														);
-													})
-												)}
-											</ul>
+											{correctList.length === 0 ? (
+												<div>Perfect Grammar</div>
+											) : (
+												<ul className="list-correct">
+													{correctList.map((msg, i) => {
+														return <li key={i}>{msg}</li>;
+													})}
+												</ul>
+											)}
 										</div>
 									</div>
 								</div>
-							</div>
-							<div className="btns">
-								<button type="button" className="btn-stop" onClick={playAudio} disabled={isAudioFetched ? false : true}>
-									{audioState ? <IoStop /> : <IoPlay />}
-								</button>
-								<button type="submit" className="btn-send" disabled={audioState ? true : false}>
-									{audioLoad ? <RiLoader2Fill className="animate-spin" /> : <RiSendPlaneFill />}
-								</button>
-								<button type="button" className="btn-mic" onClick={mic ? handleStopRecording : handleStartRecording}>
-									{mic ? <PiMicrophoneFill /> : <PiMicrophoneSlash />}
-								</button>
 							</div>
 						</div>
 					</form>
