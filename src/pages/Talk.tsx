@@ -30,7 +30,7 @@ function Talk() {
 	const textareaRef = useRef();
 	const innerRef = useRef();
 	const audioRef = useRef();
-	const [audioState, setAudioState] = useState(false); //오디오 재생 중인지 체크
+	const [playState, setPlayState] = useState(false); //오디오 재생 중인지 체크
 	const [duration, setDuration] = useState(0); //오디오 재생 중
 	const [isPop, setIsPop] = useState(false); //대화내역 활성 체크
 	const [audioEnd, setAudioEnd] = useState(false); //오디오 종료 체크
@@ -96,8 +96,8 @@ function Talk() {
 
 	function playAudio() {
 		const player = audioRef.current;
-		setAudioState(!audioState);
-		audioState ? player.pause() : player.play();
+		setPlayState(!playState);
+		playState ? player.pause() : player.play();
 		player.addEventListener('timeupdate', function () {
 			const currentTime = player.currentTime;
 			const end = player.duration;
@@ -105,7 +105,7 @@ function Talk() {
 			setDuration(percentage);
 			if (percentage >= 100) {
 				setAudioEnd(true); //오디오 총료 체크
-				setAudioState(false); //오디오 재생 중인 상태 체크
+				setPlayState(false); //오디오 재생 중인 상태 체크
 				setIsAudioFetched(false);
 				setTimeout(() => (audioRef.current.src = ''), 100); //음성재생완료시 새로운 메세지 받기위해서 초기화
 			} else {
@@ -259,7 +259,7 @@ function Talk() {
 						<div className="profile">
 							<img src={beforeMessage[0]?.img} alt="" />
 
-							<div className={`voiceContainer ${audioState ? 'on' : 'off'}`}>
+							<div className={`voiceContainer ${playState ? 'on' : 'off'}`}>
 								<div>
 									<div className="voice voice1"></div>
 									<div className="voice voice2"></div>
@@ -346,9 +346,9 @@ function Talk() {
 						<div className="foot">
 							<div className="btns">
 								<button type="button" className="btn-stop" onClick={playAudio} disabled={isAudioFetched ? false : true}>
-									{audioState ? <IoStop /> : <IoPlay />}
+									{playState ? <IoStop /> : <IoPlay />}
 								</button>
-								<button type="submit" className="btn-send" disabled={audioState ? true : false}>
+								<button type="submit" className="btn-send" disabled={playState ? true : false}>
 									{audioLoad ? <RiLoader2Fill className="animate-spin" /> : <RiSendPlaneFill />}
 								</button>
 								<button type="button" className="btn-mic" onClick={mic ? handleStopRecording : handleStartRecording}>
