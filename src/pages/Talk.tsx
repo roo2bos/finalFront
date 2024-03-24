@@ -40,9 +40,10 @@ function Talk() {
 	// const [count,setCount] = useState(0);//임시 : 대화 메세지 전송 개수 체크(api 적용시 삭제예정)
 	// const [file] = useState(['https://market-imgs.s3.ap-northeast-2.amazonaws.com/test.mp3','/test.wav']);//임시 : 음성메세제 개수 (api 적용시 삭제예정)
 	const [aiMsg, setAiMsg] = useState({}); //임시 : 대화 메세지 전송 개수 체크(api 적용시 삭제예정)
-	const [isFinishChat, setIsFinishChat] = useState(false);
 	const [talkMessages, setTalkMessages] = useState([]); //둘의 대화 메세지 목록
 	const [correctList, setCorrectList] = useState([]); //교정 할 리스트
+	const [isFinishPop, setIsFinishPop] = useState(false);//대화 종료 팝업 체크
+	const [isFinish, setIsFinish] = useState(false); //대화 종료
 
 	const [userInfo] = useState(datas.users.find((user) => user.userid === account)); //임시
 	const [characterInfo] = useState(datas.characters.find((character) => character.id === id)); //임시
@@ -150,11 +151,12 @@ function Talk() {
 					if (correctedMsg.length === 0) {
 						setCorrectList(['Perfect Grammar']);
 					}
+          setIsFinish(true);
 				})
 				.catch(function (error) {
 					console.error('에러 발생:', error);
 				});
-			setIsFinishChat(true);
+			setIsFinishPop(true);
 			setCorrectLoad(false);
 		} catch (error) {
 			console.error('Fetch and play audio error:', error);
@@ -355,7 +357,7 @@ function Talk() {
 								<button type="button" className="btn-stop" onClick={playAudio} disabled={isAudioFetched ? false : true}>
 									{playState ? <IoStop /> : <IoPlay />}
 								</button>
-								<button type="submit" className="btn-send" disabled={playState ? true : false}>
+								<button type="submit" className="btn-send" disabled={playState||isFinish ? true : false}>
 									{audioLoad ? <RiLoader2Fill className="animate-spin" /> : <RiSendPlaneFill />}
 								</button>
 								<button type="button" className="btn-mic" onClick={mic ? handleStopRecording : handleStartRecording}>
@@ -381,11 +383,11 @@ function Talk() {
 								<button type="button" className="btn-finishchat" onClick={finishChat}>
 									저장 후 대화 종료/교정 확인 {correctLoad && <RiLoader2Fill className="animate-spin" />}
 								</button>
-								<div className={`ly-modal${isFinishChat ? '' : ' !hidden'}`}>
+								<div className={`ly-modal${isFinishPop ? '' : ' !hidden'}`}>
 									<div className="ly-inner">
 										<div className="ly-head">
 											<strong>교정 목록</strong>
-											<button type="button" onClick={() => setIsFinishChat(!isFinishChat)}>
+											<button type="button" onClick={() => setIsFinishPop(!isFinishPop)}>
 												<IoMdCloseCircle className="text-[var(--highlight-color)]" />
 											</button>
 										</div>
