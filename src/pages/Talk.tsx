@@ -320,7 +320,7 @@ function Talk() {
 							<dt className="flex justify-between">
 								<span>{characterInfo.name}</span>
 								<button className="btn-history" onClick={()=>setHistory(!history)}>
-									<PiListMagnifyingGlassDuotone className="text-2xl" />
+									<PiListMagnifyingGlassDuotone className={`text-2xl ${talkMessages.length== 0?' text-gray-400':''}`} />
 								</button>
 							</dt>
 							<dd className="message">{aiMsg.result ? aiMsg.result.aimsg : '대화를 시작 해보세요~'}</dd>
