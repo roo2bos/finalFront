@@ -9,6 +9,7 @@ export const loginApi = async (userdata: any): Promise<any> => {
     if (response.data.result === false) {
       alert(response.data.msg)
     } else {
+      window.location.href = `http://43.203.227.36`
       alert('로그인에 성공하였습니다')
       response.data
     }

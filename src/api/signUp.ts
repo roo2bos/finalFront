@@ -8,7 +8,7 @@ const signupApi = async (userdata: any): Promise<any> => {
     console.log('유저 이름 : ', response.data.username);
     
     if (response.data) {
-      window.location.href = `http://localhost:3000/login`;
+      window.location.href = `${API_URL}`;
       alert(`안녕하세요! 회원가입 환영합니다!`);
     } else {
       alert('다시 입력 부탁드립니다.');
