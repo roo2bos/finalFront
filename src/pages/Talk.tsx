@@ -87,9 +87,28 @@ function Talk() {
 			percentage >= 100 && setAudioState(false);
 		});
 	}
-	const sendMessage = (e) => {
+	const sendMessage = async (e) => {
 		e.preventDefault();
-		playAudio();
+		// playAudio();
+
+		const userInput = textareaRef.current.value;
+
+		if (userInput.trim() === "") {
+			alert("채팅을 입력해주세요.");
+			return;
+		}
+
+		try {
+			const response = await axios.post("http://localhost:8080/chat", {userInput})
+			console.log("post 요청 성공", response.data);
+			
+		} catch (error) {
+			console.error("post 요청 실패", error);
+			
+		}
+
+		textareaRef.current.value = '';
+
 	};
 	const inputHandler = () => {
 		return (textareaRef.current.parentNode.dataset.value = textareaRef.current.value);
@@ -142,13 +161,14 @@ function Talk() {
 
 			const formData = new FormData();
 			formData.append('audio', audioFile);	
-			const response = await axios.post(' http://localhost:8080/speech', formData, {
+			const response = await axios.post('http://localhost:8080/speech', formData, {
 				headers: {
 				'Content-Type': 'multipart/form-data'
 				}
 				// ,withCredentials: true,
 			});	
 			console.log('Audio data sent successfully:', response.data);
+			textareaRef.current.value = response.data;
 		} catch (error) {
 			console.error('Error sending audio data:', error);
 		}
@@ -296,7 +316,7 @@ function Talk() {
 						</dl>
 					</div>
 					<form className="form" onSubmit={(e) => sendMessage(e)}>
-						<div className="textarea-wrap hidden">
+						<div className="textarea-wrap ">
 							<textarea
 								id="talkInput"
 								className="w-full"
