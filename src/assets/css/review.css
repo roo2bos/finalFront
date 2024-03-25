@@ -44,4 +44,8 @@
   .conversation-time {
     @apply py-2;
   }
+
+  .conversation-time span:nth-child(1)::after {
+    content: '~';
+  }
 }

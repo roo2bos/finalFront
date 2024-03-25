@@ -45,7 +45,7 @@
 
 @layer base {
   a {
-    @apply font-medium text-[var(--sub-font-color)] hover:text-[var(--main-font-color)] hover:text-white;
+    @apply font-medium text-[var(--sub-font-color)];
   }
 
   html,
@@ -57,10 +57,6 @@
     font-family: 'Pretendard', sans;
     color: var(--main-font-color);
     font-size: 16px;
-  }
-
-  h1 {
-    @apply m-0 sm:pb-10 text-2xl font-bold text-[var(--main-font-color)] lg:pl-4 sm:pl-0;
   }
 
   main {
@@ -144,8 +140,12 @@
     margin: 1.2em;
   }
 
+  h1 {
+    @apply m-0 sm:pb-10 text-2xl font-bold text-[var(--main-font-color)] lg:pl-4 sm:pl-0;
+  }
+
   .list-title {
-    @apply text-2xl font-bold mb-2;
+    @apply text-3xl font-semibold mb-2 pb-6;
   }
   .list-title ~ .list-title {
     @apply mt-4;

@@ -2,16 +2,14 @@ import { NavLink, Link } from 'react-router-dom';
 import { GoHomeFill } from 'react-icons/go';
 import { CgMenuGridR } from 'react-icons/cg';
 import { BiSolidChat } from 'react-icons/bi';
-import { FaBell } from 'react-icons/fa';
+import { MdLibraryBooks } from 'react-icons/md';
 import '../assets/css/sidebarNav.css';
 
 const navMenu = [
-  { id: 1, link: '/', icon: <GoHomeFill />, text: 'Home' },
-  { id: 2, link: '/preview', icon: <CgMenuGridR />, text: '예습하기' },
-  { id: 3, link: '/Review', icon: <CgMenuGridR />, text: '복습하기' },
-  { id: 4, link: '/mypage', icon: <BiSolidChat />, text: '마이페이지' },
-  { id: 5, link: '/myroom', icon: <FaBell />, text: '마이룸' },
-  { id: 6, link: '/quiz', icon: <FaBell />, text: '퀴즈' },
+  { id: 1, link: '/', icon: <GoHomeFill />, text: '두런두런' },
+  { id: 2, link: '/mypage', icon: <CgMenuGridR />, text: '나의활동' },
+  { id: 3, link: '/chat', icon: <BiSolidChat />, text: '대화하기' },
+  { id: 4, link: '/learning', icon: <MdLibraryBooks />, text: '학습하기' },
 ];
 
 export default function SidebarNav() {

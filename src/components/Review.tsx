@@ -1,42 +1,19 @@
 import { Link } from 'react-router-dom';
 import '../assets/css/review.css';
-
-const reviewData = [
-  {
-    id: 'review_1',
-    date: '2024-03-24',
-    startTime: '10:00',
-    finishTime: '11:00',
-    correctiveSentenceCount: '5',
-  },
-  {
-    id: 'review_2',
-    date: '2024-03-24',
-    startTime: '10:00',
-    finishTime: '11:00',
-    correctiveSentenceCount: '3',
-  },
-  {
-    id: 'review_3',
-    date: '2024-03-24',
-    startTime: '10:00',
-    finishTime: '11:00',
-    correctiveSentenceCount: '2',
-  },
-  {
-    id: 'review_4',
-    date: '2024-03-25',
-    startTime: '10:00',
-    finishTime: '11:00',
-    correctiveSentenceCount: '10',
-  },
-];
+// import { useState } from 'react';
+import datas from '../../datas.json';
 
 export default function Review() {
+  // 목록 정렬
+  // const [sortBy, setSortBy] = useState('latest');
+  const data = datas.reviewDatas;
+  const uniqueDates = [...new Set(data.map((date) => date.date))];
+
   return (
     <section className='review'>
       <div className='container'>
         <div className='conversation-controls'>
+          {/* 복습 목록 정렬 드롭 메뉴 */}
           <div className='sort-dropdown'>
             {/* select 드롭 임시 -- 수정 예정 */}
             <label htmlFor='sort-select' className='hide'>
@@ -50,30 +27,42 @@ export default function Review() {
             </select>
           </div>
         </div>
+        {/* 복습 목록 */}
         <div className='review-conversation-lists'>
-          {/* 전체 대화 목록 */}
-          <ul>
-            <li>
-              {/* 날짜별로 생성되는 대화 목록 */}
+          {/* 날짜별 영역 생성 */}
+          {uniqueDates.map((date) => (
+            <div key={date}>
+              <div className='date'>{date}</div>
+              {/* 날짜별 대화 목록 생성 */}
               <ul>
-                <div className='date'>2024-03-22</div>
-                <Link to='/'>
-                  <li className='review-item'>
-                    <div className='character-img'>
-                      <img src='/image1.png' alt='곰돌이푸' />
-                    </div>
-                    <div className='flex flex-col justify-center'>
-                      <div>
-                        <span className='character-name'>곰돌이 푸</span>
-                        <span className='corrected-sentence-count'>5</span>
-                      </div>
-                      <div className='conversation-time'>10:00 ~ 11:00</div>
-                    </div>
-                  </li>
-                </Link>
+                {data.map((data) =>
+                  date === data.date ? (
+                    <Link to={`/mypage/review/${data.id}`} key={data.id}>
+                      <li className='review-item'>
+                        <div className='character-img'>
+                          <img src={data.img} alt={`${data.name}`} />
+                        </div>
+                        <div className='flex flex-col justify-center'>
+                          <div>
+                            <span className='character-name'>{data.name}</span>
+                            <span className='corrected-sentence-count'>
+                              {data.correctiveSentenceCount}
+                            </span>
+                          </div>
+                          <div className='conversation-time'>
+                            <span className='start-time'>{data.startTime}</span>
+                            <span className='finish-time'>
+                              {data.finishTime}
+                            </span>
+                          </div>
+                        </div>
+                      </li>
+                    </Link>
+                  ) : null
+                )}
               </ul>
-            </li>
-          </ul>
+            </div>
+          ))}
         </div>
       </div>
     </section>
