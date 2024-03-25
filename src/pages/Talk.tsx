@@ -82,10 +82,8 @@ function Talk() {
 				},
 				{ withCredentials: true }
 			);
-			const file = await fetch('http://43.203.227.36:8080/pooh.wav'); // api 적용시 호출할 경로
 			const result = await response.data;
-			const blob = await file.blob();
-			const objectURL = URL.createObjectURL(blob);
+      const objectURL = 'http://43.203.227.36/pooh.wav';
 			setTalkMessages((prevData) => [...prevData, `pooh: ${result.aimsg}`]);
 			setAiMsg((prevData) => ({ ...prevData, result: result }));
 			setAudioLoad(false);
@@ -211,7 +209,7 @@ function Talk() {
 
 			const formData = new FormData();
 
-			formData.append('audio', audioFile);	
+			formData.append('audio', audioFile);
 			const response = await axios.post('http://localhost:8080/speech', formData, {
 
 				headers: {
