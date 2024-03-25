@@ -7,7 +7,10 @@ export const loginApi = async (userdata: any): Promise<any> => {
     const response = await axios.post(`${API_URL}/user/login`, userdata, { withCredentials: true });
     console.log(response);
     if (response.data.result === false) {
-      alert('아이디 및 비밀번호를 다시 확인 부탁드립니다.')
+      alert(response.data.msg)
+    } else {
+      alert('로그인에 성공하였습니다')
+      response.data
     }
     return response.data;
   } catch (error) {
