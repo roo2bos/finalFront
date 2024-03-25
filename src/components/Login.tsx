@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 import { loginUser } from '../store/features/loginSlice';
 import { useAppDispatch } from '../hooks';
 import '../assets/css/auth.css';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 
 type FormData = {
   userId: string;
@@ -27,6 +29,9 @@ export default function SignUp() {
     console.log('onError', errors);
   };
 
+
+
+
   return (
     <div className='form-container'>
       <div className='form-area'>
@@ -44,6 +49,7 @@ export default function SignUp() {
               <label className='auth-label' htmlFor='userId'>
                 아이디
               </label>
+
               <input
                 className='auth-input'
                 type='text'

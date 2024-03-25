@@ -6,10 +6,11 @@ export const loginApi = async (userdata: any): Promise<any> => {
   try {
     const response = await axios.post(`${API_URL}/user/login`, userdata, { withCredentials: true });
     console.log(response);
+    console.log(userdata)
     if (response.data.result === false) {
       alert(response.data.msg)
     } else {
-      window.location.href = `http://43.203.227.36`
+      // window.location.href = `http://43.203.227.36`
       alert('로그인에 성공하였습니다')
       response.data
     }
@@ -18,7 +19,6 @@ export const loginApi = async (userdata: any): Promise<any> => {
     throw error;
   }
 };
-
 
 export const logoutApi = async () => {
   try {

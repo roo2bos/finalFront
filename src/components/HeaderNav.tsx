@@ -20,6 +20,7 @@ export default function Header() {
         const response = await axios.get(`${API_URL}/user/authuser`);
         setUser(response.data.nickname);
         console.log(response.data);
+        console.log('넥님 좀 떠줘 : ', response.data.nickname)
       } catch (error) {
         console.error('error', error);
       }
