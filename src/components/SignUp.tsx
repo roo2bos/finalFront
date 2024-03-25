@@ -1,10 +1,12 @@
 import { useForm, SubmitHandler, SubmitErrorHandler } from 'react-hook-form';
-// import { useDispatch } from 'react-redux';
-import { useEffect } from 'react';
+import { userNicknameCheckApi, userIdCheckApi } from '../api/userCheck';
+// import { signupApi } from '../api/signUp';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAppDispatch } from '../hooks';
 import { userIdCheck, userNicknameCheck } from '../store/features/userIdCheck';
 import { signUpUser } from '../store/features/signUpSlice';
+
 import '../assets/css/auth.css';
 
 type FormData = {
@@ -18,7 +20,6 @@ type FormData = {
 };
 
 export default function SignUp() {
-  // const dispatch = useDispatch();
   const dispatch = useAppDispatch();
 
   const {
@@ -28,26 +29,53 @@ export default function SignUp() {
     watch,
   } = useForm<FormData>();
 
+  const [nicknameAvailable, setNicknameAvailable] = useState<boolean | null>(null);
+  const [userIdAvailable, setUserIdAvailable] = useState<boolean | null>(null);
+
   const onSubmit: SubmitHandler<FormData> = (userdata) => {
     console.log('onSubmit', userdata);
     dispatch(signUpUser(userdata));
-  };
+  }
 
   const onError: SubmitErrorHandler<FormData> = (errors) => {
     console.log('onError', errors);
   };
 
+  // 아이디, 닉네임 실시간 체크
   const userId = watch('userId');
   const nickname = watch('nickname');
-  // const password = watch('password')
 
   useEffect(() => {
-    dispatch(userIdCheck(userId));
+    if (userId !== '') {
+      dispatch(userIdCheck(userId));
+      userIdCheckApi(userId)
+        .then((response) => {
+          setUserIdAvailable(response);
+        })
+        .catch((error) => {
+          console.log('오류 발생:', error);
+        });
+    } else {
+      setUserIdAvailable(null);
+    }
   }, [userId, dispatch]);
 
   useEffect(() => {
-    dispatch(userNicknameCheck(nickname));
+    if (nickname !== '' ) { 
+      dispatch(userNicknameCheck(nickname));
+      userNicknameCheckApi(nickname)
+        .then((response) => {
+          setNicknameAvailable(response);
+        })
+        .catch((error) => {
+          console.error('오류 발생:', error);
+        });
+    } else {
+      setNicknameAvailable(null);
+    }
   }, [nickname, dispatch]);
+
+
 
   return (
     <div className='form-container'>
@@ -92,9 +120,17 @@ export default function SignUp() {
                 className='auth-input'
                 type='text'
                 id='userId'
-                placeholder='ID를 입력해주세요'
+                placeholder='ID를 입력해주세요 (8글자 이상, 영문 및 숫자 조합)'
                 {...register('userId', {
-                  required: 'ID를 입력해주세요',
+                  required: '아이디를 입력해주세요',
+                  minLength: {
+                    value: 6,
+                    message: '아이디는 6자 이상이어야 합니다',
+                  },
+                  pattern: {
+                    value: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/,
+                    message: '아이디는 영문과 숫자의 조합으로 이루어져야 합니다',
+                  },
                 })}
               />
               {errors.userId && (
@@ -102,12 +138,15 @@ export default function SignUp() {
                   {errors.userId.message}
                 </span>
               )}
-              {userId && (
-                <span className='text-blue-500 text-xs'>
-                  {' '}
-                  {userId}은(는) 사용 가능한 아이디입니다.
-                </span>
+              {userIdAvailable !== null && (
+                // <span className={!userIdAvailable ? 'text-blue-500 text-xs' : 'text-red-500 text-xs'}>
+                //   {!userIdAvailable ? '사용 가능한 아이디입니다.' : '이미 사용 중인 아이디입니다.'}
+                // </span>
+                <span className='text-red-500 text-xs'>
+                {userIdAvailable && '이미 사용 중인 아이디입니다.'}
+              </span>
               )}
+              
 
               <label className='auth-label' htmlFor='nickname'>
                 닉네임
@@ -126,9 +165,9 @@ export default function SignUp() {
                   {errors.nickname.message}
                 </span>
               )}
-              {nickname && (
-                <span className='text-blue-500 text-xs'>
-                  {nickname}은(는) 사용 가능한 닉네임입니다.
+              {nicknameAvailable !== null && (
+                <span className={!nicknameAvailable ? 'text-blue-500 text-xs' : 'text-red-500 text-xs'}>
+                  {!nicknameAvailable ? '사용 가능한 닉네임입니다.' : '이미 사용 중인 닉네임입니다.'}
                 </span>
               )}
 

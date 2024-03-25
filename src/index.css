@@ -13,9 +13,9 @@
 /* 전체 스타일 설정 */
 :root {
   /* 모드 변경 설정 */
-  color-scheme: light dark;
+  color-scheme: light;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  /* background-color: #242424; */
 
   /* 폰트 설정 */
   font-family: 'Pretendard', Inter, system-ui, Avenir, Helvetica, Arial,
@@ -26,10 +26,6 @@
   --sub-font-color: #7b7e83;
 
   /* 폰트 렌더링 설정 */
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -49,7 +45,7 @@
 
 @layer base {
   a {
-    @apply font-medium text-[var(--sub-font-color)] hover:text-[var(--main-font-color)] hover:text-white;
+    @apply font-medium text-[var(--sub-font-color)];
   }
 
   html,
@@ -61,10 +57,6 @@
     font-family: 'Pretendard', sans;
     color: var(--main-font-color);
     font-size: 16px;
-  }
-
-  h1 {
-    @apply m-0 sm:pb-10 text-2xl font-bold text-[var(--main-font-color)] lg:pl-4 sm:pl-0;
   }
 
   main {
@@ -130,7 +122,7 @@
   }
 
   *::-webkit-scrollbar {
-    height: 1rem;
+    height: 0.5rem;
     width: 0.5rem;
   }
   *::-webkit-scrollbar-thumb:hover {
@@ -144,9 +136,16 @@
     border-radius: 9999px;
     border-width: 1px;
   }
+  *::-webkit-scrollbar-track {
+    margin: 1.2em;
+  }
+
+  h1 {
+    @apply m-0 sm:pb-10 text-2xl font-bold text-[var(--main-font-color)] lg:pl-4 sm:pl-0;
+  }
 
   .list-title {
-    @apply text-2xl font-bold mb-2;
+    @apply text-3xl font-semibold mb-2 pb-6;
   }
   .list-title ~ .list-title {
     @apply mt-4;
@@ -169,6 +168,7 @@
     overflow: hidden;
     text-overflow: ellipsis;
   }
+
   .truncate-3 {
     display: -webkit-box;
     word-wrap: break-word;
@@ -176,6 +176,16 @@
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
+  }
+
+  .hide {
+    position: absolute;
+    clip: rect(0 0 0 0);
+    /* rect(top, right, bottom, left) */
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
   }
 }
 

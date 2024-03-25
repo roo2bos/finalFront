@@ -1,4 +1,51 @@
 /* Home */
+
+/* 홈 상단 - 사이트 소개 및 퀴즈 */
+.banner-quiz {
+  @apply gap-3 py-20;
+  display: grid;
+  grid-template-columns: 4fr 2fr;
+}
+
+.banner {
+  @apply flex rounded-xl bg-[var(--bg-highlight-color)];
+  width: 100%;
+  height: auto;
+  /* position: relative; */
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.banner-text-area {
+  @apply px-8 py-4;
+}
+
+.banner h3 {
+  @apply text-[30px] pt-1 pb-3;
+}
+
+.banner-text {
+  @apply text-lg;
+}
+
+.img-box {
+  position: relative;
+}
+
+.img-box img {
+  position: absolute;
+  bottom: 0;
+}
+
+.banner-btn {
+  margin: 16px 0;
+  border: 1px solid #000;
+  font-size: 18px;
+  border-radius: 30px;
+  padding: 6px 10px;
+}
+
+/* 대화 목록 */
 .list-char {
   @apply grid grid-cols-2 lg:grid-cols-4 gap-3;
 }

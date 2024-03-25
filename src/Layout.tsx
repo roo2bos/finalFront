@@ -5,6 +5,7 @@ import Footer from './components/Footer';
 import { useRef, useState, useMemo } from 'react';
 
 export default function Layout() {
+  // 햄버거 버튼으로 nav바 열고,닫기
   const [navToggle, setNavToggle] = useState<boolean>(false);
   const navOpen = () => {
     setNavToggle(!navToggle);
