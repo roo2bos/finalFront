@@ -211,8 +211,9 @@ function Talk() {
 
 			const formData = new FormData();
 
-			formData.append('audio', audioFile);
-			const response = await axios.post(' http://localhost:8080/speech', formData, {
+			formData.append('audio', audioFile);	
+			const response = await axios.post('http://localhost:8080/speech', formData, {
+
 				headers: {
 					'Content-Type': 'multipart/form-data',
 				},
@@ -220,6 +221,7 @@ function Talk() {
 			});
 
 			console.log('Audio data sent successfully:', response.data);
+			textareaRef.current.value = response.data;
 		} catch (error) {
 			console.error('Error sending audio data:', error);
 		}
