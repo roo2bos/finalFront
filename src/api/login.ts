@@ -8,8 +8,6 @@ export const loginApi = async (userdata: any): Promise<any> => {
     console.log(response);
     if (response.data.result === false) {
       alert('아이디 및 비밀번호를 다시 확인 부탁드립니다.')
-    } else {
-      // window.location.href = `http://localhost:3000`;
     }
     return response.data;
   } catch (error) {

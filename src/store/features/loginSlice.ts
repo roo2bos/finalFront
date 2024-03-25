@@ -50,7 +50,6 @@ export const loginUser =
       dispatch(loginStart());
       const user = await loginApi(userdata);
       dispatch(loginSuccess(user));
-      // navigate('/');
     } catch (error: any) {
       dispatch(loginError(error));
     }

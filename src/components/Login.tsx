@@ -1,7 +1,6 @@
 import { useForm, SubmitHandler, SubmitErrorHandler } from 'react-hook-form';
 // import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
 import { loginUser } from '../store/features/loginSlice';
 import { useAppDispatch } from '../hooks';
 import '../assets/css/auth.css';
@@ -12,20 +11,16 @@ type FormData = {
 };
 
 export default function SignUp() {
-  // const dispatch = useDispatch();
   const dispatch = useAppDispatch();
 
   const {
     register,
     handleSubmit,
     formState: { errors },
-    // watch,
   } = useForm<FormData>();
-  const navigate = useNavigate();
   const onSubmit: SubmitHandler<FormData> = (userdata) => {
     console.log('onSubmit', userdata);
-
-    dispatch(loginUser(userdata, navigate));
+    dispatch(loginUser(userdata));
   };
 
   const onError: SubmitErrorHandler<FormData> = (errors) => {
