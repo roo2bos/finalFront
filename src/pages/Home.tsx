@@ -87,7 +87,7 @@ function Home() {
         </div>
       </div>
       <div></div>
-      <h2 className='list-title'>추천대화</h2>
+      <h2 className='list-title'>추천 대화</h2>
       {/* <Characters /> */}
 
       <CharacterList data={recomm} />
