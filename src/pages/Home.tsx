@@ -3,7 +3,7 @@ import '../index.css';
 import '../assets/css/home.css';
 // import { Link } from 'react-router-dom';
 import datas from '../../datas.json'; //임시 데이터
-import Chat from './Chat';
+import {CharacterList} from './Chat';
 
 function Home() {
   // const [account] = useState('test'); //로그인(인증)된 유저정보
@@ -90,7 +90,7 @@ function Home() {
       <h2 className='list-title'>추천대화</h2>
       {/* <Characters /> */}
 
-      <Chat data={recomm} />
+      <CharacterList data={recomm} />
     </>
   );
 }
