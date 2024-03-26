@@ -88,7 +88,6 @@ export default function Login() {
               <label className='auth-label' htmlFor='userId'>
                 아이디
               </label>
-
               <input
                 className='auth-input'
                 type='text'

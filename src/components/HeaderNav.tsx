@@ -41,7 +41,8 @@ export default function Header() {
       <div className="nav-login">
         {isLogged ? (
           <>
-            <p>{user}</p>
+            <Link to="/mypage">{user}</Link>
+            <Link to="/mypage">{user}</Link>
             <button onClick={handleLogout}>로그아웃</button>
           </>
         ) : (
