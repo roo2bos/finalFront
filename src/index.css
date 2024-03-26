@@ -39,7 +39,7 @@
 
   /* 버튼 색상 설정 */
   --btn-bg: var(--highlight-color);
-  --btn-sub-bg: #d9d9d9;
+  --btn-sub-bg: #f0f0f0;
   --btn-bg-hover: var(--hover-highlight-color);
 }
 
@@ -160,6 +160,15 @@
 }
 
 @layer utilities {
+  .truncate-1 {
+    display: -webkit-box;
+    word-wrap: break-word;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
   .truncate-2 {
     display: -webkit-box;
     word-wrap: break-word;

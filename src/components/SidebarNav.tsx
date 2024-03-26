@@ -6,10 +6,10 @@ import { MdLibraryBooks } from 'react-icons/md';
 import '../assets/css/sidebarNav.css';
 
 const navMenu = [
-  { id: 1, link: '/', icon: <GoHomeFill />, text: '두런두런' },
-  { id: 2, link: '/mypage', icon: <CgMenuGridR />, text: '나의활동' },
-  { id: 3, link: '/chat', icon: <BiSolidChat />, text: '대화하기' },
-  { id: 4, link: '/learning', icon: <MdLibraryBooks />, text: '학습하기' },
+  { id: 0, link: '/', icon: <GoHomeFill />, text: '두런두런' },
+  { id: 1, link: '/mypage', icon: <CgMenuGridR />, text: '나의활동' },
+  { id: 2, link: '/chat', icon: <BiSolidChat />, text: '대화하기' },
+  { id: 3, link: '/learning', icon: <MdLibraryBooks />, text: '학습하기' },
 ];
 
 export default function SidebarNav() {

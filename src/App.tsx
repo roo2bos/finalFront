@@ -12,6 +12,7 @@ import About from './pages/About';
 import Wordquiz from './components/Wordquiz';
 import Preview from './components/Preview';
 import Review from './components/Review';
+import ReviewContent from './components/ReviewContent';
 import Chat from './pages/Chat';
 import Learn from './pages/Learn';
 import Spinner from './components/Spinner';
@@ -23,13 +24,13 @@ function App() {
       <Route element={<Layout />}>
         <Route path='/' element={<Home />} />
         <Route path='/talk/:id' element={<Talk />} />
-        <Route path='/mypage' element={<Mypage />} />
         <Route path='/myroom' element={<Myroom />} />
         <Route path='/character/:id' element={<Character />} />
         <Route path='/about' element={<About />} />
         <Route path='/quiz' element={<Wordquiz />} />
         <Route path='/preview' element={<Preview />} />
-        <Route path='/review' element={<Review />} />
+        <Route path='/mypage' element={<Mypage />} />
+        <Route path='/mypage/:id' element={<ReviewContent />} />
         <Route path='/chat' element={<Chat />} />
         <Route path='/learning' element={<Learn />} />
         <Route path='*' element={<NotFound />} />

@@ -1,0 +1,17 @@
+.ai {
+  background-color: #f0f0f0; /* AI 발화자의 배경색 */
+  color: #333; /* AI 발화자의 글자색 */
+  padding: 5px;
+  border-radius: 5px;
+  margin-bottom: 5px;
+  width: 50%;
+}
+
+.user {
+  background-color: #d4edda; /* 사용자 발화자의 배경색 */
+  color: #155724; /* 사용자 발화자의 글자색 */
+  padding: 5px;
+  border-radius: 5px;
+  margin-bottom: 5px;
+  width: 50%;
+}

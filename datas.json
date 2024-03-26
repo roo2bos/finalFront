@@ -201,7 +201,13 @@
       "date": "2024-03-24",
       "startTime": "10:00",
       "finishTime": "11:00",
-      "correctiveSentencCount": "5",
+      "incorrectSentences": [
+        "He can able to speak French fluently.",
+        "I have ate lunch already.",
+        "She go to the store yesterday.",
+        "They has been waiting for over an hour.",
+        "The books is on the table."
+      ],
       "img": "/image1.png"
     },
     {
@@ -210,7 +216,11 @@
       "date": "2024-03-24",
       "startTime": "10:00",
       "finishTime": "11:00",
-      "correctiveSentenceCount": "3",
+      "incorrectSentences": [
+        "She is going to married next month.",
+        "I'm already finish my homework.",
+        "She go to the store yesterday."
+      ],
       "img": "/characters/ic_style_joker_male.avif"
     },
     {
@@ -219,7 +229,10 @@
       "date": "2024-03-24",
       "startTime": "10:00",
       "finishTime": "11:00",
-      "correctiveSentenceCount": "2",
+      "incorrectSentences": [
+        "I'm already finish my homework.",
+        "She go to the store yesterday."
+      ],
       "img": "/characters/ic_style_joker_female.avif"
     },
     {
@@ -228,7 +241,26 @@
       "date": "2024-03-25",
       "startTime": "10:00",
       "finishTime": "11:00",
-      "correctiveSentenceCount": "10",
+      "incorrectSentences": [
+        "She is going to married next month I'm already finish my homework.",
+        "I'm already finish my homework.",
+        "She go to the store yesterday.",
+        "I'm already finish my homework.",
+        "She go to the store yesterday.",
+        "I'm already finish my homework.",
+        "She go to the store yesterday.",
+        "I'm already finish my homework.",
+        "She go to the store yesterday."
+      ],
+      "img": "/characters/ic_style_joker_female.avif"
+    },
+    {
+      "id": "review_5",
+      "name": "할리퀸",
+      "date": "2024-03-27",
+      "startTime": "10:00",
+      "finishTime": "11:00",
+      "incorrectSentences": [],
       "img": "/characters/ic_style_joker_female.avif"
     }
   ]
