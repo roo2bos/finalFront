@@ -7,7 +7,6 @@ import Home from './pages/Home';
 import Mypage from './pages/Mypage';
 import Talk from './pages/Talk';
 import Myroom from './pages/Myroom';
-import Character from './pages/Character';
 import About from './pages/About';
 import Wordquiz from './components/Wordquiz';
 import Preview from './components/Preview';
@@ -25,7 +24,6 @@ function App() {
         <Route path='/' element={<Home />} />
         <Route path='/talk/:id' element={<Talk />} />
         <Route path='/myroom' element={<Myroom />} />
-        <Route path='/character/:id' element={<Character />} />
         <Route path='/about' element={<About />} />
         <Route path='/quiz' element={<Wordquiz />} />
         <Route path='/preview' element={<Preview />} />

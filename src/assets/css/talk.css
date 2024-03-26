@@ -23,8 +23,13 @@
 	.list-talk .head .profile img {
 		@apply w-full h-full object-cover;
 	}
+
 	.list-talk .head .char-info {
-		@apply flex items-center gap-3;
+		@apply relative flex items-center gap-3;
+	}
+
+	.list-talk .head .char-info button {
+		@apply inline-flex items-center gap-2;
 	}
 	.list-talk .head dt {
 		@apply flex items-center font-bold h-full;
@@ -32,6 +37,15 @@
 	.list-talk .head a {
 		@apply text-inherit inline-flex items-center gap-1;
 	}
+
+	.list-talk .head .desc {
+		@apply h-0 overflow-hidden transition-opacity opacity-0;
+	}
+
+	.list-talk .head .desc.on {
+		@apply h-auto overflow-visible transition-opacity  opacity-100;
+	}
+
 	/* .list-talk .inner li {
 		@apply flex-row-reverse my-4 flex flex-1 text-base mx-auto gap-5;
 	}
@@ -124,7 +138,7 @@
 		@apply inline-flex relative leading-none rounded-full  text-black bg-gray-100 disabled:text-gray-400;
 	}
 	.list-talk .form .btn-stop.disabled {
-		@apply  text-gray-400;
+		@apply text-gray-400;
 	}
 	.list-talk .form .btn-send {
 		@apply m-0 p-3 inline-flex relative leading-none rounded-full  text-black bg-gray-100 disabled:text-gray-400;
@@ -139,7 +153,7 @@
 	.list-talk .form .textarea-wrap {
 		@apply w-full grid;
 	}
-/* 	.list-talk .form .textarea-wrap:after {
+	/* 	.list-talk .form .textarea-wrap:after {
 		content: attr(data-value) ' ';
 		white-space: pre-wrap;
 		visibility: hidden;
@@ -149,12 +163,12 @@
 	.list-talk .form .shortcuts {
 		@apply text-xs inline-flex gap-1 flex-col items-start;
 	}
-  .list-talk .form .shortcuts .btn-finishchat{
-    font-size:inherit;
+	.list-talk .form .shortcuts .btn-finishchat {
+		font-size: inherit;
 		@apply text-white bg-[var(--btn-bg)] py-1 px-3 rounded-full;
 	}
-	.list-talk .form .shortcut button{
-    font-size:inherit;
+	.list-talk .form .shortcut button {
+		font-size: inherit;
 		@apply text-white bg-[var(--btn-bg)] py-1 px-3 rounded-full;
 	}
 	.list-talk .form .shortcut span {
@@ -427,13 +441,14 @@
 		background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%2367c0cd" class="w-6 h-6"> <path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12Zm13.36-1.814a.75.75 0 1 0-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 0 0-1.06 1.06l2.25 2.25a.75.75 0 0 0 1.14-.094l3.75-5.25Z" clip-rule="evenodd" /></svg> ');
 		@apply inline-flex items-center;
 	}
-	.ly-modal .list-correct{
-    counter-reset:num;
-  }
+	.ly-modal .list-correct {
+		counter-reset: num;
+	}
 	.ly-modal .list-correct li {
 		@apply flex flex-row gap-2;
 	}
 	.ly-modal .list-correct li:before {
-		content: counter(num) '. ';counter-increment: num;;
+		content: counter(num) '. ';
+		counter-increment: num;
 	}
 } /* components */

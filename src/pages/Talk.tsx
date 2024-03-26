@@ -1,11 +1,13 @@
 import '../assets/css/talk.css';
 import { useEffect, useState, useRef } from 'react';
 import { useParams } from 'react-router-dom';
-import { Link } from 'react-router-dom';
 import datas from '../../datas.json'; //임시 데이터
 import axios from 'axios';
 import { RiThumbUpFill, RiThumbDownFill } from 'react-icons/ri';
-import { BiSolidUserDetail } from 'react-icons/bi';
+// import { BiSolidUserDetail } from 'react-icons/bi';
+import { PiUserListFill } from "react-icons/pi";
+import { PiUserListDuotone } from "react-icons/pi";
+
 import { PiMicrophoneFill } from 'react-icons/pi';
 import { PiMicrophoneSlash } from 'react-icons/pi';
 import { RiSendPlaneFill } from 'react-icons/ri';
@@ -42,11 +44,12 @@ function Talk() {
 	const [aiMsg, setAiMsg] = useState({}); //임시 : 대화 메세지 전송 개수 체크(api 적용시 삭제예정)
 	const [talkMessages, setTalkMessages] = useState([]); //둘의 대화 메세지 목록
 	const [correctList, setCorrectList] = useState([]); //교정 할 리스트
-	const [isFinishPop, setIsFinishPop] = useState(false);//대화 종료 팝업 체크
+	const [isFinishPop, setIsFinishPop] = useState(false); //대화 종료 팝업 체크
 	const [isFinish, setIsFinish] = useState(false); //대화 종료
 
 	const [userInfo] = useState(datas.users.find((user) => user.userid === account)); //임시
-	const [characterInfo] = useState(datas.characters.find((character) => character.id === id)); //임시
+	const [characterInfo] = useState(datas.characters.filter((character) => character.id === id)); //임시
+	const [characterDesc, setCharacterDesc] = useState(false);
 	const [missions] = useState([
 		// 더미
 		{
@@ -83,7 +86,7 @@ function Talk() {
 				{ withCredentials: true }
 			);
 			const result = await response.data;
-      const objectURL = 'https://43.203.227.36.sslip.io/pooh.wav';
+			const objectURL = 'https://43.203.227.36.sslip.io/pooh.wav';
 			setTalkMessages((prevData) => [...prevData, `pooh: ${result.aimsg}`]);
 			setAiMsg((prevData) => ({ ...prevData, result: result }));
 			setAudioLoad(false);
@@ -149,7 +152,7 @@ function Talk() {
 					if (correctedMsg.length === 0) {
 						setCorrectList(['Perfect Grammar']);
 					}
-          setIsFinish(true);
+					setIsFinish(true);
 				})
 				.catch(function (error) {
 					console.error('에러 발생:', error);
@@ -211,7 +214,6 @@ function Talk() {
 
 			formData.append('audio', audioFile);
 			const response = await axios.post('http://localhost:8080/speech', formData, {
-
 				headers: {
 					'Content-Type': 'multipart/form-data',
 				},
@@ -260,7 +262,6 @@ function Talk() {
 						</div>
 						<div className="profile">
 							<img src={beforeMessage[0]?.img} alt="" />
-
 							<div className={`voiceContainer ${playState ? 'on' : 'off'}`}>
 								<div>
 									<div className="voice voice1"></div>
@@ -274,9 +275,9 @@ function Talk() {
 
 						<dl className="char-info">
 							<dt>
-								<Link to={`/character/${id}`}>
-									<BiSolidUserDetail /> {beforeMessage[0]?.name}{' '}
-								</Link>
+								<button id="charName" onClick={() => setCharacterDesc(!characterDesc)}>
+                  {characterDesc?<PiUserListFill className="text-lg" /> : <PiUserListDuotone  className="text-lg" />} {beforeMessage[0]?.name}{' '}
+								</button>
 							</dt>
 							<dd>
 								<div className="btn-group">
@@ -289,6 +290,9 @@ function Talk() {
 								</div>
 							</dd>
 						</dl>
+						<div aria-labelledby={`charName`} className={`desc ${characterDesc?'on':''}`}>
+							{characterInfo[0].desc}
+						</div>
 					</div>
 				</div>
 
@@ -357,7 +361,7 @@ function Talk() {
 								<button type="button" className="btn-stop" onClick={playAudio} disabled={isAudioFetched ? false : true}>
 									{playState ? <IoStop /> : <IoPlay />}
 								</button>
-								<button type="submit" className="btn-send" disabled={playState||isFinish ? true : false}>
+								<button type="submit" className="btn-send" disabled={playState || isFinish ? true : false}>
 									{audioLoad ? <RiLoader2Fill className="animate-spin" /> : <RiSendPlaneFill />}
 								</button>
 								<button type="button" className="btn-mic" onClick={mic ? handleStopRecording : handleStartRecording}>
