@@ -245,7 +245,7 @@
 		width: 10px;
 		height: 20px;
 		border-radius: 20px 0 0;
-		background-color: white;
+		background-color: #d4edda;
 	}
 	.list-talk .history li.ai .info:before {
 		left: auto;
@@ -261,7 +261,7 @@
 		width: 10px;
 		height: 20px;
 		border-radius: 0 20px 0 0;
-		background-color: white;
+		background-color: #f0f0f0;
 	}
 	.list-talk .history li a {
 		@apply text-blue-500;
