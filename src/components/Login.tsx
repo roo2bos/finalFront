@@ -36,13 +36,11 @@ export default function Login() {
   };
   
   // 지워야함
-  
-
   useEffect(() => {
     const fetchData = async () => {
       try {
         const API_URL = 'https://43.203.227.36.sslip.io/server';
-        const response = await axios.get(`${API_URL}/user/authuser`);
+        const response = await axios.get(`${API_URL}/user/authuser`, { withCredentials: true });
         setUser(response.data.nickname);
         console.log('데이터를 받아오는?  : ', response.data);
         console.log('넥님 좀 떠줘? : ', response.data.nickname)
@@ -60,7 +58,7 @@ export default function Login() {
   
     try {
       const API_URL = 'https://43.203.227.36.sslip.io/server';
-      const response = await axios.get(`${API_URL}/user/authuser`);
+      const response = await axios.get(`${API_URL}/user/authuser`, { withCredentials: true });
       setUser(response.data.nickname);
       console.log(response.data);
       console.log('넥님 좀 떠줘?? : ', response.data.nickname);

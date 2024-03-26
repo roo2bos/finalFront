@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 const API_URL: string = 'https://43.203.227.36.sslip.io/server';
+// const API_URL = process.env.DoRunx2_APP_API_URL;
 
 export const loginApi = async (userdata: any): Promise<any> => {
   try {
@@ -22,7 +23,7 @@ export const loginApi = async (userdata: any): Promise<any> => {
 
 export const authUser = async () => {
   try {
-    const response = await axios.get(`${API_URL}/user/authuser`);
+    const response = await axios.get(`${API_URL}/user/authuser`,  { withCredentials: true });
     console.log('이게 문제인건가? ', response);
     return response.data;
   } catch (error) {
@@ -32,7 +33,7 @@ export const authUser = async () => {
 
 export const logoutApi = async () => {
   try {
-    const response = await axios.get(`${API_URL}/user/logout`);
+    const response = await axios.get(`${API_URL}/user/logout` , { withCredentials: true });
     console.log(response);
     return response.data;
   } catch (error) {

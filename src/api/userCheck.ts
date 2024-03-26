@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL: string = 'http://43.203.227.36:8080';
+const API_URL: string = 'https://43.203.227.36.sslip.io/server';
 
 export const userIdCheckApi = async (InputId : any) : Promise<any> => {
     try{    
