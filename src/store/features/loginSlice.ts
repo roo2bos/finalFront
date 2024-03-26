@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Dispatch } from '@reduxjs/toolkit';
-import { loginApi, logoutApi } from '../../api/login';
+import { loginApi, logoutApi, authUser } from '../../api/login';
 interface User {
   userId: string;
   password: string;
@@ -50,6 +50,15 @@ export const loginUser =
       dispatch(loginStart());
       const user = await loginApi(userdata);
       dispatch(loginSuccess(user));
+    } catch (error: any) {
+      dispatch(loginError(error));
+    }
+  };
+
+  export const authUsers = () => async (dispatch: Dispatch) => {
+    try {
+      await authUser();
+      dispatch(loginSuccess());
     } catch (error: any) {
       dispatch(loginError(error));
     }

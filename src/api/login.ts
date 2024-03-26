@@ -1,12 +1,12 @@
 import axios from 'axios';
 
-const API_URL: string = 'http://43.203.227.36:8080';
+const API_URL: string = 'https://43.203.227.36.sslip.io/server';
 
 export const loginApi = async (userdata: any): Promise<any> => {
   try {
     const response = await axios.post(`${API_URL}/user/login`, userdata, { withCredentials: true });
-    console.log(response);
-    console.log(userdata)
+    console.log('로그인 정보 : ', response);
+    console.log('유저 정보 : ', userdata)
     if (response.data.result === false) {
       alert(response.data.msg)
     } else {
@@ -14,6 +14,16 @@ export const loginApi = async (userdata: any): Promise<any> => {
       alert('로그인에 성공하였습니다')
       response.data
     }
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const authUser = async () => {
+  try {
+    const response = await axios.get(`${API_URL}/user/authuser`);
+    console.log('이게 문제인건가? ', response);
     return response.data;
   } catch (error) {
     throw error;
