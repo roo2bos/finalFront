@@ -76,14 +76,14 @@ function Talk() {
 	const fetchAndPlayAudio = async (inputText) => {
 		try {
 			const response = await axios.post(
-				'http://43.203.227.36:8080/chat/SendChat',
+				'https://43.203.227.36.sslip.io/server/chat/SendChat',
 				{
 					messages: [`user: ${inputText}`],
 				},
 				{ withCredentials: true }
 			);
 			const result = await response.data;
-      const objectURL = 'http://43.203.227.36/pooh.wav';
+      const objectURL = 'https://43.203.227.36.sslip.io/test.wav';
 			setTalkMessages((prevData) => [...prevData, `pooh: ${result.aimsg}`]);
 			setAiMsg((prevData) => ({ ...prevData, result: result }));
 			setAudioLoad(false);
@@ -132,7 +132,7 @@ function Talk() {
 			setCorrectLoad(true);
 			await axios
 				.post(
-					'http://43.203.227.36:8080/chat/getCorrection',
+					'https://43.203.227.36.sslip.io/server/chat/getCorrection',
 					{
 						messages: talkMessages,
 					},
