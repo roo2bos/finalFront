@@ -83,7 +83,7 @@ function Talk() {
 				{ withCredentials: true }
 			);
 			const result = await response.data;
-      const objectURL = 'https://43.203.227.36.sslip.io/test.wav';
+      const objectURL = 'https://43.203.227.36.sslip.io/pooh.wav';
 			setTalkMessages((prevData) => [...prevData, `pooh: ${result.aimsg}`]);
 			setAiMsg((prevData) => ({ ...prevData, result: result }));
 			setAudioLoad(false);

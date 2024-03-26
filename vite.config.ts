@@ -8,7 +8,7 @@ export default defineConfig({
     port: 3000,
     proxy: {
       '/pooh.wav': {
-        target: 'http://43.203.227.36',
+        target: 'https://43.203.227.36',
         changeOrigin: true,
       },
       '/api': {
