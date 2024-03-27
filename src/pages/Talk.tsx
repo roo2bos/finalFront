@@ -164,6 +164,7 @@ function Talk() {
 			await setIsAudioFetched(true);
 			playAudio();
 			textareaRef.current.value = ''; //textarea clear
+      micRef.current.focus();
 		} catch (error) {
 			console.log(error);
 		}
@@ -262,6 +263,7 @@ function Talk() {
 			console.log('Audio data sent successfully:', response.data);
 			textareaRef.current.value = response.data;
       setIsTyped(false);
+      textareaRef.current.focus();
 		} catch (error) {
 			console.error('Error sending audio data:', error);
 		}
