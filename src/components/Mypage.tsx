@@ -12,12 +12,20 @@ type FormData = {
   nickname: string;
   email: string;
   password: string;
+  profileImage: FileList;
 };
 
 export default function Mypage() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const [getUser, setGetUser] = useState<FormData>({ username: '', userId: '', nickname: '', email: '', password: '' });
+  const [getUser, setGetUser] = useState<FormData>({
+    username: '',
+    userId: '',
+    nickname: '',
+    email: '',
+    password: '',
+    profileImage: null
+  });
   const API_URL = 'https://43.203.227.36.sslip.io/';
 
   // 수정페이지 form
@@ -25,7 +33,7 @@ export default function Mypage() {
     register,
     handleSubmit,
     formState: { errors },
-    watch,
+    watch
   } = useForm<FormData>();
 
   // 유저 정보 불러오기
@@ -45,7 +53,19 @@ export default function Mypage() {
   // 유저 정보 수정
   const onSubmit: SubmitHandler<FormData> = async (userdata) => {
     try {
-      const response = await axios.put(`${API_URL}/user/patch`, userdata, { withCredentials: true });
+      const formData = new FormData();
+      formData.append('username', userdata.username);
+      formData.append('userId', userdata.userId);
+      formData.append('nickname', userdata.nickname);
+      formData.append('email', userdata.email);
+      formData.append('password', userdata.password);
+      if (userdata.profileImage) {
+        formData.append('profileImage', userdata.profileImage[0]);
+      }
+
+      const response = await axios.put(`${API_URL}/user/patch`, formData, {
+        withCredentials: true
+      });
       console.log('마이페이지 변경', response.data);
       if (response.data.result === false) {
         alert(response.data.msg);
@@ -65,6 +85,16 @@ export default function Mypage() {
     dispatch(userNicknameCheck(nickname));
   }, [nickname, dispatch]);
 
+  // 프로필 이미지
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) {
+      setGetUser((prevState) => ({
+        ...prevState,
+        profileImage: e.target.files
+      }));
+    }
+  };
+
   return (
     <>
       <div className='form-area'>
@@ -75,26 +105,32 @@ export default function Mypage() {
             </div>
             <p>프로필 이미지를 추가해주세요.</p>
 
-            <label className='auth-label' htmlFor="username">이름</label>
+            <label className='auth-label' htmlFor='username'>
+              이름
+            </label>
             <input
               className='auth-input'
               value={getUser.username}
-              type="text"
-              id="username"
+              type='text'
+              id='username'
               disabled
             />
 
-            <label className='auth-label' htmlFor="userId">아이디</label>
+            <label className='auth-label' htmlFor='userId'>
+              아이디
+            </label>
             <input
               className='auth-input'
               value={getUser.userId}
-              type="text"
-              id="userId"
+              type='text'
+              id='userId'
               disabled
             />
 
             <div className='relative'>
-              <label className='auth-label' htmlFor='nickname'>닉네임</label>
+              <label className='auth-label' htmlFor='nickname'>
+                닉네임
+              </label>
               <input
                 className='auth-input'
                 value={getUser.nickname}
@@ -106,43 +142,59 @@ export default function Mypage() {
                   required: '닉네임을 입력해주세요'
                 })}
               />
-              {errors.nickname && <span className='authSpan' role='alert'>{errors.nickname.message}</span>}
-              {nickname && <span className='text-blue-500 text-xs'>{nickname}은(는) 사용 가능한 닉네임입니다.</span>}
+              {errors.nickname && (
+                <span className='authSpan' role='alert'>
+                  {errors.nickname.message}
+                </span>
+              )}
+              {nickname && (
+                <span className='text-blue-500 text-xs'>
+                  {nickname}은(는) 사용 가능한 닉네임입니다.
+                </span>
+              )}
             </div>
 
             <div className='relative'>
-              <label className='auth-label' htmlFor="email">이메일</label>
+              <label className='auth-label' htmlFor='email'>
+                이메일
+              </label>
               <input
                 className='auth-input'
                 value={getUser.email}
                 onChange={(e) => setGetUser({ ...getUser, email: e.target.value })}
-                type="email"
-                id="email"
-                placeholder="이메일을 변경해주세요"
+                type='email'
+                id='email'
+                placeholder='이메일을 변경해주세요'
                 {...register('email', {
                   required: '이메일을 입력해주세요',
                   pattern: {
                     value: /\S+@\S+\.\S+/,
-                    message: '유효한 이메일 주소를 입력하세요',
-                  },
+                    message: '유효한 이메일 주소를 입력하세요'
+                  }
                 })}
               />
-              {errors.email && <span className='authSpan' role="alert">{errors.email.message}</span>}
+              {errors.email && (
+                <span className='authSpan' role='alert'>
+                  {errors.email.message}
+                </span>
+              )}
             </div>
 
-            <label className='auth-label' htmlFor="password">비밀번호</label>
+            <label className='auth-label' htmlFor='password'>
+              비밀번호
+            </label>
             <input
               className='auth-input'
               value={getUser.password}
               onChange={(e) => setGetUser({ ...getUser, password: e.target.value })}
-              type="password"
-              id="password"
+              type='password'
+              id='password'
               placeholder="'영문, 숫자, 대문자, 특수문자 포함 8자리 이상'"
               {...register('password', {
                 required: '비밀번호를 입력하세요',
                 minLength: {
                   value: 8,
-                  message: '비밀번호는 8자 이상이어야 합니다',
+                  message: '비밀번호는 8자 이상이어야 합니다'
                 },
                 validate: (value) => {
                   const pwNumber = /\d/.test(value);
@@ -156,11 +208,28 @@ export default function Mypage() {
                     pwSpecialChar ||
                     '비밀번호는 숫자, 대문자, 소문자, 특수문자를 포함해야 합니다'
                   );
-                },
+                }
               })}
             />
-            {errors.password && <span className='authSpan' role="alert">{errors.password.message}</span>}
-            <button className='auth-input mt-11' type="submit">수정하기</button>
+            {errors.password && (
+              <span className='authSpan' role='alert'>
+                {errors.password.message}
+              </span>
+            )}
+
+            <label className='auth-label' htmlFor='profileImage'>
+              프로필 이미지 업로드
+            </label>
+            <input
+              type='file'
+              id='profileImage'
+              onChange={handleImageChange}
+              accept='image/*'
+            />
+
+            <button className='auth-input mt-11' type='submit'>
+              수정하기
+            </button>
           </form>
         </div>
       </div>

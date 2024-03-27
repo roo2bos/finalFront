@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { FaBell } from 'react-icons/fa';
 import { useEffect, useState } from 'react';
 import { useAppDispatch } from '../hooks';
@@ -8,7 +8,9 @@ import '../assets/css/headerNav.css';
 
 export default function Header() {
   const [user, setUser] = useState('');
+  const [profileImage, setProfileImage] = useState('');
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -16,6 +18,7 @@ export default function Header() {
         const API_URL = 'https://43.203.227.36.sslip.io/server';
         const response = await axios.get(`${API_URL}/user/authuser`, { withCredentials: true });
         setUser(response.data.nickname || '');
+        setProfileImage(response.data.profileImageUrl || ''); 
       } catch (error) {
         console.error('에러가 발생했습니다:', error);
       }
@@ -23,8 +26,11 @@ export default function Header() {
     fetchData();
   }, [dispatch]);
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
     dispatch(logoutUser());
+    setUser('');
+    setProfileImage('');
+    navigate('/');
   };
 
   return (
@@ -32,18 +38,19 @@ export default function Header() {
       <button onClick={handleLogout} type="button" className="noti-icon" aria-label="알림">
         <FaBell />
       </button>
-      <div className="nav-login">
-        {!user ? (
-          <>
-            <Link to="/mypagechange">{user}</Link>
-            <button onClick={handleLogout}>로그아웃</button>
-          </>
-        ) : (
-          <Link to="/login" title="로그인">
-            로그인
-          </Link>
-        )}
-      </div>
+      <div className="nav-login flex items-center">
+  {!user ? (
+    <div className="flex items-center space-x-4">
+      <Link to="/mypagechange" className="flex items-center">
+        {profileImage && <img src={profileImage} alt="프로필 이미지" className="w-10 h-10 rounded-full" />}
+        <span>{user}</span>
+      </Link>
+      <button onClick={handleLogout}>로그아웃</button>
+    </div>
+  ) : (
+    <Link to="/login" title="로그인">로그인</Link>
+  )}
+</div>
     </nav>
   );
 }

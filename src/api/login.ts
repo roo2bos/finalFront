@@ -14,8 +14,6 @@ export const loginApi = async (userdata: UserData) => {
   if (response.data.result === false) {
     alert(response.data.msg);
   } else {
-    console.log('api 호출페이지 닉네임', response.data.nickname)
-    console.log('api 호출페이지', response.data)
     window.location.href = `https://43.203.227.36.sslip.io/`
     alert('로그인에 성공하였습니다');
   }
