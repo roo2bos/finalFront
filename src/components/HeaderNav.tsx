@@ -24,9 +24,9 @@ export default function Header() {
       }
     };
     fetchData();
-  }, [dispatch]);
+  }, []); 
 
-  const handleLogout = async () => {
+  const handleLogout = () => {
     dispatch(logoutUser());
     setUser('');
     setProfileImage('');
@@ -39,11 +39,11 @@ export default function Header() {
         <FaBell />
       </button>
       <div className="nav-login">
-        {!user ? (
+        {!user ? ( 
           <div>
             <Link to="/mypagechange">
-              {profileImage ? <img src={profileImage} alt="프로필 이미지" /> : null}
               {user}
+              {profileImage ? <img src={profileImage} alt="프로필 이미지" /> : null}
             </Link>
             <button onClick={handleLogout}>로그아웃</button>
           </div>
