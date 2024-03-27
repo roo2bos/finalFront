@@ -118,7 +118,11 @@ function Talk() {
 			setTalkMessages((prevData) => [...prevData, `pooh: ${result.aimsg}`]);
 			setAiMsg((prevData) => ({ ...prevData, result: result }));
 			setAudioLoad(false);
-			return objectURL;
+			const audio = new Audio(objectURL);
+			audio.preload = 'auto'; // 오디오 미리 로드
+			console.log('오디오 소스 로그',audio.src)
+			audio.oncanplaythrough = () => {return audio.src}; // 오디오 로드 완료 시 실행
+			// return objectURL;
 		} catch (error) {
 			console.error('Fetch and play audio error:', error);
 		}
