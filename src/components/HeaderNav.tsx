@@ -1,56 +1,67 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { FaBell } from 'react-icons/fa';
 import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
 import { useAppDispatch } from '../hooks';
-import { authUsers } from '../store/features/loginSlice';
+import { logoutUser } from '../store/features/loginSlice';
 import axios from 'axios';
 import '../assets/css/headerNav.css';
 
 export default function Header() {
-  const isLogged = useSelector((state) => state.login.isLoggedin);
-  console.log('이것은 : ', isLogged);
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState('');
+  const [profileImage, setProfileImage] = useState('');
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const API_URL = 'https://43.203.227.36.sslip.io/server';
         const response = await axios.get(`${API_URL}/user/authuser`, { withCredentials: true });
-        setUser(response.data.nickname);
-        console.log(response.data);
-        console.log('넥님 좀 떠줘 : ', response.data.nickname)
+         console.log('데이터 받아옴', response.data)
+         console.log('데이터 닉네임 받아옴', response.data.nickname)
+        setUser(response.data.nickname || '');
+        setProfileImage(response.data.profileImageUrl || ''); 
       } catch (error) {
-        console.error('error', error);
+        console.error('에러가 발생했습니다:', error);
       }
     };
-
     fetchData();
-  }, []);
+  }, []); 
 
   const handleLogout = () => {
-    dispatch(authUsers());
+    dispatch(logoutUser());
+    setUser('');
+    setProfileImage('');
+    navigate('/');
   };
+
+  useEffect(() => {
+    console.log('유저 상태 업데이트:', user);
+  }, [user]);
+  
+  useEffect(() => {
+    console.log('프로필 이미지 상태 업데이트:', profileImage);
+  }, [profileImage]);
 
   return (
     <nav className="header-nav">
-      <button onClick={handleLogout} type="button" className="noti-icon" aria-label="알림">
+      <button type="button" className="noti-icon" aria-label="알림">
         <FaBell />
       </button>
       <div className="nav-login">
-        {isLogged ? (
-          <>
-            <Link to="/mypage">{user}</Link>
-            <Link to="/mypage">{user}</Link>
+        {!user ? ( 
+          <div>
+            <Link to="/mypagechange">
+              {user}
+              {profileImage ? <img src={profileImage} alt="프로필 이미지" /> : null}
+            </Link>
             <button onClick={handleLogout}>로그아웃</button>
-          </>
+          </div>
         ) : (
           <Link to="/login" title="로그인">
             로그인
           </Link>
-        )}'
-        <p>{user}</p>
+        )}
       </div>
     </nav>
   );

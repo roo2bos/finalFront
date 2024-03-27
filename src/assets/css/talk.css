@@ -134,22 +134,20 @@
     @apply flex gap-2;
   }
   .list-talk .form .btns button {
-    @apply m-0 p-0 w-[40px] h-[40px] bg-[transparent] bg-gray-100 text-black text-center text-xl rounded-full;
-    line-height: 0.5;
+    @apply m-0;
   }
-
   .list-talk .form .btn-stop {
-    @apply relative disabled:text-gray-400 cursor-pointer;
+    @apply inline-flex relative leading-none rounded-full  text-black bg-gray-100 disabled:text-gray-400;
   }
-
   .list-talk .form .btn-stop.disabled {
     @apply text-gray-400;
   }
-
   .list-talk .form .btn-send {
-    @apply m-0 p-3 relative disabled:text-gray-400;
+    @apply m-0 p-3 inline-flex relative leading-none rounded-full  text-black bg-gray-100 disabled:text-gray-400;
   }
-
+  .list-talk .form .btn-mic {
+    @apply inline-flex rounded-full leading-none  text-black bg-gray-100;
+  }
   .list-talk .form textarea {
     resize: none;
     grid-area: 1 / 1 / 2 / 2;
