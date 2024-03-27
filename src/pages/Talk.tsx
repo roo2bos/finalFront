@@ -19,7 +19,10 @@ import { PiListMagnifyingGlassDuotone } from 'react-icons/pi';
 import { MdChecklist } from 'react-icons/md';
 import { IoMdCloseCircle } from 'react-icons/io';
 import { RiLoader2Fill } from 'react-icons/ri';
+import { FaFileArrowDown } from 'react-icons/fa6';
+import { FaArrowLeft } from 'react-icons/fa6';
 // import wavfile from '/test.wav';
+import { type } from './../store/store';
 
 export const ChatHistory = ({ talkMessages, userInfo, characterInfo }) => {
   return (
@@ -374,7 +377,7 @@ function Talk() {
               </div>
             </div>
 
-            <dl className='char-info'>
+            {/* <dl className='char-info'>
               <dt>
                 <button
                   id='charName'
@@ -398,7 +401,7 @@ function Talk() {
                   </button>
                 </div>
               </dd>
-            </dl>
+            </dl> */}
             <div
               aria-labelledby={`charName`}
               className={`desc ${characterDesc ? 'on' : ''}`}
