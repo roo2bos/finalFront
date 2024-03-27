@@ -7,10 +7,10 @@ export default defineConfig({
   server: {
     port: 3000,
     proxy: {
-      '/pooh.wav': {
-        target: 'https://43.203.227.36.sslip.io',
-        changeOrigin: true,
-      },
+      // '/pooh.wav': {
+      //   target: 'https://43.203.227.36.sslip.io',
+      //   changeOrigin: true,
+      // },
       '/api': {
         target: 'https://43.203.227.36.sslip.io/server',
         changeOrigin: true,
