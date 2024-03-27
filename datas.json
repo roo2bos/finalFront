@@ -298,5 +298,674 @@
       "wrongSentence": "He goed to the store.",
       "correctedSentence": "He went to the store."
     }
+  ],
+
+  "level0": [
+    {
+      "id": "level0_0",
+      "no": 0,
+      "sentence": "레벨0 I am a student.",
+      "similarSentences": [
+        "I study at school.",
+        "I go to school as a student.",
+        "I am enrolled in school."
+      ],
+      "conversation": [
+        { "speaker": "A", "text": "What do you do?" },
+        { "speaker": "B", "text": "I am a student." }
+      ],
+      "used": false
+    },
+    {
+      "id": "level0_1",
+      "no": 1,
+      "sentence": "She has a cat.",
+      "similarSentences": [
+        "She owns a cat.",
+        "There is a cat in her house.",
+        "A cat belongs to her."
+      ],
+      "conversation": [
+        { "speaker": "A", "text": "Does she have any pets?" },
+        { "speaker": "B", "text": "Yes, she has a cat." }
+      ],
+      "used": false
+    },
+    {
+      "id": "level0_2",
+      "no": 2,
+      "sentence": "I am a student.",
+      "similarSentences": [
+        "I study at school.",
+        "I go to school as a student.",
+        "I am enrolled in school."
+      ],
+      "conversation": [
+        { "speaker": "A", "text": "What do you do?" },
+        { "speaker": "B", "text": "I am a student." }
+      ],
+      "used": false
+    },
+    {
+      "id": "level0_3",
+      "no": 3,
+      "sentence": "I am a student.",
+      "similarSentences": [
+        "I study at school.",
+        "I go to school as a student.",
+        "I am enrolled in school."
+      ],
+      "conversation": [
+        { "speaker": "A", "text": "What do you do?" },
+        { "speaker": "B", "text": "I am a student." }
+      ],
+      "used": false
+    },
+    {
+      "id": "level0_4",
+      "no": 4,
+      "sentence": "I am a student.",
+      "similarSentences": [
+        "I study at school.",
+        "I go to school as a student.",
+        "I am enrolled in school."
+      ],
+      "conversation": [
+        { "speaker": "A", "text": "What do you do?" },
+        { "speaker": "B", "text": "I am a student." }
+      ],
+      "used": false
+    },
+    {
+      "id": "level0_5",
+      "no": 5,
+      "sentence": "I am a student.",
+      "similarSentences": [
+        "I study at school.",
+        "I go to school as a student.",
+        "I am enrolled in school."
+      ],
+      "conversation": [
+        { "speaker": "A", "text": "What do you do?" },
+        { "speaker": "B", "text": "I am a student." }
+      ],
+      "used": false
+    },
+    {
+      "id": "level0_6",
+      "no": 6,
+      "sentence": "I am a student.",
+      "similarSentences": [
+        "I study at school.",
+        "I go to school as a student.",
+        "I am enrolled in school."
+      ],
+      "conversation": [
+        { "speaker": "A", "text": "What do you do?" },
+        { "speaker": "B", "text": "I am a student." }
+      ],
+      "used": false
+    },
+    {
+      "id": "level0_7",
+      "no": 7,
+      "sentence": "I am a student.",
+      "similarSentences": [
+        "I study at school.",
+        "I go to school as a student.",
+        "I am enrolled in school."
+      ],
+      "conversation": [
+        { "speaker": "A", "text": "What do you do?" },
+        { "speaker": "B", "text": "I am a student." }
+      ],
+      "used": false
+    },
+    {
+      "id": "level0_8",
+      "no": 8,
+      "sentence": "I am a student.",
+      "similarSentences": [
+        "I study at school.",
+        "I go to school as a student.",
+        "I am enrolled in school."
+      ],
+      "conversation": [
+        { "speaker": "A", "text": "What do you do?" },
+        { "speaker": "B", "text": "I am a student." }
+      ],
+      "used": false
+    },
+    {
+      "id": "level0_9",
+      "no": 9,
+      "sentence": "I am a student.",
+      "similarSentences": [
+        "I study at school.",
+        "I go to school as a student.",
+        "I am enrolled in school."
+      ],
+      "conversation": [
+        { "speaker": "A", "text": "What do you do?" },
+        { "speaker": "B", "text": "I am a student." }
+      ],
+      "used": false
+    },
+    {
+      "id": "level0_10",
+      "no": 10,
+      "sentence": "I am a student.",
+      "similarSentences": [
+        "I study at school.",
+        "I go to school as a student.",
+        "I am enrolled in school."
+      ],
+      "conversation": [
+        { "speaker": "A", "text": "What do you do?" },
+        { "speaker": "B", "text": "I am a student." }
+      ],
+      "used": false
+    }
+  ],
+  "level1": [
+    {
+      "id": "level0_0",
+      "no": 0,
+      "sentence": "레벨1 I am a student.",
+      "similarSentences": [
+        "I study at school.",
+        "I go to school as a student.",
+        "I am enrolled in school."
+      ],
+      "conversation": [
+        { "speaker": "A", "text": "What do you do?" },
+        { "speaker": "B", "text": "I am a student." }
+      ],
+      "used": false
+    },
+    {
+      "id": "level0_1",
+      "no": 1,
+      "sentence": "She has a cat.",
+      "similarSentences": [
+        "She owns a cat.",
+        "There is a cat in her house.",
+        "A cat belongs to her."
+      ],
+      "conversation": [
+        { "speaker": "A", "text": "Does she have any pets?" },
+        { "speaker": "B", "text": "Yes, she has a cat." }
+      ],
+      "used": false
+    },
+    {
+      "id": "level0_2",
+      "no": 2,
+      "sentence": "I am a student.",
+      "similarSentences": [
+        "I study at school.",
+        "I go to school as a student.",
+        "I am enrolled in school."
+      ],
+      "conversation": [
+        { "speaker": "A", "text": "What do you do?" },
+        { "speaker": "B", "text": "I am a student." }
+      ],
+      "used": false
+    },
+    {
+      "id": "level0_3",
+      "no": 3,
+      "sentence": "I am a student.",
+      "similarSentences": [
+        "I study at school.",
+        "I go to school as a student.",
+        "I am enrolled in school."
+      ],
+      "conversation": [
+        { "speaker": "A", "text": "What do you do?" },
+        { "speaker": "B", "text": "I am a student." }
+      ],
+      "used": false
+    },
+    {
+      "id": "level0_4",
+      "no": 4,
+      "sentence": "I am a student.",
+      "similarSentences": [
+        "I study at school.",
+        "I go to school as a student.",
+        "I am enrolled in school."
+      ],
+      "conversation": [
+        { "speaker": "A", "text": "What do you do?" },
+        { "speaker": "B", "text": "I am a student." }
+      ],
+      "used": false
+    },
+    {
+      "id": "level0_5",
+      "no": 5,
+      "sentence": "I am a student.",
+      "similarSentences": [
+        "I study at school.",
+        "I go to school as a student.",
+        "I am enrolled in school."
+      ],
+      "conversation": [
+        { "speaker": "A", "text": "What do you do?" },
+        { "speaker": "B", "text": "I am a student." }
+      ],
+      "used": false
+    },
+    {
+      "id": "level0_6",
+      "no": 6,
+      "sentence": "I am a student.",
+      "similarSentences": [
+        "I study at school.",
+        "I go to school as a student.",
+        "I am enrolled in school."
+      ],
+      "conversation": [
+        { "speaker": "A", "text": "What do you do?" },
+        { "speaker": "B", "text": "I am a student." }
+      ],
+      "used": false
+    },
+    {
+      "id": "level0_7",
+      "no": 7,
+      "sentence": "I am a student.",
+      "similarSentences": [
+        "I study at school.",
+        "I go to school as a student.",
+        "I am enrolled in school."
+      ],
+      "conversation": [
+        { "speaker": "A", "text": "What do you do?" },
+        { "speaker": "B", "text": "I am a student." }
+      ],
+      "used": false
+    },
+    {
+      "id": "level0_8",
+      "no": 8,
+      "sentence": "I am a student.",
+      "similarSentences": [
+        "I study at school.",
+        "I go to school as a student.",
+        "I am enrolled in school."
+      ],
+      "conversation": [
+        { "speaker": "A", "text": "What do you do?" },
+        { "speaker": "B", "text": "I am a student." }
+      ],
+      "used": false
+    },
+    {
+      "id": "level0_9",
+      "no": 9,
+      "sentence": "I am a student.",
+      "similarSentences": [
+        "I study at school.",
+        "I go to school as a student.",
+        "I am enrolled in school."
+      ],
+      "conversation": [
+        { "speaker": "A", "text": "What do you do?" },
+        { "speaker": "B", "text": "I am a student." }
+      ],
+      "used": false
+    },
+    {
+      "id": "level0_10",
+      "no": 10,
+      "sentence": "I am a student.",
+      "similarSentences": [
+        "I study at school.",
+        "I go to school as a student.",
+        "I am enrolled in school."
+      ],
+      "conversation": [
+        { "speaker": "A", "text": "What do you do?" },
+        { "speaker": "B", "text": "I am a student." }
+      ],
+      "used": false
+    }
+  ],
+  "level2": [
+    {
+      "id": "level0_0",
+      "no": 0,
+      "sentence": "레벨2 I am a student.",
+      "similarSentences": [
+        "I study at school.",
+        "I go to school as a student.",
+        "I am enrolled in school."
+      ],
+      "conversation": [
+        { "speaker": "A", "text": "What do you do?" },
+        { "speaker": "B", "text": "I am a student." }
+      ],
+      "used": false
+    },
+    {
+      "id": "level0_1",
+      "no": 1,
+      "sentence": "She has a cat.",
+      "similarSentences": [
+        "She owns a cat.",
+        "There is a cat in her house.",
+        "A cat belongs to her."
+      ],
+      "conversation": [
+        { "speaker": "A", "text": "Does she have any pets?" },
+        { "speaker": "B", "text": "Yes, she has a cat." }
+      ],
+      "used": false
+    },
+    {
+      "id": "level0_2",
+      "no": 2,
+      "sentence": "I am a student.",
+      "similarSentences": [
+        "I study at school.",
+        "I go to school as a student.",
+        "I am enrolled in school."
+      ],
+      "conversation": [
+        { "speaker": "A", "text": "What do you do?" },
+        { "speaker": "B", "text": "I am a student." }
+      ],
+      "used": false
+    },
+    {
+      "id": "level0_3",
+      "no": 3,
+      "sentence": "I am a student.",
+      "similarSentences": [
+        "I study at school.",
+        "I go to school as a student.",
+        "I am enrolled in school."
+      ],
+      "conversation": [
+        { "speaker": "A", "text": "What do you do?" },
+        { "speaker": "B", "text": "I am a student." }
+      ],
+      "used": false
+    },
+    {
+      "id": "level0_4",
+      "no": 4,
+      "sentence": "I am a student.",
+      "similarSentences": [
+        "I study at school.",
+        "I go to school as a student.",
+        "I am enrolled in school."
+      ],
+      "conversation": [
+        { "speaker": "A", "text": "What do you do?" },
+        { "speaker": "B", "text": "I am a student." }
+      ],
+      "used": false
+    },
+    {
+      "id": "level0_5",
+      "no": 5,
+      "sentence": "I am a student.",
+      "similarSentences": [
+        "I study at school.",
+        "I go to school as a student.",
+        "I am enrolled in school."
+      ],
+      "conversation": [
+        { "speaker": "A", "text": "What do you do?" },
+        { "speaker": "B", "text": "I am a student." }
+      ],
+      "used": false
+    },
+    {
+      "id": "level0_6",
+      "no": 6,
+      "sentence": "I am a student.",
+      "similarSentences": [
+        "I study at school.",
+        "I go to school as a student.",
+        "I am enrolled in school."
+      ],
+      "conversation": [
+        { "speaker": "A", "text": "What do you do?" },
+        { "speaker": "B", "text": "I am a student." }
+      ],
+      "used": false
+    },
+    {
+      "id": "level0_7",
+      "no": 7,
+      "sentence": "I am a student.",
+      "similarSentences": [
+        "I study at school.",
+        "I go to school as a student.",
+        "I am enrolled in school."
+      ],
+      "conversation": [
+        { "speaker": "A", "text": "What do you do?" },
+        { "speaker": "B", "text": "I am a student." }
+      ],
+      "used": false
+    },
+    {
+      "id": "level0_8",
+      "no": 8,
+      "sentence": "I am a student.",
+      "similarSentences": [
+        "I study at school.",
+        "I go to school as a student.",
+        "I am enrolled in school."
+      ],
+      "conversation": [
+        { "speaker": "A", "text": "What do you do?" },
+        { "speaker": "B", "text": "I am a student." }
+      ],
+      "used": false
+    },
+    {
+      "id": "level0_9",
+      "no": 9,
+      "sentence": "I am a student.",
+      "similarSentences": [
+        "I study at school.",
+        "I go to school as a student.",
+        "I am enrolled in school."
+      ],
+      "conversation": [
+        { "speaker": "A", "text": "What do you do?" },
+        { "speaker": "B", "text": "I am a student." }
+      ],
+      "used": false
+    },
+    {
+      "id": "level0_10",
+      "no": 10,
+      "sentence": "I am a student.",
+      "similarSentences": [
+        "I study at school.",
+        "I go to school as a student.",
+        "I am enrolled in school."
+      ],
+      "conversation": [
+        { "speaker": "A", "text": "What do you do?" },
+        { "speaker": "B", "text": "I am a student." }
+      ],
+      "used": false
+    }
+  ],
+  "level3": [
+    {
+      "id": "level0_0",
+      "no": 0,
+      "sentence": "레벨3 I am a student.",
+      "similarSentences": [
+        "I study at school.",
+        "I go to school as a student.",
+        "I am enrolled in school."
+      ],
+      "conversation": [
+        { "speaker": "A", "text": "What do you do?" },
+        { "speaker": "B", "text": "I am a student." }
+      ],
+      "used": false
+    },
+    {
+      "id": "level0_1",
+      "no": 1,
+      "sentence": "She has a cat.",
+      "similarSentences": [
+        "She owns a cat.",
+        "There is a cat in her house.",
+        "A cat belongs to her."
+      ],
+      "conversation": [
+        { "speaker": "A", "text": "Does she have any pets?" },
+        { "speaker": "B", "text": "Yes, she has a cat." }
+      ],
+      "used": false
+    },
+    {
+      "id": "level0_2",
+      "no": 2,
+      "sentence": "I am a student.",
+      "similarSentences": [
+        "I study at school.",
+        "I go to school as a student.",
+        "I am enrolled in school."
+      ],
+      "conversation": [
+        { "speaker": "A", "text": "What do you do?" },
+        { "speaker": "B", "text": "I am a student." }
+      ],
+      "used": false
+    },
+    {
+      "id": "level0_3",
+      "no": 3,
+      "sentence": "I am a student.",
+      "similarSentences": [
+        "I study at school.",
+        "I go to school as a student.",
+        "I am enrolled in school."
+      ],
+      "conversation": [
+        { "speaker": "A", "text": "What do you do?" },
+        { "speaker": "B", "text": "I am a student." }
+      ],
+      "used": false
+    },
+    {
+      "id": "level0_4",
+      "no": 4,
+      "sentence": "I am a student.",
+      "similarSentences": [
+        "I study at school.",
+        "I go to school as a student.",
+        "I am enrolled in school."
+      ],
+      "conversation": [
+        { "speaker": "A", "text": "What do you do?" },
+        { "speaker": "B", "text": "I am a student." }
+      ],
+      "used": false
+    },
+    {
+      "id": "level0_5",
+      "no": 5,
+      "sentence": "I am a student.",
+      "similarSentences": [
+        "I study at school.",
+        "I go to school as a student.",
+        "I am enrolled in school."
+      ],
+      "conversation": [
+        { "speaker": "A", "text": "What do you do?" },
+        { "speaker": "B", "text": "I am a student." }
+      ],
+      "used": false
+    },
+    {
+      "id": "level0_6",
+      "no": 6,
+      "sentence": "I am a student.",
+      "similarSentences": [
+        "I study at school.",
+        "I go to school as a student.",
+        "I am enrolled in school."
+      ],
+      "conversation": [
+        { "speaker": "A", "text": "What do you do?" },
+        { "speaker": "B", "text": "I am a student." }
+      ],
+      "used": false
+    },
+    {
+      "id": "level0_7",
+      "no": 7,
+      "sentence": "I am a student.",
+      "similarSentences": [
+        "I study at school.",
+        "I go to school as a student.",
+        "I am enrolled in school."
+      ],
+      "conversation": [
+        { "speaker": "A", "text": "What do you do?" },
+        { "speaker": "B", "text": "I am a student." }
+      ],
+      "used": false
+    },
+    {
+      "id": "level0_8",
+      "no": 8,
+      "sentence": "I am a student.",
+      "similarSentences": [
+        "I study at school.",
+        "I go to school as a student.",
+        "I am enrolled in school."
+      ],
+      "conversation": [
+        { "speaker": "A", "text": "What do you do?" },
+        { "speaker": "B", "text": "I am a student." }
+      ],
+      "used": false
+    },
+    {
+      "id": "level0_9",
+      "no": 9,
+      "sentence": "I am a student.",
+      "similarSentences": [
+        "I study at school.",
+        "I go to school as a student.",
+        "I am enrolled in school."
+      ],
+      "conversation": [
+        { "speaker": "A", "text": "What do you do?" },
+        { "speaker": "B", "text": "I am a student." }
+      ],
+      "used": false
+    },
+    {
+      "id": "level0_10",
+      "no": 10,
+      "sentence": "I am a student.",
+      "similarSentences": [
+        "I study at school.",
+        "I go to school as a student.",
+        "I am enrolled in school."
+      ],
+      "conversation": [
+        { "speaker": "A", "text": "What do you do?" },
+        { "speaker": "B", "text": "I am a student." }
+      ],
+      "used": false
+    }
   ]
 }

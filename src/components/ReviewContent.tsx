@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { IoArrowForward } from 'react-icons/io5';
 import '../assets/css/reviewContent.css';
+import datas from '../../datas.json';
 
 interface Message {
   speaker: string;
@@ -17,16 +18,20 @@ interface ConversationData {
 }
 
 export default function ReviewContent() {
+  // 임시 데이터
+  const dummyData = datas.chat;
+
   const { id } = useParams<{ id: string }>();
-  const [conversationData, setConversationData] =
-    useState<ConversationData | null>(null);
+  // const [conversationData, setConversationData] =
+  //   useState<ConversationData | null>(null);
+  const [conversationData, setConversationData] = useState(dummyData);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get<ConversationData>(`URL/${id}`);
-        setConversationData(response.data);
+        // const response = await axios.get<ConversationData>(`URL/${id}`);
+        // setConversationData(response.data);
       } catch (error) {
         console.error('Error fetching conversation data:', error);
         setError('대화 데이터를 가져오는 도중 오류가 발생했습니다.');

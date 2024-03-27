@@ -7,8 +7,8 @@ import '../assets/css/sidebarNav.css';
 
 const navMenu = [
   { id: 0, link: '/', icon: <GoHomeFill />, text: '두런두런' },
-  { id: 1, link: '/mypage', icon: <CgMenuGridR />, text: '나의활동' },
-  { id: 2, link: '/chat', icon: <BiSolidChat />, text: '대화하기' },
+  { id: 1, link: '/chat', icon: <BiSolidChat />, text: '대화하기' },
+  { id: 2, link: '/mylog', icon: <CgMenuGridR />, text: '나의활동' },
   { id: 3, link: '/learning', icon: <MdLibraryBooks />, text: '학습하기' },
 ];
 

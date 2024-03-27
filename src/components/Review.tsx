@@ -1,7 +1,8 @@
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import axios from 'axios';
+// import axios from 'axios';
 import '../assets/css/review.css';
+import datas from '../../datas.json';
 
 interface Data {
   id: string;
@@ -22,7 +23,7 @@ interface Props {
 
 function ReviewItem({ data }: Props) {
   return (
-    <Link to={`/mypage/${data.id}`}>
+    <Link to={`/mylog/${data.id}`}>
       <div className='mr-6'>
         <img className='character-img' src={data.img} alt={`${data.name}`} />
       </div>
@@ -48,8 +49,12 @@ function ReviewItem({ data }: Props) {
 }
 
 export default function Review() {
+  // 임시 데이터
+  const dummyData = datas.reviewDatas;
+
   const [sortBy, setSortBy] = useState<string>('latest');
-  const [reviewDatas, setReviewDatas] = useState<ReviewData[]>([]);
+  const [reviewDatas, setReviewDatas] = useState<ReviewData[]>(dummyData);
+  // const [reviewDatas, setReviewDatas] = useState<ReviewData[]>([]);
   const uniqueDates: string[] = [
     ...new Set(reviewDatas.map((data) => data.date)),
   ];
@@ -57,10 +62,8 @@ export default function Review() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get<ReviewData[]>('URL');
-
-        setReviewDatas(response.data);
-        console.log(reviewDatas);
+        // const response = await axios.get<ReviewData[]>('URL');
+        // setReviewDatas(response.data);
       } catch (error) {
         console.error('Error fetching review data:', error);
       }

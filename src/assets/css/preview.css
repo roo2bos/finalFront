@@ -1,11 +1,26 @@
 @tailwind components;
 
 @layer components {
-  #preview {
+  /* 예문보기 링크 */
+  .preview-container {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 20px;
+  }
+  .preview {
+    @apply rounded-xl shadow text-center text-2xl;
+  }
+
+  .preview-sentence-link {
+    @apply block py-32;
+  }
+
+  /* 예문 */
+  .preview-sentence {
     margin: 0 auto;
   }
 
-  #preview .container {
+  .preview-sentence .container {
     @apply flex flex-col items-start min-w-[360px];
   }
 

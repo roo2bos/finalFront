@@ -34,13 +34,11 @@
   /* 색상 설정 */
   --bg-highlight-color: #faf5f0;
   --highlight-color: #67c0cd;
-  --hover-highlight-color: #5dadb9;
   --border-divide-color: #f5f5f5;
 
   /* 버튼 색상 설정 */
   --btn-bg: var(--highlight-color);
   --btn-sub-bg: #f0f0f0;
-  --btn-bg-hover: var(--hover-highlight-color);
 }
 
 @layer base {
@@ -81,12 +79,16 @@
 
   /* 버튼 공통 */
   [type='button'] {
-    @apply p-2.5 text-xl text-center text-[var(--sub-font-color)] font-medium rounded border-0 hover:text-[var(--main-font-color)] duration-200;
+    @apply py-2 px-4 text-xl text-center text-[var(--sub-font-color)] rounded-full border-0 transition duration-300 ease-in-out;
   }
 
   [type='submit'],
   [type='reset'] {
-    @apply py-3 my-8 bg-[var(--btn-bg)] hover:bg-[var(--btn-bg-hover)] rounded border-0 text-white font-medium;
+    @apply py-3 my-8 bg-[var(--btn-bg)] rounded border-0 text-white font-medium;
+  }
+
+  button:hover {
+    @apply brightness-95;
   }
 
   button + button:not(.w-full) {

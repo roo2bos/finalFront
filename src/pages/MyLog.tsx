@@ -1,38 +1,30 @@
 import { useState } from 'react';
 import Review from '../components/Review';
+import TabButton from '../components/TabButton';
+import TabContent from '../components/TabContent';
 
 function Mypage() {
   const tabs = [
-    { id: 0, menu: '복습하기', content: <Review /> },
-    { id: 1, menu: '학습내역', content: '(임시) 예문/퀴즈 내역' },
+    { id: 0, label: '복습하기', content: <Review /> },
+    { id: 1, label: '학습내역', content: '(임시) 예문/퀴즈 내역' },
   ];
-
-  const [tabMenu, setTabMenu] = useState(0);
+  const [activeTab, setActiveTab] = useState(tabs[0].id);
+  const tabHandler = (tabID: number) => {
+    setActiveTab(tabID);
+  };
 
   return (
     <section>
       <h2 className='list-title'>나의활동</h2>
-      <div className='tab-btn'>
-        {tabs.map(({ id, menu }, i) => (
-          <button
-            className={`rounded-full px-5 hover:bg-[var(--hover-highlight-color)] hover:text-white ${
-              tabMenu === i
-                ? 'bg-[var(--highlight-color)] text-white'
-                : 'bg-[var(--btn-sub-bg)]'
-            }`}
-            type='button'
-            key={id}
-            onClick={() => {
-              setTabMenu(i);
-            }}
-          >
-            {menu}
-          </button>
-        ))}
-      </div>
-      <div className='tab-content'>
-        <div>{tabs[tabMenu].content}</div>
-      </div>
+      {tabs.map((tab) => (
+        <TabButton
+          key={tab.id}
+          label={tab.label}
+          onClick={() => tabHandler(tab.id)}
+          isActive={activeTab === tab.id}
+        />
+      ))}
+      <TabContent content={tabs.find((tab) => tab.id === activeTab)?.content} />
     </section>
   );
 }

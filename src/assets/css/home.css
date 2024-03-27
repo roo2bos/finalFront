@@ -1,23 +1,20 @@
 /* Home */
 
-/* 홈 상단 - 사이트 소개 및 퀴즈 */
-.banner-quiz {
-  @apply gap-3 py-20;
-  display: grid;
-  grid-template-columns: 4fr 2fr;
+/* 사이트 소개 배너 */
+.main-top-section {
+  @apply gap-3 pt-20;
+  overflow: hidden;
 }
 
 .banner {
   @apply flex rounded-xl bg-[var(--bg-highlight-color)];
-  width: 100%;
-  height: auto;
-  /* position: relative; */
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  position: relative;
+  width: 70%;
 }
 
 .banner-text-area {
   @apply px-8 py-4;
+  z-index: 1;
 }
 
 .banner h3 {
@@ -29,12 +26,22 @@
 }
 
 .img-box {
-  position: relative;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 340px;
 }
 
 .img-box img {
-  position: absolute;
-  bottom: 0;
+  width: 100%;
+  max-width: 100%;
+  object-position: center center;
+  object-fit: cover;
+}
+
+.site-map {
+  @apply rounded-xl;
+  width: 30%;
 }
 
 .banner-btn {
