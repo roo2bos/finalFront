@@ -128,25 +128,33 @@ function Talk() {
 		}
 	};
 
-	function playAudio() {
-		const player = audioRef.current;
-		setPlayState(!playState);
-		playState ? player.pause() : player.play();
-		player.addEventListener('timeupdate', function () {
-			const currentTime = player.currentTime;
-			const end = player.duration;
-			const percentage = Math.floor((currentTime / end) * 100);
-			setDuration(percentage);
-			if (percentage >= 100) {
-				setAudioEnd(true); //오디오 총료 체크
-				setPlayState(false); //오디오 재생 중인 상태 체크
-				setIsAudioFetched(false);
-				setTimeout(() => (audioRef.current.src = ''), 100); //음성재생완료시 새로운 메세지 받기위해서 초기화
-			} else {
-				setAudioEnd(false);
-			}
-		});
-	}
+	// function playAudio() {
+	// 	const player = audioRef.current;
+	// 	setPlayState(!playState);
+	// 	playState ? player.pause() : player.play();
+	// 	player.addEventListener('timeupdate', function () {
+	// 		const currentTime = player.currentTime;
+	// 		const end = player.duration;
+	// 		const percentage = Math.floor((currentTime / end) * 100);
+	// 		setDuration(percentage);
+	// 		if (percentage >= 100) {
+	// 			setAudioEnd(true); //오디오 총료 체크
+	// 			setPlayState(false); //오디오 재생 중인 상태 체크
+	// 			setIsAudioFetched(false);
+	// 			setTimeout(() => (audioRef.current.src = ''), 100); //음성재생완료시 새로운 메세지 받기위해서 초기화
+	// 		} else {
+	// 			setAudioEnd(false);
+	// 		}
+	// 	});
+	// }
+
+	async function playAudio(audioUrl) {
+		const audio = new Audio(audioUrl);
+		audio.crossOrigin = 'anonymous'; // CORS 정책 위반 방지
+		await audio.load(); // 오디오 파일 로드
+		audio.play().catch(e => console.error('오디오 재생 실패:', e));
+	  }
+
 	const sendMessage = async (e) => {
 		try {
 			e.preventDefault();
@@ -155,12 +163,12 @@ function Talk() {
         alert('음성 입력된 값이 없습니다');
         return;
       }
-			setAudioLoad(true);
+			await setAudioLoad(true);
 			setTalkMessages((prevData) => [...prevData, `user: ${inputText}`]);
 			const audioSrc = await fetchAndPlayAudio(inputText);
 			audioEnd ? (audioRef.current.src = '') : (audioRef.current.src = audioSrc);
-			setIsAudioFetched(true);
-			playAudio();
+			await setIsAudioFetched(true);
+			playAudio(audioSrc);
 			textareaRef.current.value = ''; //textarea clear
 		} catch (error) {
 			console.log(error);
