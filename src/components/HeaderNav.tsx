@@ -42,7 +42,7 @@ export default function Header() {
         <FaBell />
       </button>
       <div className="nav-login">
-  {!userCheck ? (
+  {userCheck ? (
     <div className="flex items-center space-x-4">
       <Link to="/mypagechange" className="flex items-center">
         {user}
