@@ -4,9 +4,8 @@ import { useParams } from 'react-router-dom';
 import datas from '../../datas.json'; //임시 데이터
 import axios from 'axios';
 import { RiThumbUpFill, RiThumbDownFill } from 'react-icons/ri';
-// import { BiSolidUserDetail } from 'react-icons/bi';
-import { PiUserListFill } from "react-icons/pi";
-import { PiUserListDuotone } from "react-icons/pi";
+import { PiUserListFill } from 'react-icons/pi';
+import { PiUserListDuotone } from 'react-icons/pi';
 
 import { PiMicrophoneFill } from 'react-icons/pi';
 import { PiMicrophoneSlash } from 'react-icons/pi';
@@ -19,34 +18,33 @@ import { PiListMagnifyingGlassDuotone } from 'react-icons/pi';
 import { MdChecklist } from 'react-icons/md';
 import { IoMdCloseCircle } from 'react-icons/io';
 import { RiLoader2Fill } from 'react-icons/ri';
-// import wavfile from '/test.wav';
 
 export const ChatHistory = ({ talkMessages, userInfo, characterInfo }) => {
-  return (
-      <ul className={talkMessages.length === 0 ? 'h-full' : ''}>
-          {talkMessages.length === 0 ? (
-              <li key={0} className="h-full !m-0 flex justify-center items-center">
-                  대화 내역이 아직 없습니다.
-              </li>
-          ) : (
-              talkMessages.map((talkMessage, i) => {
-                  return (
-                      <li key={i} className={talkMessage?.includes('user:') ? 'user' : 'ai'}>
-                          <div className="profile">
-                              <img src={talkMessage?.includes('user:') ? '/user-default.png' : characterInfo[0]?.img} alt="" />
-                          </div>
-                          <div className="info">
-                              <div className="name">
-                                  {talkMessage?.includes('user:') ? userInfo.userid : talkMessage.split(': ')[0]}
-                              </div>
-                              <div className="msg">{talkMessage.split(': ')[1]}</div>
-                          </div>
-                      </li>
-                  );
-              })
-          )}
-      </ul>
-  );
+	return (
+		<ul className={talkMessages.length === 0 ? 'h-full' : ''}>
+			{talkMessages.length === 0 ? (
+				<li key={0} className="h-full !m-0 flex justify-center items-center">
+					대화 내역이 아직 없습니다.
+				</li>
+			) : (
+				talkMessages.map((talkMessage, i) => {
+					return (
+						<li key={i} className={talkMessage?.includes('user:') ? 'user' : 'ai'}>
+							<div className="profile">
+								<img src={talkMessage?.includes('user:') ? '/user-default.png' : characterInfo[0]?.img} alt="" />
+							</div>
+							<div className="info">
+								<div className="name">
+									{talkMessage?.includes('user:') ? userInfo.userid : talkMessage.split(': ')[0]}
+								</div>
+								<div className="msg">{talkMessage.split(': ')[1]}</div>
+							</div>
+						</li>
+					);
+				})
+			)}
+		</ul>
+	);
 };
 
 function Talk() {
@@ -64,13 +62,11 @@ function Talk() {
 	const [playState, setPlayState] = useState(false); //오디오 재생 중인지 체크
 	const [duration, setDuration] = useState(0); //오디오 재생 중
 	const [isPop, setIsPop] = useState(false); //대화내역 활성 체크
-	const [audioEnd, setAudioEnd] = useState(false); //오디오 종료 체크
 	const [isTyped, setIsTyped] = useState(false); //음성입력(텍스트입력) 완료 체크
-	const [isAudioFetched, setIsAudioFetched] = useState(false); //오디오 파일 fetch 체크
 	const [correctLoad, setCorrectLoad] = useState(false); //교정 fetching 체크
 	const [audioLoad, setAudioLoad] = useState(false); //오디오 fetching 체크
+	const [firstAudioMsg, setFirstAudioMsg] = useState(false); //첫 대화시 오디오 파일 체크
 	// const [count,setCount] = useState(0);//임시 : 대화 메세지 전송 개수 체크(api 적용시 삭제예정)
-	// const [file] = useState(['https://market-imgs.s3.ap-northeast-2.amazonaws.com/test.mp3','/test.wav']);//임시 : 음성메세제 개수 (api 적용시 삭제예정)
 	const [aiMsg, setAiMsg] = useState({}); //임시 : 대화 메세지 전송 개수 체크(api 적용시 삭제예정)
 	const [talkMessages, setTalkMessages] = useState([]); //둘의 대화 메세지 목록
 	const [correctList, setCorrectList] = useState([]); //교정 할 리스트
@@ -117,12 +113,12 @@ function Talk() {
 			);
 			const result = await response.data;
 			setTalkMessages((prevData) => [...prevData, `pooh: ${result.aimsg}`]);
+
 			setAiMsg((prevData) => ({ ...prevData, result: result }));
 			setAudioLoad(false);
-			const file = await fetch('/pooh.wav',{ withCredentials: true });
+			const file = await fetch('/pooh.wav', { withCredentials: true });
 			const blob = await file.blob();
 			const objectURL = URL.createObjectURL(blob);
-
 			return objectURL;
 		} catch (error) {
 			console.error('Fetch and play audio error:', error);
@@ -139,32 +135,29 @@ function Talk() {
 			const percentage = Math.floor((currentTime / end) * 100);
 			setDuration(percentage);
 			if (percentage >= 100) {
-				setAudioEnd(true); //오디오 총료 체크
 				setPlayState(false); //오디오 재생 중인 상태 체크
-				setIsAudioFetched(false);
-        micRef.current.focus();
-				setTimeout(() => (audioRef.current.src = ''), 100); //음성재생완료시 새로운 메세지 받기위해서 초기화
-			} else {
-				setAudioEnd(false);
+				micRef.current.focus();
 			}
 		});
 	}
 	const sendMessage = async (e) => {
+		e.preventDefault();
+		const inputText = textareaRef.current.value;
+		if (inputText.trim().length === 0) {
+			alert('입력된 대화 내용이 없습니다.');
+			return false;
+		}
 		try {
-			e.preventDefault();
-			const inputText = textareaRef.current.value;
-      if(inputText.length === 0) {
-        alert('음성 입력된 값이 없습니다');
-        return;
-      }
 			await setAudioLoad(true);
 			setTalkMessages((prevData) => [...prevData, `user: ${inputText}`]);
 			const audioSrc = await fetchAndPlayAudio(inputText);
-			audioEnd ? (audioRef.current.src = '') : (audioRef.current.src = audioSrc);
-			await setIsAudioFetched(true);
+			if (audioRef.current) {
+				audioRef.current.src = audioSrc;
+			}
 			playAudio();
-			textareaRef.current.value = ''; //textarea clear
-      micRef.current.focus();
+			setFirstAudioMsg(true);
+			textareaRef.current.value = '';
+			micRef.current.focus();
 		} catch (error) {
 			console.log(error);
 		}
@@ -198,6 +191,7 @@ function Talk() {
 				});
 			setIsFinishPop(true);
 			setCorrectLoad(false);
+			setFirstAudioMsg(false);
 		} catch (error) {
 			console.error('Fetch and play audio error:', error);
 		}
@@ -211,7 +205,8 @@ function Talk() {
 	const chunksRef = useRef<Blob[]>([]);
 
 	const handleStartRecording = async () => {
-    micRef.current.focus();
+		micRef.current.focus();
+		playState && playAudio();
 		try {
 			const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
 			const mediaRecorder = new MediaRecorder(stream);
@@ -262,8 +257,8 @@ function Talk() {
 
 			console.log('Audio data sent successfully:', response.data);
 			textareaRef.current.value = response.data;
-      setIsTyped(false);
-      textareaRef.current.focus();
+			setIsTyped(false);
+			textareaRef.current.focus();
 		} catch (error) {
 			console.error('Error sending audio data:', error);
 		}
@@ -318,7 +313,8 @@ function Talk() {
 						<dl className="char-info">
 							<dt>
 								<button id="charName" onClick={() => setCharacterDesc(!characterDesc)}>
-                  {characterDesc?<PiUserListFill className="text-lg" /> : <PiUserListDuotone  className="text-lg" />} {beforeMessage[0]?.name}{' '}
+									{characterDesc ? <PiUserListFill className="text-lg" /> : <PiUserListDuotone className="text-lg" />}{' '}
+									{beforeMessage[0]?.name}{' '}
 								</button>
 							</dt>
 							<dd>
@@ -332,14 +328,14 @@ function Talk() {
 								</div>
 							</dd>
 						</dl>
-						<div aria-labelledby={`charName`} className={`desc ${characterDesc?'on':''}`}>
+						<div aria-labelledby={`charName`} className={`desc ${characterDesc ? 'on' : ''}`}>
 							{characterInfo[0].desc}
 						</div>
 					</div>
 				</div>
 
 				<div className={`history ${history ? '' : 'hidden'}`}>
-          <ChatHistory talkMessages={talkMessages} userInfo={userInfo} characterInfo={characterInfo} />
+					<ChatHistory talkMessages={talkMessages} userInfo={userInfo} characterInfo={characterInfo} />
 				</div>
 				{/* foot */}
 				<div className="foot-talking-wrap ">
@@ -363,6 +359,13 @@ function Talk() {
 						</dl>
 					</div>
 					<form className="form" onSubmit={(e) => sendMessage(e)}>
+						<button
+							type="button"
+							ref={micRef}
+							className="btn-mic"
+							onClick={mic ? handleStopRecording : handleStartRecording}>
+							{mic ? <PiMicrophoneFill /> : <PiMicrophoneSlash />}
+						</button>
 						<div className={`textarea-wrap ${isTyped ? 'mic-on' : ''}`}>
 							<textarea
 								id="talkInput"
@@ -374,22 +377,21 @@ function Talk() {
 									(key === 'Enter' || key === 13) && !e.shiftKey && sendMessage(e);
 								}}
 								onInput={inputHandler}
+								placeholder="마이크 이용 또는 메시지를 입력해 주세요"
 							/>
 						</div>
 						<div className="foot">
 							<div className="btns">
-								<button type="button" className="btn-stop" onClick={playAudio} disabled={isAudioFetched ? false : true}>
-									{playState ? <IoStop /> : <IoPlay />}
-								</button>
 								<button type="submit" className="btn-send" disabled={playState || isFinish ? true : false}>
 									{audioLoad ? <RiLoader2Fill className="animate-spin" /> : <RiSendPlaneFill />}
 								</button>
-								<button type="button" ref={micRef} className="btn-mic" onClick={mic ? handleStopRecording : handleStartRecording} onKeyPress={(e) => {
-									if (e.nativeEvent.isComposing) return;
-									const key = e.key || e.charCode;
-									(key === 13  || key === 32 || key === ' ' || key === 'Enter') && (playState && playAudio());
-								}}>
-									{mic ? <PiMicrophoneFill /> : <PiMicrophoneSlash />}
+
+								<button
+									type="button"
+									className="btn-stop"
+									onClick={playAudio}
+									disabled={playState || firstAudioMsg ? false : true}>
+									{playState ? <IoStop /> : <IoPlay />}
 								</button>
 							</div>
 

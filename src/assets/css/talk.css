@@ -123,13 +123,13 @@
 	}
 
 	.list-talk .form {
-		@apply flex flex-col items-center gap-2 w-full  dark:border-white/20 md:border-transparent md:dark:border-transparent /* md:w-[calc(100%-.5rem)] */;
+		@apply relative mb-3 flex flex-col items-center gap-2 w-full  dark:border-white/20 md:border-transparent md:dark:border-transparent /* md:w-[calc(100%-.5rem)] */;
 	}
 	.list-talk .form .foot {
-		@apply flex justify-between w-full pb-3 flex-row-reverse;
+		@apply flex justify-between w-full flex-row-reverse;
 	}
 	.list-talk .form .btns {
-		@apply flex gap-2;
+		@apply flex gap-2 flex-row-reverse pr-[calc(40px+0.5rem)];
 	}
 	.list-talk .form .btns button {
 		@apply m-0;
@@ -144,7 +144,7 @@
 		@apply m-0 p-3 inline-flex relative leading-none rounded-full  text-black bg-gray-100 disabled:text-gray-400;
 	}
 	.list-talk .form .btn-mic {
-		@apply inline-flex rounded-full leading-none  text-black bg-gray-100;
+		@apply absolute bottom-0 right-0 inline-flex rounded-full leading-none  text-black bg-gray-100;
 	}
 	.list-talk .form textarea {
 		resize: none;
@@ -254,7 +254,7 @@
 		width: 10px;
 		height: 20px;
 		border-radius: 20px 0 0;
-		background-color: #d4edda;
+		background-color: white;
 	}
 	.list-talk .history li.ai .info:before {
 		left: auto;
@@ -270,7 +270,7 @@
 		width: 10px;
 		height: 20px;
 		border-radius: 0 20px 0 0;
-		background-color: #f0f0f0;
+		background-color: white;
 	}
 	.list-talk .history li a {
 		@apply text-blue-500;
