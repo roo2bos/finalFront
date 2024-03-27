@@ -33,7 +33,7 @@ export default function Header() {
         <FaBell />
       </button>
       <div className="nav-login">
-        {user ? (
+        {!user ? (
           <>
             <Link to="/mypagechange">{user}</Link>
             <button onClick={handleLogout}>로그아웃</button>
