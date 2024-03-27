@@ -54,8 +54,6 @@ export default function Mypage() {
   const onSubmit: SubmitHandler<FormData> = async (userdata) => {
     try {
       const formData = new FormData();
-      formData.append('username', userdata.username);
-      formData.append('userId', userdata.userId);
       formData.append('nickname', userdata.nickname);
       formData.append('email', userdata.email);
       formData.append('password', userdata.password);
@@ -70,7 +68,7 @@ export default function Mypage() {
       if (response.data.result === false) {
         alert(response.data.msg);
       } else {
-        navigate(`${API_URL}`);
+        navigate(`/`);
         alert('로그인에 성공하였습니다');
       }
       return response.data;
@@ -218,15 +216,15 @@ export default function Mypage() {
             )}
 
             <label className='auth-label' htmlFor='profileImage'>
-              프로필 이미지 업로드
+              프로필 업로드
             </label>
             <input
+              className='auth-input'
               type='file'
               id='profileImage'
               onChange={handleImageChange}
               accept='image/*'
             />
-
             <button className='auth-input mt-11' type='submit'>
               수정하기
             </button>
