@@ -5,6 +5,7 @@ import SignUp from './components/SignUp';
 import NotFound from './components/NotFound';
 import Home from './pages/Home';
 import Mypage from './pages/MyLog';
+import MyPageChange from './components/Mypage'
 import Talk from './pages/Talk';
 import Myroom from './pages/Myroom';
 import About from './pages/About';
@@ -25,6 +26,7 @@ function App() {
         <Route path='/about' element={<About />} />
         <Route path='/preview' element={<Preview />} />
         <Route path='/mypage' element={<Mypage />} />
+        <Route path='/mypagechange' element={<MyPageChange />} />
         {/* <Route path='/mypage/:id' element={<ReviewContent />} /> */}
         <Route path='/mypage/:id' element={<ReviewContent />} />
         <Route path='/chat' element={<Chat />} />
