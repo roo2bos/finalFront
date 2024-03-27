@@ -4,14 +4,11 @@ import Login from './components/Login';
 import SignUp from './components/SignUp';
 import NotFound from './components/NotFound';
 import Home from './pages/Home';
-import Mypage from './pages/Mypage';
+import Mypage from './pages/MyLog';
 import Talk from './pages/Talk';
 import Myroom from './pages/Myroom';
 import About from './pages/About';
-import Wordquiz from './components/Wordquiz';
 import Preview from './components/Preview';
-import Review from './components/Review';
-import ReviewContent from './components/ReviewContent';
 import Chat from './pages/Chat';
 import Learn from './pages/Learn';
 import Spinner from './components/Spinner';
@@ -25,10 +22,8 @@ function App() {
         <Route path='/talk/:id' element={<Talk />} />
         <Route path='/myroom' element={<Myroom />} />
         <Route path='/about' element={<About />} />
-        <Route path='/quiz' element={<Wordquiz />} />
         <Route path='/preview' element={<Preview />} />
         <Route path='/mypage' element={<Mypage />} />
-        <Route path='/mypage/:id' element={<ReviewContent />} />
         <Route path='/chat' element={<Chat />} />
         <Route path='/learning' element={<Learn />} />
         <Route path='*' element={<NotFound />} />

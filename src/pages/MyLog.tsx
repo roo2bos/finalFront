@@ -1,4 +1,3 @@
-// import Mypage1 from '../components/Mypage'
 import { useState } from 'react';
 import Review from '../components/Review';
 
