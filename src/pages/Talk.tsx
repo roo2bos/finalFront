@@ -114,46 +114,46 @@ function Talk() {
 				{ withCredentials: true }
 			);
 			const result = await response.data;
-			const objectURL = 'https://43.203.227.36.sslip.io/pooh.wav';
+			// const objectURL = 'https://43.203.227.36.sslip.io/pooh.wav';
 			setTalkMessages((prevData) => [...prevData, `pooh: ${result.aimsg}`]);
 			setAiMsg((prevData) => ({ ...prevData, result: result }));
 			setAudioLoad(false);
-			const audio = new Audio(objectURL);
-			audio.preload = 'auto'; // 오디오 미리 로드
-			console.log('오디오 소스 로그',audio.src)
-			audio.oncanplaythrough = () => {return audio.src}; // 오디오 로드 완료 시 실행
 			// return objectURL;
+			const file = await fetch('/pooh.wav',{ withCredentials: true });
+			const blob = await file.blob();
+			const objectURL = URL.createObjectURL(blob);
+			return objectURL;
 		} catch (error) {
 			console.error('Fetch and play audio error:', error);
 		}
 	};
 
-	// function playAudio() {
-	// 	const player = audioRef.current;
-	// 	setPlayState(!playState);
-	// 	playState ? player.pause() : player.play();
-	// 	player.addEventListener('timeupdate', function () {
-	// 		const currentTime = player.currentTime;
-	// 		const end = player.duration;
-	// 		const percentage = Math.floor((currentTime / end) * 100);
-	// 		setDuration(percentage);
-	// 		if (percentage >= 100) {
-	// 			setAudioEnd(true); //오디오 총료 체크
-	// 			setPlayState(false); //오디오 재생 중인 상태 체크
-	// 			setIsAudioFetched(false);
-	// 			setTimeout(() => (audioRef.current.src = ''), 100); //음성재생완료시 새로운 메세지 받기위해서 초기화
-	// 		} else {
-	// 			setAudioEnd(false);
-	// 		}
-	// 	});
-	// }
+	function playAudio() {
+		const player = audioRef.current;
+		setPlayState(!playState);
+		playState ? player.pause() : player.play();
+		player.addEventListener('timeupdate', function () {
+			const currentTime = player.currentTime;
+			const end = player.duration;
+			const percentage = Math.floor((currentTime / end) * 100);
+			setDuration(percentage);
+			if (percentage >= 100) {
+				setAudioEnd(true); //오디오 총료 체크
+				setPlayState(false); //오디오 재생 중인 상태 체크
+				setIsAudioFetched(false);
+				// setTimeout(() => (audioRef.current.src = ''), 100); //음성재생완료시 새로운 메세지 받기위해서 초기화
+			} else {
+				setAudioEnd(false);
+			}
+		});
+	}
 
-	async function playAudio(audioUrl) {
-		const audio = new Audio(audioUrl);
-		audio.crossOrigin = 'anonymous'; // CORS 정책 위반 방지
-		await audio.load(); // 오디오 파일 로드
-		audio.play().catch(e => console.error('오디오 재생 실패:', e));
-	  }
+	// async function playAudio(audioUrl) {
+	// 	const audio = new Audio(audioUrl);
+	// 	audio.crossOrigin = 'anonymous'; // CORS 정책 위반 방지
+	// 	await audio.load(); // 오디오 파일 로드
+	// 	audio.play().catch(e => console.error('오디오 재생 실패:', e));
+	//   }
 
 	const sendMessage = async (e) => {
 		try {
@@ -168,7 +168,7 @@ function Talk() {
 			const audioSrc = await fetchAndPlayAudio(inputText);
 			audioEnd ? (audioRef.current.src = '') : (audioRef.current.src = audioSrc);
 			await setIsAudioFetched(true);
-			playAudio(audioSrc);
+			playAudio();
 			textareaRef.current.value = ''; //textarea clear
 		} catch (error) {
 			console.log(error);
@@ -380,7 +380,7 @@ function Talk() {
 						</div>
 						<div className="foot">
 							<div className="btns">
-								<button type="button" className="btn-stop" onClick={playAudio} disabled={isAudioFetched ? false : true}>
+								<button type="button" className="btn-stop" onClick={playAudio} disabled={playState ? false : true}>
 									{playState ? <IoStop /> : <IoPlay />}
 								</button>
 								<button type="submit" className="btn-send" disabled={playState || isFinish ? true : false}>
