@@ -12,6 +12,7 @@ import Preview from './components/Preview';
 import Chat from './pages/Chat';
 import Learn from './pages/Learn';
 import Spinner from './components/Spinner';
+import ReviewContent from './components/temporaily';
 import './App.css';
 
 function App() {
@@ -24,6 +25,8 @@ function App() {
         <Route path='/about' element={<About />} />
         <Route path='/preview' element={<Preview />} />
         <Route path='/mypage' element={<Mypage />} />
+        {/* <Route path='/mypage/:id' element={<ReviewContent />} /> */}
+        <Route path='/mypage/:id' element={<ReviewContent />} />
         <Route path='/chat' element={<Chat />} />
         <Route path='/learning' element={<Learn />} />
         <Route path='*' element={<NotFound />} />
