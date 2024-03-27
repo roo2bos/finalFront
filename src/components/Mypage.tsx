@@ -26,7 +26,7 @@ export default function Mypage() {
     password: '',
     profileImage: null
   });
-  const API_URL = 'https://43.203.227.36.sslip.io/';
+  const API_URL = 'https://43.203.227.36.sslip.io/server';
 
   // 수정페이지 form
   const {
