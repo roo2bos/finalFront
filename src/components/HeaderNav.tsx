@@ -42,20 +42,22 @@ export default function Header() {
         <FaBell />
       </button>
       <div className="nav-login">
-        {userCheck ? (
-          <div>
-            <Link to="/mypagechange">
-              {user}
-              {profileImage ? <img src={profileImage} alt="프로필 이미지" /> : null}
-            </Link>
-              <button onClick={handleLogout}>로그아웃</button> 
-          </div>
-        ) : (
-          <Link to="/login" title="로그인">
-            로그인
-          </Link>
-        )}
-      </div>
+  {!userCheck ? (
+    <div className="flex items-center space-x-4">
+      <Link to="/mypagechange" className="flex items-center">
+        {user}
+        {profileImage && <img src={profileImage} alt="프로필 이미지" className="ml-2 h-8 w-8 rounded-full" />}
+      </Link>
+      <button onClick={handleLogout} className="bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-2 px-4 rounded">
+        로그아웃
+      </button>
+    </div>
+  ) : (
+    <Link to="/login" title="로그인" className="text-gray-800 font-bold">
+      로그인
+    </Link>
+  )}
+</div>
     </nav>
   );
 }
