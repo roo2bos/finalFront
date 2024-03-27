@@ -60,10 +60,12 @@ function Talk() {
 	const textareaRef = useRef();
 	const innerRef = useRef();
 	const audioRef = useRef();
+	const micRef = useRef();
 	const [playState, setPlayState] = useState(false); //오디오 재생 중인지 체크
 	const [duration, setDuration] = useState(0); //오디오 재생 중
 	const [isPop, setIsPop] = useState(false); //대화내역 활성 체크
 	const [audioEnd, setAudioEnd] = useState(false); //오디오 종료 체크
+	const [isTyped, setIsTyped] = useState(false); //음성입력(텍스트입력) 완료 체크
 	const [isAudioFetched, setIsAudioFetched] = useState(false); //오디오 파일 fetch 체크
 	const [correctLoad, setCorrectLoad] = useState(false); //교정 fetching 체크
 	const [audioLoad, setAudioLoad] = useState(false); //오디오 fetching 체크
@@ -114,14 +116,13 @@ function Talk() {
 				{ withCredentials: true }
 			);
 			const result = await response.data;
-			// const objectURL = 'https://43.203.227.36.sslip.io/pooh.wav';
 			setTalkMessages((prevData) => [...prevData, `pooh: ${result.aimsg}`]);
 			setAiMsg((prevData) => ({ ...prevData, result: result }));
 			setAudioLoad(false);
-			// return objectURL;
 			const file = await fetch('/pooh.wav',{ withCredentials: true });
 			const blob = await file.blob();
 			const objectURL = URL.createObjectURL(blob);
+
 			return objectURL;
 		} catch (error) {
 			console.error('Fetch and play audio error:', error);
@@ -141,20 +142,13 @@ function Talk() {
 				setAudioEnd(true); //오디오 총료 체크
 				setPlayState(false); //오디오 재생 중인 상태 체크
 				setIsAudioFetched(false);
-				// setTimeout(() => (audioRef.current.src = ''), 100); //음성재생완료시 새로운 메세지 받기위해서 초기화
+        micRef.current.focus();
+				setTimeout(() => (audioRef.current.src = ''), 100); //음성재생완료시 새로운 메세지 받기위해서 초기화
 			} else {
 				setAudioEnd(false);
 			}
 		});
 	}
-
-	// async function playAudio(audioUrl) {
-	// 	const audio = new Audio(audioUrl);
-	// 	audio.crossOrigin = 'anonymous'; // CORS 정책 위반 방지
-	// 	await audio.load(); // 오디오 파일 로드
-	// 	audio.play().catch(e => console.error('오디오 재생 실패:', e));
-	//   }
-
 	const sendMessage = async (e) => {
 		try {
 			e.preventDefault();
@@ -216,6 +210,7 @@ function Talk() {
 	const chunksRef = useRef<Blob[]>([]);
 
 	const handleStartRecording = async () => {
+    micRef.current.focus();
 		try {
 			const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
 			const mediaRecorder = new MediaRecorder(stream);
@@ -230,12 +225,12 @@ function Talk() {
 			mediaRecorder.onstop = () => {
 				const recordedBlob = new Blob(chunksRef.current, { type: 'audio/AMR-WB' });
 				chunksRef.current = [];
-
 				sendAudioData(recordedBlob);
 			};
 
 			mediaRecorder.start();
 			setMic(true);
+			setIsTyped(true);
 		} catch (error) {
 			console.error('Error accessing microphone:', error);
 		}
@@ -266,6 +261,7 @@ function Talk() {
 
 			console.log('Audio data sent successfully:', response.data);
 			textareaRef.current.value = response.data;
+      setIsTyped(false);
 		} catch (error) {
 			console.error('Error sending audio data:', error);
 		}
@@ -365,7 +361,7 @@ function Talk() {
 						</dl>
 					</div>
 					<form className="form" onSubmit={(e) => sendMessage(e)}>
-						<div className="textarea-wrap ">
+						<div className={`textarea-wrap ${isTyped ? 'mic-on' : ''}`}>
 							<textarea
 								id="talkInput"
 								className="w-full"
@@ -380,13 +376,13 @@ function Talk() {
 						</div>
 						<div className="foot">
 							<div className="btns">
-								<button type="button" className="btn-stop" onClick={playAudio} disabled={playState ? false : true}>
+								<button type="button" className="btn-stop" onClick={playAudio} disabled={isAudioFetched ? false : true}>
 									{playState ? <IoStop /> : <IoPlay />}
 								</button>
 								<button type="submit" className="btn-send" disabled={playState || isFinish ? true : false}>
 									{audioLoad ? <RiLoader2Fill className="animate-spin" /> : <RiSendPlaneFill />}
 								</button>
-								<button type="button" className="btn-mic" onClick={mic ? handleStopRecording : handleStartRecording}>
+								<button type="button" ref={micRef} className="btn-mic" onClick={mic ? handleStopRecording : handleStartRecording}>
 									{mic ? <PiMicrophoneFill /> : <PiMicrophoneSlash />}
 								</button>
 							</div>
