@@ -1,12 +1,19 @@
 import axios from "axios";
 
-const API_URL: string = 'http://43.203.227.36:8080';
+const API_URL: string = 'https://43.203.227.36.sslip.io/server';
+interface UserData {
+  username: string;
+  userId: string;
+  nickname: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+  agree: boolean;
+}
 
-const signupApi = async (userdata: any): Promise<any> => {
+const signupApi = async (userdata: UserData) => {
   try {
     const response = await axios.post(`${API_URL}/user/register`, userdata);
-    console.log('유저 이름 : ', response.data.username);
-    
     if (response.data) {
       window.location.href = `${API_URL}`;
       alert(`안녕하세요! 회원가입 환영합니다!`);
@@ -18,7 +25,6 @@ const signupApi = async (userdata: any): Promise<any> => {
     console.error('회원가입 에러:', error);
     throw error;
   }
-  
-  };
+};
 
 export default signupApi;

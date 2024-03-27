@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Dispatch } from '@reduxjs/toolkit';
-import { loginApi, logoutApi } from '../../api/login';
+import { loginApi, logoutApi, authUser } from '../../api/login';
 interface User {
   userId: string;
   password: string;
@@ -44,14 +44,38 @@ const loginSlice = createSlice({
   },
 });
 
+
+
+
+
+
 export const loginUser =
-  (userdata: any) => async (dispatch: Dispatch) => {
+  (userdata: User) => async (dispatch: Dispatch) => {
     try {
       dispatch(loginStart());
       const user = await loginApi(userdata);
       dispatch(loginSuccess(user));
-    } catch (error: any) {
-      dispatch(loginError(error));
+    } catch (error) {
+      if (isErrorWithMessage(error)) {
+        dispatch(loginError(error.message)); 
+        throw new ReadError("Validation Error", error); 
+      } else {
+        throw error;
+      }
+    }
+  };
+
+  export const authUsers = () => async (dispatch: Dispatch) => {
+    try {
+      await authUser();
+      dispatch(loginSuccess());
+    } catch (error) {
+      if (isErrorWithMessage(error)) {
+        dispatch(loginError(error.message)); 
+        throw new ReadError("Validation Error", error); 
+      } else {
+        throw error;
+      }
     }
   };
 
@@ -59,10 +83,35 @@ export const logoutUser = () => async (dispatch: Dispatch) => {
   try {
     await logoutApi();
     dispatch(logout());
-  } catch (error: any) {
-    dispatch(loginError(error));
+  }catch (error) {
+    if (isErrorWithMessage(error)) {
+      dispatch(loginError(error.message)); 
+      throw new ReadError("Validation Error", error); 
+    } else {
+      throw error;
+    }
   }
 };
+
+// error
+type ErrorWithMessage = {
+  message: string;
+}
+
+function isErrorWithMessage(error: unknown): error is ErrorWithMessage {
+  return (
+    typeof error === 'object' &&
+    error !== null &&
+    'message' in error &&
+    typeof (error as Record<string, unknown>).message === 'string'
+  );
+}
+class ReadError extends Error {
+  constructor(message: string, public originalError: unknown) {
+    super(message);
+    this.name = 'ReadError';
+  }
+}
 
 export const { loginStart, loginSuccess, loginError, logout } =
   loginSlice.actions;

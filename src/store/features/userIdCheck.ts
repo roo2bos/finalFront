@@ -26,22 +26,15 @@ const userCheckSlice = createSlice({
   },
 });
 
-export const userIdCheck = (userdata: any) => async (dispatch: Dispatch) => {
-  try {
-    const user = await userIdCheckApi(userdata); 
-    dispatch(userCheckId(user));
-  } catch (error : any) {
-    throw error 
-  }
+export const userIdCheck = (userdata: string) => async (dispatch: Dispatch) => {
+  const userIdChecked = await userIdCheckApi(userdata); 
+  dispatch(userCheckId(userIdChecked));
 };
 
-export const userNicknameCheck = (userdata: any) => async (dispatch: Dispatch) => {
-  try {
-    const user = await userNicknameCheckApi(userdata); 
-    dispatch(userCheckNickname(user));
-  } catch (error : any) {
-    throw error 
-  }
+
+export const userNicknameCheck = (userdata: string) => async (dispatch: Dispatch) => {
+    const userNicknameCheck = await userNicknameCheckApi(userdata); 
+    dispatch(userCheckNickname(userNicknameCheck));
 };
 
 export const { userCheckId, userCheckNickname} = userCheckSlice.actions;

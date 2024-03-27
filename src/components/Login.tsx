@@ -1,19 +1,25 @@
 import { useForm, SubmitHandler, SubmitErrorHandler } from 'react-hook-form';
-// import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { loginUser } from '../store/features/loginSlice';
+import { loginUser, logoutUser } from '../store/features/loginSlice';
 import { useAppDispatch } from '../hooks';
 import '../assets/css/auth.css';
 import { useEffect, useState } from 'react';
+// 지워야함
+import { authUsers } from '../store/features/loginSlice';
 import axios from 'axios';
+
+
+
 
 type FormData = {
   userId: string;
   password: string;
 };
 
-export default function SignUp() {
+export default function Login() {
   const dispatch = useAppDispatch();
+
+  const [user, setUser] = useState(null);
 
   const {
     register,
@@ -28,6 +34,38 @@ export default function SignUp() {
   const onError: SubmitErrorHandler<FormData> = (errors) => {
     console.log('onError', errors);
   };
+  
+  // 지워야함
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const API_URL = 'https://43.203.227.36.sslip.io/server';
+        const response = await axios.get(`${API_URL}/user/authuser`, { withCredentials: true });
+        setUser(response.data.nickname);
+        console.log('데이터를 받아오는?  : ', response.data);
+        console.log('넥님 좀 떠줘? : ', response.data.nickname)
+      } catch (error) {
+        console.error('error', error);
+      }
+    };
+
+    fetchData();
+  }, [dispatch]);
+
+  const handleLogout = async () => {
+    dispatch(authUsers()); 
+    // dispatch(logoutUser())
+  
+    try {
+      const API_URL = 'https://43.203.227.36.sslip.io/server';
+      const response = await axios.get(`${API_URL}/user/authuser`, { withCredentials: true });
+      setUser(response.data.nickname);
+      console.log(response.data);
+      console.log('넥님 좀 떠줘?? : ', response.data.nickname);
+    } catch (error) {
+      console.error('error', error);
+    }
+  };
 
 
 
@@ -40,6 +78,7 @@ export default function SignUp() {
             <Link to='/'>
               <h1 className='logo'>DoRun-DoRun</h1>
             </Link>
+            <button onClick={handleLogout}>제발 닉넴 좀 떠줘 : {user}</button>
           </div>
           <div className='form-box'>
             <form
@@ -49,7 +88,6 @@ export default function SignUp() {
               <label className='auth-label' htmlFor='userId'>
                 아이디
               </label>
-
               <input
                 className='auth-input'
                 type='text'

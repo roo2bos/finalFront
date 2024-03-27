@@ -43,13 +43,38 @@ const signUpSlice = createSlice({
   },
 });
 
-export const signUpUser = (userdata: any) => async (dispatch: Dispatch) => {
+type ErrorWithMessage = {
+  message: string;
+}
+
+function isErrorWithMessage(error: unknown): error is ErrorWithMessage {
+  return (
+    typeof error === 'object' &&
+    error !== null &&
+    'message' in error &&
+    typeof (error as Record<string, unknown>).message === 'string'
+  );
+}
+
+class ReadError extends Error {
+  constructor(message: string, public originalError: unknown) {
+    super(message);
+    this.name = 'ReadError';
+  }
+}
+
+export const signUpUser = (userdata: User) => async (dispatch: Dispatch) => {
   try {
-    dispatch(signUpStart());
-    const user = await signupApi(userdata);
+    dispatch(signUpStart()); 
+    const user = await signupApi(userdata); 
     dispatch(signUpSuccess(user));
-  } catch (error: any) {
-    dispatch(signUpError(error.message));
+  } catch (error) {
+    if (isErrorWithMessage(error)) {
+      dispatch(signUpError(error.message)); 
+      throw new ReadError("Validation Error", error); 
+    } else {
+      throw error;
+    }
   }
 };
 
