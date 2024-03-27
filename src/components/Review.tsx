@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 import '../assets/css/review.css';
-import datas from '../../datas.json';
 
 interface Data {
   id: string;
@@ -15,6 +15,7 @@ interface Data {
 interface ReviewData extends Data {
   date: string;
 }
+
 interface Props {
   data: Data;
 }
@@ -26,6 +27,7 @@ function ReviewItem({ data }: Props) {
         <img className='character-img' src={data.img} alt={`${data.name}`} />
       </div>
       <div className='flex flex-col justify-center'>
+        {/* 복습 목록 - 캐릭터 이름, 시간 표기 */}
         <div className='review-character'>
           <span className='character-name'>{data.name}</span>
           <span className='start-time ml-2'>{data.startTime}</span>
@@ -39,13 +41,6 @@ function ReviewItem({ data }: Props) {
           <div className='incorrect-first text-lg truncate-1'>
             {data.incorrectSentences[0]}
           </div>
-          {/* 첫번째 문장 외 나머지 문장 */}
-          {/* 링크를 li에 걸었는데....???? */}
-          {/* <div>
-              {data.incorrectSentences.slice(1).map((sentence, index) => (
-                <div key={index}>{sentence}</div>
-              ))}
-            </div> */}
         </div>
       </div>
     </Link>
@@ -54,16 +49,30 @@ function ReviewItem({ data }: Props) {
 
 export default function Review() {
   const [sortBy, setSortBy] = useState<string>('latest');
-  const reviewDatas: ReviewData[] = datas.reviewDatas;
+  const [reviewDatas, setReviewDatas] = useState<ReviewData[]>([]);
   const uniqueDates: string[] = [
     ...new Set(reviewDatas.map((data) => data.date)),
   ];
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get<ReviewData[]>('URL');
+
+        setReviewDatas(response.data);
+        console.log(reviewDatas);
+      } catch (error) {
+        console.error('Error fetching review data:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <section className='review'>
       <div className='container'>
         <div className='conversation-controls'>
-          {/* 정렬은 아직... */}
           <div className='sort-dropdown'>
             <label htmlFor='sort-select' className='hide'>
               정렬
@@ -84,13 +93,13 @@ export default function Review() {
             <div key={date}>
               <div className='date'>{date}</div>
               <ul className='review-list'>
-                <li className='review-item'>
-                  {reviewDatas
-                    .filter((data) => date === data.date)
-                    .map((data) => (
-                      <ReviewItem key={data.id} data={data} />
-                    ))}
-                </li>
+                {reviewDatas
+                  .filter((data) => date === data.date)
+                  .map((data) => (
+                    <li key={data.id} className='review-item'>
+                      <ReviewItem data={data} />
+                    </li>
+                  ))}
               </ul>
             </div>
           ))}

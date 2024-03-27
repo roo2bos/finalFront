@@ -1,78 +1,92 @@
-// import { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 import { useParams } from 'react-router-dom';
-// import axios from 'axios';
 import { IoArrowForward } from 'react-icons/io5';
 import '../assets/css/reviewContent.css';
 
-const dummy = [
-  {
-    id: 'review_1',
-    conversation: [
-      { speaker: 'ai', message: 'I have to go.' },
-      { speaker: 'user', message: 'why?' },
-      { speaker: 'ai', message: 'He goed to the store.' },
-      { speaker: 'user', message: 'Why do you think so?' },
-    ],
-    wrongSentence: 'He goed to the store.',
-    correctedSentence: 'He went to the store.',
-  },
-  {
-    id: 'review_2',
-    conversation: [
-      { speaker: 'ai', message: 'God bless you' },
-      { speaker: 'user', message: 'what?' },
-    ],
-    wrongSentence: 'He goed to the store.',
-    correctedSentence: 'He went to the store.',
-  },
-  {
-    id: 'review_3',
-    conversation: [
-      { speaker: 'ai', message: "That's ok." },
-      { speaker: 'user', message: 'why?' },
-    ],
-    wrongSentence: 'He goed to the store.',
-    correctedSentence: 'He went to the store.',
-  },
-];
+interface Message {
+  speaker: string;
+  message: string;
+}
+
+interface ConversationData {
+  id: string;
+  messages: Message[];
+  wrongSentence: string;
+  correctedSentence: string;
+}
 
 export default function ReviewContent() {
-  const { id } = useParams();
-  const conversationData = dummy.find((item) => item.id === id);
+  const { id } = useParams<{ id: string }>();
+  const [conversationData, setConversationData] =
+    useState<ConversationData | null>(null);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get<ConversationData>(`URL/${id}`);
+        setConversationData(response.data);
+      } catch (error) {
+        console.error('Error fetching conversation data:', error);
+        setError('대화 데이터를 가져오는 도중 오류가 발생했습니다.');
+      }
+    };
+
+    fetchData();
+  }, [id]);
+
+  if (error) {
+    return <div>{error}</div>; // 에러 메시지 표시
+  }
 
   if (!conversationData) {
     return <div>대화를 찾을 수 없습니다.</div>;
   }
 
-  const { conversation, wrongSentence, correctedSentence } = conversationData;
+  const { messages, wrongSentence, correctedSentence } = conversationData;
 
   return (
-    <>
-      <div className='review-content'>
-        <div>복습 내역</div>
-        <div>
-          {/* 대화 내역 렌더링 */}
-          {conversation.map((message, index) => (
-            <div key={index}>
-              <div className={message.speaker === 'ai' ? 'ai' : 'user'}>
-                {/* 틀린 문장인 경우 빨간색으로 표시 */}
-                {message.message === wrongSentence ? (
-                  <>
-                    <span style={{ color: 'red' }}>{message.message}</span>
-                    {/* 교정 문장 표시 */}
-                    <div>
+    <div className='list-talk1'>
+      <div className='history'>
+        <ul>
+          {messages.map((talkMessage, i) => (
+            <li
+              key={i}
+              className={talkMessage.speaker === 'user' ? 'user' : 'ai'}
+            >
+              <div className='profile'>
+                <img
+                  src={
+                    talkMessage.speaker === 'user'
+                      ? '/user-default.png'
+                      : '/image1.png'
+                  }
+                  alt='프로필 이미지'
+                />
+              </div>
+              <div className='info'>
+                <div className='name'>
+                  {talkMessage.speaker === 'user' ? '사용자' : 'AI'}
+                </div>
+                {talkMessage.message === wrongSentence ? (
+                  <div className='message'>
+                    <div style={{ color: 'red' }} className='wrong-sentence'>
+                      {talkMessage.message}
+                    </div>
+                    <div className='corrected-sentence'>
                       <IoArrowForward />
                       {correctedSentence}
                     </div>
-                  </>
+                  </div>
                 ) : (
-                  message.message
+                  <div className='message'>{talkMessage.message}</div>
                 )}
               </div>
-            </div>
+            </li>
           ))}
-        </div>
+        </ul>
       </div>
-    </>
+    </div>
   );
 }

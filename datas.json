@@ -263,5 +263,40 @@
       "incorrectSentences": [],
       "img": "/characters/ic_style_joker_female.avif"
     }
+  ],
+  "chat": [
+    {
+      "id": "review_1",
+      "messages": [
+        { "speaker": "ai", "message": "I have to go." },
+        { "speaker": "user", "message": "why?" },
+        { "speaker": "ai", "message": "He goed to the store." },
+        { "speaker": "user", "message": "Why do you think so?" }
+      ],
+      "wrongSentence": "He goed to the store.",
+      "correctedSentence": "He went to the store."
+    },
+    {
+      "id": "review_2",
+      "messages": [
+        { "speaker": "ai", "message": "God bless you" },
+        { "speaker": "user", "message": "what?" },
+        { "speaker": "ai", "message": "He goed to the store." },
+        { "speaker": "user", "message": "Why do you think so?" },
+        { "speaker": "ai", "message": "He goed to the store." },
+        { "speaker": "user", "message": "Why do you think so?" }
+      ],
+      "wrongSentence": "He goed to the store.",
+      "correctedSentence": "He went to the store."
+    },
+    {
+      "id": "review_3",
+      "messages": [
+        { "speaker": "ai", "message": "That's ok." },
+        { "speaker": "user", "message": "why?" }
+      ],
+      "wrongSentence": "He goed to the store.",
+      "correctedSentence": "He went to the store."
+    }
   ]
 }
