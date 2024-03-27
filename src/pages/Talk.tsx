@@ -21,6 +21,34 @@ import { IoMdCloseCircle } from 'react-icons/io';
 import { RiLoader2Fill } from 'react-icons/ri';
 // import wavfile from '/test.wav';
 
+export const ChatHistory = ({ talkMessages, userInfo, characterInfo }) => {
+  return (
+      <ul className={talkMessages.length === 0 ? 'h-full' : ''}>
+          {talkMessages.length === 0 ? (
+              <li key={0} className="h-full !m-0 flex justify-center items-center">
+                  대화 내역이 아직 없습니다.
+              </li>
+          ) : (
+              talkMessages.map((talkMessage, i) => {
+                  return (
+                      <li key={i} className={talkMessage?.includes('user:') ? 'user' : 'ai'}>
+                          <div className="profile">
+                              <img src={talkMessage?.includes('user:') ? '/user-default.png' : characterInfo[0]?.img} alt="" />
+                          </div>
+                          <div className="info">
+                              <div className="name">
+                                  {talkMessage?.includes('user:') ? userInfo.userid : talkMessage.split(': ')[0]}
+                              </div>
+                              <div className="msg">{talkMessage.split(': ')[1]}</div>
+                          </div>
+                      </li>
+                  );
+              })
+          )}
+      </ul>
+  );
+};
+
 function Talk() {
 	const { id } = useParams();
 	const [account] = useState('test');
@@ -118,8 +146,12 @@ function Talk() {
 	const sendMessage = async (e) => {
 		try {
 			e.preventDefault();
-			setAudioLoad(true);
 			const inputText = textareaRef.current.value;
+      if(inputText.length === 0) {
+        alert('음성 입력된 값이 없습니다');
+        return;
+      }
+			setAudioLoad(true);
 			setTalkMessages((prevData) => [...prevData, `user: ${inputText}`]);
 			const audioSrc = await fetchAndPlayAudio(inputText);
 			audioEnd ? (audioRef.current.src = '') : (audioRef.current.src = audioSrc);
@@ -297,29 +329,7 @@ function Talk() {
 				</div>
 
 				<div className={`history ${history ? '' : 'hidden'}`}>
-					<ul className={talkMessages.length == 0 ? 'h-full' : ''}>
-						{talkMessages.length == 0 ? (
-							<li key={0} className="h-full !m-0 flex justify-center items-center">
-								대화 내역이 아직 없습니다.
-							</li>
-						) : (
-							talkMessages.map((talkMessage, i) => {
-								return (
-									<li key={i} className={talkMessage?.includes('user:') ? 'user' : 'ai'}>
-										<div className="profile">
-											<img src={talkMessage?.includes('user:') ? '/user-default.png' : beforeMessage[0]?.img} alt="" />
-										</div>
-										<div className="info">
-											<div className="name">
-												{talkMessage?.includes('user:') ? userInfo.userid : talkMessage.split(': ')[0]}
-											</div>
-											<div className="msg">{talkMessage.split(': ')[1]}</div>
-										</div>
-									</li>
-								);
-							})
-						)}
-					</ul>
+          <ChatHistory talkMessages={talkMessages} userInfo={userInfo} characterInfo={characterInfo} />
 				</div>
 				{/* foot */}
 				<div className="foot-talking-wrap ">
