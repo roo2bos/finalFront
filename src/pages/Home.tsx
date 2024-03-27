@@ -1,96 +1,62 @@
 import { useState /* , useEffect */ } from 'react';
 import '../index.css';
 import '../assets/css/home.css';
-// import { Link } from 'react-router-dom';
 import datas from '../../datas.json'; //임시 데이터
-import {CharacterList} from './Chat';
+import { CharacterList } from './Chat';
+import Wordquiz from '../components/Wordquiz';
 
 function Home() {
-  // const [account] = useState('test'); //로그인(인증)된 유저정보
-  // const [myTalk, setMyTalk] = useState([]); //인증된 유저의 전체 정보
-  // const [myRooms, setMyRooms] = useState([]); //채팅룸
-  // const [myMsg, setMyMsg] = useState([]); //각각의 채팅룸의 마지막 메세지
-  // const [recomm, setRecomm] = useState([]); //캐릭터 추천
-
- /*  const [myTalk] = useState(
-    datas.users.find((user) => user.userid === account)
-  ); */ //인증된 유저의 전체 정보
-  /* const [myRooms] = useState(
-    datas.users.find((user) => user.userid === account).chats
-  ); */ //채팅룸
-/*   const [myMsg] = useState(
-    myRooms.map((roomId) => {
-      const newData = {
-        name: datas.chats.filter((chat) => chat.roomId === roomId).pop().name,
-        img: datas.chats.filter((chat) => chat.roomId === roomId).pop().img,
-        msg: datas.chats.filter((chat) => chat.roomId === roomId).pop().msg,
-      };
-      return newData;
-    })
-  ); */
-
   const getRandomElements = (array, count) => {
     const shuffled = array.sort(() => Math.random() - 0.5);
     return shuffled.slice(0, count);
-};
+  };
 
   const randomRecommendations = getRandomElements(datas.characters, 4);
   const [recomm] = useState(randomRecommendations); //임시
 
-/*   function Items() {
-    return (
-      <>
-        {myRooms.map((chatId, i) => {
-          return (
-            <li key={chatId}>
-              <Link to={`/talk/${chatId}`}>
-                <div className='img'>
-                  <img src={myMsg[i]?.img} alt='' />
-                </div>
-                <dl>
-                  <dt className='name'>{myMsg[i]?.name}</dt>
-                  <dd className='text truncate-2'>{myMsg[i]?.msg}</dd>
-                </dl>
-              </Link>
-            </li>
-          );
-        })}
-      </>
-    );
-  } */
-
   return (
     <>
-      {/* <h2 className='list-title'>대화 계속하기</h2>
-      <ul className='list-char'>
-        <Items my={myTalk} />
-      </ul> */}
-      <div>
+      <div className='main-bannder-section'>
         <h2 className='list-title'>대화를, 두런두런</h2>
-        <div className='banner-quiz'>
-          <div className='banner item'>
-            <div className='banner-text-area'>
-              <h3>Let's chat</h3>
-              <p className='banner-text'>안녕, 나와 대화해볼래?</p>
-              <p className='banner-text'>우리 함께 즐거운 영어 공부하자!</p>
-              <button type='button' className='banner-btn'>
-                지금 대화하러 가기
-              </button>
+        <div>
+          <div className='flex'>
+            <div className='banner'>
+              <div className='banner-text-area'>
+                <h3>Let's chat</h3>
+                <p className='banner-text'>안녕, 나와 대화해볼래?</p>
+                <p className='banner-text'>우리 함께 즐거운 영어 공부하자!</p>
+                <button type='button' className='banner-btn'>
+                  지금 대화하러 가기
+                </button>
+              </div>
+              <div className='img-box'>
+                <img src='/image1.png' alt='푸우' />
+              </div>
             </div>
-            <div className='img-box'>
-              <img src='/image1.png' alt='' />
+            <div className='bg-green-300 site-map'>
+              <h2>사이트 사용방법</h2>
             </div>
-          </div>
-          <div className='quiz item'>
-            <h2>퀴즈</h2>
           </div>
         </div>
       </div>
-      <div></div>
-      <h2 className='list-title'>추천 대화</h2>
-      {/* <Characters /> */}
-
-      <CharacterList data={recomm} />
+      {/* 예문, 퀴즈 */}
+      <div className='main-learn-section flex'>
+        <div>
+          <h2 className='list-title'>새로운 표현을 배워볼까요?</h2>
+          <div>하루 3문장 컴포넌트 넣기</div>
+        </div>
+        <div>
+          <h2 className='list-title'>문장을 완성해보자!</h2>
+          <div>
+            <Wordquiz />
+          </div>
+        </div>
+      </div>
+      {/* 추천 캐릭터 */}
+      <div className='main-character-section'>
+        <h2 className='list-title'>추천 대화</h2>
+        <CharacterList data={recomm} />
+      </div>
     </>
   );
 }
