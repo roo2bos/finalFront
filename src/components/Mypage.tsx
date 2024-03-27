@@ -1,8 +1,6 @@
 import { useForm, SubmitHandler} from 'react-hook-form';
 import { useAppDispatch } from '../hooks';
-// import { useDispatch } from 'react-redux';
 import { userNicknameCheck } from '../store/features/userIdCheck';
-// import { signUpUser } from '../store/features/signUpSlice';
 import '../assets/css/auth.css';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
@@ -16,28 +14,41 @@ type FormData = {
 };
 
 export default function Mypage() {
-  // const dispatch = useDispatch();
   const dispatch = useAppDispatch();
-
   const [getUser, setGetUser] = useState<FormData | null>(null);
+  const API_URL = 'https://43.203.227.36.sslip.io/';
 
-  // 수정페이지 form
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    watch,
-  } = useForm<FormData>();
+    // 수정페이지 form
+    const {
+      register,
+      handleSubmit,
+      formState: { errors },
+      watch,
+    } = useForm<FormData>();  
 
-  // 수정페이지 전송
-  // const onSubmit: SubmitHandler<FormData> = async (userdata) => {
-  //   try {
-  //     await axios.put(``, userdata);
-  //     setGetUser(userdata);
-  //   } catch (error) {
-  //     console.error('에러라네',error);
-  //   }
-  // };
+  // 유저 정보 불러오기
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(`${API_URL}/user/info`);
+        console.log('마이페이지 :', response.data);
+      } catch (error) {
+        console.error('에러', error);
+      }
+    };
+    fetchData();
+  }, []);
+
+
+  // 유저 정보 수정
+  const onSubmit: SubmitHandler<FormData> = async (userdata) => {
+    try {
+      await axios.put(``, userdata);
+      setGetUser(userdata);
+    } catch (error) {
+      console.error('에러라네',error);
+    }
+  };
 
   // 닉네임 실시간 수정
   const nickname = watch('nickname');
@@ -45,20 +56,6 @@ export default function Mypage() {
   useEffect(() => {
     dispatch(userNicknameCheck(nickname));
   }, [nickname, dispatch]);
-
-  // const API_URL = 'https://jsonplaceholder.typicode.com';
-
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const response = await axios.get(`${API_URL}/users`);
-  //       console.log(response.data);
-  //     } catch (error) {
-  //       console.error('에러', error);
-  //     }
-  //   };
-  //   fetchData();
-  // }, []);
 
   return (
     <>
@@ -155,13 +152,10 @@ export default function Mypage() {
           })}
         />
         {errors.password && <span className='authSpan' role="alert">{errors.password.message}</span>}
-
         <button className='auth-input mt-11'  type="submit">수정하기</button>
       </form>
         </div>
       </div>
-  
-     
     </>
   );
 }
