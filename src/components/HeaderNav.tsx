@@ -35,22 +35,24 @@ export default function Header() {
 
   return (
     <nav className="header-nav">
-      <button onClick={handleLogout} type="button" className="noti-icon" aria-label="알림">
+      <button type="button" className="noti-icon" aria-label="알림">
         <FaBell />
       </button>
-      <div className="nav-login flex items-center">
-  {!user ? (
-    <div className="flex items-center space-x-4">
-      <Link to="/mypagechange" className="flex items-center">
-        {profileImage && <img src={profileImage} alt="프로필 이미지" className="w-10 h-10 rounded-full" />}
-        <span>{user}</span>
-      </Link>
-      <button onClick={handleLogout}>로그아웃</button>
-    </div>
-  ) : (
-    <Link to="/login" title="로그인">로그인</Link>
-  )}
-</div>
+      <div className="nav-login">
+        {!user ? (
+          <div>
+            <Link to="/mypagechange">
+              {profileImage ? <img src={profileImage} alt="프로필 이미지" /> : null}
+              {user}
+            </Link>
+            <button onClick={handleLogout}>로그아웃</button>
+          </div>
+        ) : (
+          <Link to="/login" title="로그인">
+            로그인
+          </Link>
+        )}
+      </div>
     </nav>
   );
 }
