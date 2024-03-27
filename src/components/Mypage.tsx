@@ -28,15 +28,8 @@ export default function Mypage() {
   });
   const API_URL = 'https://43.203.227.36.sslip.io/server';
 
-  // 수정페이지 form
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    watch
-  } = useForm<FormData>();
+  const { register, handleSubmit, setValue, formState: { errors }, watch } = useForm<FormData>();
 
-  // 유저 정보 불러오기
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -50,7 +43,6 @@ export default function Mypage() {
     fetchData();
   }, []);
 
-  // 유저 정보 수정
   const onSubmit: SubmitHandler<FormData> = async (userdata) => {
     try {
       const formData = new FormData();
@@ -77,13 +69,12 @@ export default function Mypage() {
     }
   };
 
-  // 닉네임 실시간 수정
   const nickname = watch('nickname');
+
   useEffect(() => {
     dispatch(userNicknameCheck(nickname));
   }, [nickname, dispatch]);
 
-  // 프로필 이미지
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       setGetUser((prevState) => ({
@@ -92,6 +83,10 @@ export default function Mypage() {
       }));
     }
   };
+
+  useEffect(() => {
+    setValue('nickname', getUser.nickname); // Set value for nickname input field
+  }, [getUser.nickname, setValue]);
 
   return (
     <>
@@ -131,8 +126,6 @@ export default function Mypage() {
               </label>
               <input
                 className='auth-input'
-                value={getUser.nickname}
-                onChange={(e) => setGetUser({ ...getUser, nickname: e.target.value })}
                 type='text'
                 id='nickname'
                 placeholder='닉네임을 변경해주세요'
@@ -158,8 +151,6 @@ export default function Mypage() {
               </label>
               <input
                 className='auth-input'
-                value={getUser.email}
-                onChange={(e) => setGetUser({ ...getUser, email: e.target.value })}
                 type='email'
                 id='email'
                 placeholder='이메일을 변경해주세요'
@@ -183,8 +174,6 @@ export default function Mypage() {
             </label>
             <input
               className='auth-input'
-              value={getUser.password}
-              onChange={(e) => setGetUser({ ...getUser, password: e.target.value })}
               type='password'
               id='password'
               placeholder="'영문, 숫자, 대문자, 특수문자 포함 8자리 이상'"
@@ -211,7 +200,7 @@ export default function Mypage() {
             />
             {errors.password && (
               <span className='authSpan' role='alert'>
-                {errors.password.message}
+                {errors.password             .message}
               </span>
             )}
 
