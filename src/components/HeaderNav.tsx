@@ -8,6 +8,7 @@ import '../assets/css/headerNav.css';
 
 export default function Header() {
   const [user, setUser] = useState('');
+  const [userCheck, setUserCheck] = useState(false)
   const [profileImage, setProfileImage] = useState('');
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -17,8 +18,9 @@ export default function Header() {
       try {
         const API_URL = 'https://43.203.227.36.sslip.io/server';
         const response = await axios.get(`${API_URL}/user/authuser`, { withCredentials: true });
-         console.log('데이터 받아옴', response.data)
-         console.log('데이터 닉네임 받아옴', response.data.nickname)
+        console.log('데이터 받아옴', response.data.result);
+        console.log('데이터 닉네임 받아옴', response.data.nickname);
+        setUserCheck(response.data.result)
         setUser(response.data.nickname || '');
         setProfileImage(response.data.profileImageUrl || ''); 
       } catch (error) {
@@ -49,7 +51,7 @@ export default function Header() {
         <FaBell />
       </button>
       <div className="nav-login">
-        {!user ? ( 
+        {userCheck ? (
           <div>
             <Link to="/mypagechange">
               {user}
