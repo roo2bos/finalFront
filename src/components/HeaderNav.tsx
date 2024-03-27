@@ -17,6 +17,8 @@ export default function Header() {
       try {
         const API_URL = 'https://43.203.227.36.sslip.io/server';
         const response = await axios.get(`${API_URL}/user/authuser`, { withCredentials: true });
+         console.log('데이터 받아옴', response.data)
+         console.log('데이터 닉네임 받아옴', response.data.nickname)
         setUser(response.data.nickname || '');
         setProfileImage(response.data.profileImageUrl || ''); 
       } catch (error) {
@@ -32,6 +34,14 @@ export default function Header() {
     setProfileImage('');
     navigate('/');
   };
+
+  useEffect(() => {
+    console.log('유저 상태 업데이트:', user);
+  }, [user]);
+  
+  useEffect(() => {
+    console.log('프로필 이미지 상태 업데이트:', profileImage);
+  }, [profileImage]);
 
   return (
     <nav className="header-nav">

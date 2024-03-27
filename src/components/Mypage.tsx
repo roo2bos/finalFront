@@ -28,7 +28,13 @@ export default function Mypage() {
   });
   const API_URL = 'https://43.203.227.36.sslip.io/server';
 
-  const { register, handleSubmit, setValue, formState: { errors }, watch } = useForm<FormData>();
+  const { 
+    register, 
+    handleSubmit, 
+    setValue, 
+    formState: { errors }, 
+    watch } 
+    = useForm<FormData>();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -52,7 +58,6 @@ export default function Mypage() {
       if (userdata.profileImage) {
         formData.append('profileImage', userdata.profileImage[0]);
       }
-
       const response = await axios.put(`${API_URL}/user/patch`, formData, {
         withCredentials: true
       });
@@ -85,7 +90,7 @@ export default function Mypage() {
   };
 
   useEffect(() => {
-    setValue('nickname', getUser.nickname); // Set value for nickname input field
+    setValue('nickname', getUser.nickname); 
   }, [getUser.nickname, setValue]);
 
   return (
