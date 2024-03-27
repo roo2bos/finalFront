@@ -370,7 +370,7 @@ function Talk() {
 								ref={textareaRef}
 								onKeyPress={(e) => {
 									if (e.nativeEvent.isComposing) return;
-									const key = e.key || e.keyCode;
+									const key = e.key || e.charCode;
 									(key === 'Enter' || key === 13) && !e.shiftKey && sendMessage(e);
 								}}
 								onInput={inputHandler}
@@ -384,7 +384,11 @@ function Talk() {
 								<button type="submit" className="btn-send" disabled={playState || isFinish ? true : false}>
 									{audioLoad ? <RiLoader2Fill className="animate-spin" /> : <RiSendPlaneFill />}
 								</button>
-								<button type="button" ref={micRef} className="btn-mic" onClick={mic ? handleStopRecording : handleStartRecording}>
+								<button type="button" ref={micRef} className="btn-mic" onClick={mic ? handleStopRecording : handleStartRecording} onKeyPress={(e) => {
+									if (e.nativeEvent.isComposing) return;
+									const key = e.key || e.charCode;
+									(key === 13  || key === 32 || key === ' ' || key === 'Enter') && (playState && playAudio());
+								}}>
 									{mic ? <PiMicrophoneFill /> : <PiMicrophoneSlash />}
 								</button>
 							</div>
