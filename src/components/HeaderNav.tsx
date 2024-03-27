@@ -18,8 +18,6 @@ export default function Header() {
       try {
         const API_URL = 'https://43.203.227.36.sslip.io/server';
         const response = await axios.get(`${API_URL}/user/authuser`, { withCredentials: true });
-        console.log('데이터 받아옴', response.data.result);
-        console.log('데이터 닉네임 받아옴', response.data.nickname);
         setUserCheck(response.data.result)
         setUser(response.data.nickname || '');
         setProfileImage(response.data.profileImageUrl || ''); 
@@ -34,16 +32,9 @@ export default function Header() {
     dispatch(logoutUser());
     setUser('');
     setProfileImage('');
+    setUserCheck(false);
     navigate('/');
   };
-
-  useEffect(() => {
-    console.log('유저 상태 업데이트:', user);
-  }, [user]);
-  
-  useEffect(() => {
-    console.log('프로필 이미지 상태 업데이트:', profileImage);
-  }, [profileImage]);
 
   return (
     <nav className="header-nav">
@@ -57,7 +48,7 @@ export default function Header() {
               {user}
               {profileImage ? <img src={profileImage} alt="프로필 이미지" /> : null}
             </Link>
-            <button onClick={handleLogout}>로그아웃</button>
+              <button onClick={handleLogout}>로그아웃</button> 
           </div>
         ) : (
           <Link to="/login" title="로그인">
