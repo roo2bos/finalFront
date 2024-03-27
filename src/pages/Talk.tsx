@@ -245,7 +245,7 @@ function Talk() {
 			const formData = new FormData();
 
 			formData.append('audio', audioFile);
-			const response = await axios.post('http://localhost:8080/speech', formData, {
+			const response = await axios.post('https://43.203.227.36.sslip.io/server/speech', formData, {
 				headers: {
 					'Content-Type': 'multipart/form-data',
 				},
