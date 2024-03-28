@@ -309,16 +309,16 @@ function Talk() {
 					<Popup title={'오늘의 학습 미션'} datas={missions} isPop={isPop} setIsPop={setIsPop} />
 				</div>
 				<div ref={innerRef} className="inner">
-					<div className="bg-char" style={{ backgroundImage: `url(/bg_${bgNum}.png)` }}></div>
+					<div className="bg-char" style={{ backgroundImage: `url(/bg_${bgNum}.jpg)` }}></div>
 					<div className="bg-emo">
 						<button onClick={() => emoHandler(0)}>
-							<img src="/bg_0.png" alt="" />
+							<img src="/bg_0.jpg" alt="" />
 						</button>
 						<button onClick={() => emoHandler(1)}>
-							<img src="/bg_1.png" alt="" />
+							<img src="/bg_1.jpg" alt="" />
 						</button>
 						<button onClick={() => emoHandler(2)}>
-							<img src="/bg_2.png" alt="" />
+							<img src="/bg_2.jpg" alt="" />
 						</button>
 					</div>
 					<div className="profile">
