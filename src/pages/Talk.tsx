@@ -24,6 +24,10 @@ import { FaArrowLeft } from 'react-icons/fa6';
 // import wavfile from '/test.wav';
 // import { type } from './../store/store';
 
+// 파비콘 출천 : http://si.serverzero.kr/main/pc/index.php#five
+// 이미지 출처 : https://m.blog.naver.com/sinnam88/221375405075
+
+
 export const ChatHistory = ({ talkMessages, userInfo, characterInfo }) => {
 	return (
 		<ul className={talkMessages.length === 0 ? 'h-full' : ''}>
@@ -84,6 +88,7 @@ function Talk() {
 
 	const [userInfo] = useState(datas.users.find((user) => user.userid === account)); //임시
 	const [characterInfo] = useState(datas.characters.filter((character) => character.id === id)); //임시
+  const [bgNum, setBgNum] = useState(Math.floor(Math.random() * 3));
 	// const [characterDesc, setCharacterDesc] = useState(false);
 	const [missions] = useState([
 		// 더미
@@ -282,6 +287,10 @@ function Talk() {
 		}
 	};
 
+  const emoHandler = (idx) => {
+    setBgNum(idx);
+  }
+
 	return (
 		<>
 			<div className="list-talk bg-cover bg-no-repeat bg-center ">
@@ -324,7 +333,13 @@ function Talk() {
 					</div>
 				</div>
 				<div ref={innerRef} className="inner">
-					<div className="bg-char" style={{ backgroundImage: `url(/bg_1.png)` }}></div>
+
+					<div className="bg-char" style={{ backgroundImage: `url(/bg_${bgNum}.png)` }}></div>
+          <div className="bg-emo">
+            <button onClick={()=>emoHandler(0)}><img src="/bg_0.png" alt="" /></button>
+            <button onClick={()=>emoHandler(1)}><img src="/bg_1.png" alt="" /></button>
+            <button onClick={()=>emoHandler(2)}><img src="/bg_2.png" alt="" /></button>
+          </div>
 					<div className="profile">
 						<img src={beforeMessage[0]?.img} alt="" />
 						<div className={`voiceContainer ${playState ? 'on' : 'off'}`}>

@@ -10,7 +10,7 @@
   }
 
   .list-talk .inner {
-    @apply relative flex justify-center items-end flex-1 px-5 min-h-[2.5rem];
+    @apply relative flex justify-center items-end flex-1 px-5 min-h-[2.5rem] overflow-hidden;
   }
   .list-talk .head {
     @apply /*mb-8 gap-8*/ flex justify-center items-center flex-col;
@@ -466,5 +466,12 @@
   .ly-modal .list-correct li:before {
     content: counter(num) '. ';
     counter-increment: num;
+  }
+
+  .bg-emo{
+    @apply absolute left-[10px] bottom-[10px] flex gap-1 p-2 bg-white rounded-full;
+  }
+  .bg-emo img{
+    @apply w-[30px] h-[30px] object-cover rounded-full;
   }
 } /* components */
