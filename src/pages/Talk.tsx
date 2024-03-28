@@ -89,27 +89,45 @@ function Talk() {
 	const [characterInfo] = useState(datas.characters.filter((character) => character.id === id)); //임시
 	const [bgNum, setBgNum] = useState(Math.floor(Math.random() * 3));
 	const [characterDesc, setCharacterDesc] = useState(false);
-	const [missions] = useState([
-		// 더미
+	const [getData] = useState([
+		//더미
 		{
-			id: 1,
-			message:
-				'mission1 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 ',
-			complete: true,
+			id: 'review_1',
+			messages: [
+				{ speaker: 'ai', message: 'I have to go.' },
+				{ speaker: 'user', message: 'why?' },
+				{ speaker: 'ai', message: 'He goed to the store.' },
+				{ speaker: 'user', message: 'Why do you think so?' },
+			],
+			wrongSentence: 'He goed to the store.',
+			correctedSentence: 'He went to the store.',
 		},
 		{
-			id: 2,
-			message:
-				'mission2 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 ',
-			complete: false,
+			id: 'review_2',
+			messages: [
+				{ speaker: 'ai', message: 'God bless you' },
+				{ speaker: 'user', message: 'what?' },
+				{ speaker: 'ai', message: 'He goed to the store.' },
+				{ speaker: 'user', message: 'Why do you think so?' },
+				{ speaker: 'ai', message: 'He goed to the store.' },
+				{ speaker: 'user', message: 'Why do you think so?' },
+			],
+			wrongSentence: 'He goed to the store.',
+			correctedSentence: 'He went to the store..',
 		},
 		{
-			id: 3,
-			message:
-				'mission3 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 미션 노출 ',
-			complete: false,
+			id: 'review_3',
+			messages: [
+				{ speaker: 'ai', message: "That's ok." },
+				{ speaker: 'user', message: 'why?' },
+			],
+			wrongSentence: 'He goed to the store.',
+			correctedSentence: 'He went to the store!',
 		},
 	]);
+	const [missions, setMissions] = useState(
+		getData.map((data, i) => ({ id: i, message: data.correctedSentence, complete: false }))
+	);
 
 	useEffect(() => {
 		setMic(false);
@@ -175,6 +193,10 @@ function Talk() {
 			}
 			playAudio();
 			setFirstAudioMsg(true);
+
+			setMissions((prevData) =>
+				prevData.map((mission) => (mission.message === inputText ? { ...mission, complete: true } : mission))
+			);
 			textareaRef.current.value = '';
 			micRef.current.focus();
 		} catch (error) {
@@ -182,6 +204,8 @@ function Talk() {
 		}
 	};
 	const finishChat = async () => {
+    const todayMissionCount = missions.filter((data) => data.complete).length;
+    if(todayMissionCount < 3 && !window.confirm('오늘의 학습 미션을 달성하지 못하였습니다. 그만하시겠습니까?')) return;
 		try {
 			setCorrectLoad(true);
 			await axios
@@ -211,6 +235,7 @@ function Talk() {
 			setIsFinishPop(true);
 			setCorrectLoad(false);
 			setFirstAudioMsg(false);
+      setTodayMission(true);//오늘의 학습 목표 3개 완료시 체크
 		} catch (error) {
 			console.error('Fetch and play audio error:', error);
 		}

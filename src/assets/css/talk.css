@@ -474,7 +474,7 @@
 	}
 
 	.bg-emo {
-		@apply absolute left-[10px] bottom-[10px] flex gap-1 p-2 bg-white rounded-full z-10;
+		@apply absolute left-[10px] bottom-[10px] flex gap-1 p-2 bg-white rounded-full z-[1];
 	}
 	.bg-emo img {
 		@apply w-[30px] h-[30px] object-cover rounded-full;
