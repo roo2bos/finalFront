@@ -11,6 +11,7 @@ import About from './pages/About';
 import PreviewContent from './components/PreviewContent';
 import Chat from './pages/Chat';
 import Learn from './pages/Learn';
+import Auth from './components/Mypage'
 import Spinner from './components/Spinner';
 import ReviewContent from './components/temporaily';
 import './App.css';
@@ -22,6 +23,7 @@ function App() {
         <Route path='/' element={<Home />} />
         <Route path='/talk/:id' element={<Talk />} />
         <Route path='/myroom' element={<Myroom />} />
+        <Route path='/mypage' element={<Auth/>} />
         <Route path='/about' element={<About />} />
         <Route path='/mylog' element={<Mypage />} />
         <Route path='/mylog/:id' element={<ReviewContent />} />

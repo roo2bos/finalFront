@@ -44,7 +44,7 @@ export default function Header() {
       <div className="nav-login">
   {userCheck ? (
     <div className="flex items-center space-x-4">
-      <Link to="/mypagechange" className="flex items-center">
+      <Link to="/mypage" className="flex items-center">
         {user}
         {profileImage && <img src={profileImage} alt="프로필 이미지" className="ml-2 h-8 w-8 rounded-full" />}
       </Link>
