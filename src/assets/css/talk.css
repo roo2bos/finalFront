@@ -4,13 +4,13 @@
   /* Talk */
   .list-talk {
     --bubble-bg: #faf5f0;
-    /* --bubble-bg-ov: var(--hover-highlight-color); */
-    @apply flex flex-col max-w-[640px] h-full rounded-xl;
+     --bubble-bg-ov: var(--highlight-color);
+    @apply flex flex-col w-full h-full rounded-xl;
     margin: 0 auto;
   }
 
   .list-talk .inner {
-    @apply overflow-hidden /*flex-1 overflow-y-auto px-5 pb-5*/ min-h-[2.5rem];
+    @apply relative flex justify-center items-end flex-1 px-5 min-h-[2.5rem];
   }
   .list-talk .head {
     @apply /*mb-8 gap-8*/ flex justify-center items-center flex-col;
@@ -19,11 +19,11 @@
     @apply /*self-end  w-[40px] h-[40px] leading-none*/ px-6 text-white text-lg  rounded-full bg-[var(--btn-bg)];
   }
 
-  .list-talk .head .profile {
-    @apply relative shrink-0  /*w-[200px] h-[200px] rounded-2xl  shadow-[10px_10px_0_0px_var(--hover-highlight-color)]  border duration-300*/   overflow-hidden;
+  .list-talk .profile {
+    @apply relative shrink-0 h-full flex items-end/*w-[200px] h-[200px] rounded-2xl  shadow-[10px_10px_0_0px_var(--hover-highlight-color)]  border duration-300*/ ;
   }
-  .list-talk .head .profile img {
-    @apply w-full max-w-full h-full object-cover;
+  .list-talk .profile img {
+    @apply w-full max-w-[500px] max-h-full /* h-full object-cover */;
   }
 
   .list-talk .head .char-info {
@@ -120,18 +120,17 @@
 		transform: rotateY(180deg);
 	} */
   .list-talk .bg-char {
-    filter: blur(8px);
-    @apply absolute left-0 top-0 right-0 bottom-0 bg-no-repeat bg-cover opacity-50 z-[-1];
+    @apply absolute left-0 top-0 right-0 bottom-0 bg-no-repeat bg-cover opacity-80 z-[-1];
   }
 
   .list-talk .form {
-    @apply flex flex-col items-center gap-2 w-full  dark:border-white/20 md:border-transparent md:dark:border-transparent /* md:w-[calc(100%-.5rem)] */;
+    @apply relative mb-3 flex flex-col items-center gap-2 w-full  dark:border-white/20 md:border-transparent md:dark:border-transparent /* md:w-[calc(100%-.5rem)] */;
   }
   .list-talk .form .foot {
-    @apply flex justify-between w-full pb-3 flex-row-reverse;
+    @apply flex justify-between w-full flex-row-reverse;
   }
   .list-talk .form .btns {
-    @apply flex gap-2;
+    @apply flex gap-2 flex-row-reverse pr-[calc(40px+0.5rem)];
   }
   .list-talk .form .btns button {
     @apply m-0 p-0 w-[40px] h-[40px] bg-[transparent] bg-gray-100 text-black text-center text-xl rounded-full;
@@ -150,13 +149,27 @@
     @apply m-0 p-3 relative disabled:text-gray-400;
   }
 
+	.list-talk .form .btn-mic {
+		@apply absolute bottom-0 right-0 rounded-full leading-none  text-black bg-gray-100
+		m-0 p-0 w-[40px] h-[40px] bg-[transparent] bg-gray-100 text-black text-center text-xl rounded-full;
+		line-height: 0.5;
+	}
   .list-talk .form textarea {
     resize: none;
     grid-area: 1 / 1 / 2 / 2;
   }
   .list-talk .form .textarea-wrap {
-    @apply w-full grid;
+    @apply w-full grid relative;
   }
+	.list-talk .form .textarea-wrap.mic-on:before {
+		@apply opacity-100;
+	}
+	.list-talk .form .textarea-wrap:before {
+		content:"";
+		background-repeat:no-repeat;
+		background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='currentColor'%3E%3Cpath d='M12 2C12.5523 2 13 2.44772 13 3V6C13 6.55228 12.5523 7 12 7C11.4477 7 11 6.55228 11 6V3C11 2.44772 11.4477 2 12 2ZM12 17C12.5523 17 13 17.4477 13 18V21C13 21.5523 12.5523 22 12 22C11.4477 22 11 21.5523 11 21V18C11 17.4477 11.4477 17 12 17ZM22 12C22 12.5523 21.5523 13 21 13H18C17.4477 13 17 12.5523 17 12C17 11.4477 17.4477 11 18 11H21C21.5523 11 22 11.4477 22 12ZM7 12C7 12.5523 6.55228 13 6 13H3C2.44772 13 2 12.5523 2 12C2 11.4477 2.44772 11 3 11H6C6.55228 11 7 11.4477 7 12ZM19.0711 19.0711C18.6805 19.4616 18.0474 19.4616 17.6569 19.0711L15.5355 16.9497C15.145 16.5592 15.145 15.9261 15.5355 15.5355C15.9261 15.145 16.5592 15.145 16.9497 15.5355L19.0711 17.6569C19.4616 18.0474 19.4616 18.6805 19.0711 19.0711ZM8.46447 8.46447C8.07394 8.85499 7.44078 8.85499 7.05025 8.46447L4.92893 6.34315C4.53841 5.95262 4.53841 5.31946 4.92893 4.92893C5.31946 4.53841 5.95262 4.53841 6.34315 4.92893L8.46447 7.05025C8.85499 7.44078 8.85499 8.07394 8.46447 8.46447ZM4.92893 19.0711C4.53841 18.6805 4.53841 18.0474 4.92893 17.6569L7.05025 15.5355C7.44078 15.145 8.07394 15.145 8.46447 15.5355C8.85499 15.9261 8.85499 16.5592 8.46447 16.9497L6.34315 19.0711C5.95262 19.4616 5.31946 19.4616 4.92893 19.0711ZM15.5355 8.46447C15.145 8.07394 15.145 7.44078 15.5355 7.05025L17.6569 4.92893C18.0474 4.53841 18.6805 4.53841 19.0711 4.92893C19.4616 5.31946 19.4616 5.95262 19.0711 6.34315L16.9497 8.46447C16.5592 8.85499 15.9261 8.85499 15.5355 8.46447Z'%3E%3C/path%3E%3C/svg%3E");
+		@apply absolute left-1/2 top-1/2 ml-[-10px] mt-[-10px] w-[20px] h-[20px] animate-spin opacity-0 transition-opacity;
+	}
   /* 	.list-talk .form .textarea-wrap:after {
 		content: attr(data-value) ' ';
 		white-space: pre-wrap;
@@ -168,7 +181,7 @@
     @apply text-xs inline-flex gap-1 flex-col items-start;
   }
   .list-talk .form .shortcuts .btn-finishchat {
-    @apply text-lg text-white bg-[var(--btn-bg)] py-2 px-5 rounded-full;
+    @apply text-base text-white bg-[var(--btn-bg)] py-2 px-5 rounded-full disabled:bg-gray-100 disabled:text-gray-400 shadow-lg shadow-white;
   }
   .list-talk .form .shortcut button {
     font-size: inherit;
@@ -182,14 +195,14 @@
   }
 
   .list-talk .progress {
-    @apply h-[2px] bg-[var(--hover-highlight-color)] overflow-hidden;
+    @apply h-[2px] bg-[var(--highlight-color)] overflow-hidden;
   }
   .list-talk .progress .bar {
     @apply h-full bg-gray-300;
   }
 
   .list-talk .foot-talking-wrap {
-    @apply relative bg-[rgba(255,255,255,.5)];
+    @apply relative bg-[rgba(255,255,255,.5)] mt-[10px];
   }
   .list-talk .talking {
     @apply py-3 /* border-t-2 */;
@@ -248,7 +261,7 @@
     width: 10px;
     height: 20px;
     border-radius: 20px 0 0;
-    background-color: #d4edda;
+    background-color: white;
   }
   .list-talk .history li.ai .info:before {
     left: auto;
@@ -264,7 +277,7 @@
     width: 10px;
     height: 20px;
     border-radius: 0 20px 0 0;
-    background-color: #f0f0f0;
+    background-color: white;
   }
   .list-talk .history li a {
     @apply text-blue-500;
