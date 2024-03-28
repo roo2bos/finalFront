@@ -1,13 +1,8 @@
 /* Home */
 
 /* 사이트 소개 배너 */
-.main-top-section {
-  @apply gap-3 pt-20;
-  overflow: hidden;
-}
-
 .banner {
-  @apply flex rounded-xl bg-[var(--bg-highlight-color)];
+  @apply flex mr-5 rounded-xl bg-[var(--bg-highlight-color)];
   position: relative;
   width: 70%;
 }
@@ -46,13 +41,24 @@
 
 .banner-btn {
   margin: 16px 0;
-  border: 1px solid #000;
-  font-size: 18px;
+  border: 1px solid var(--sub-font-color);
+  font-size: 16px;
   border-radius: 30px;
-  padding: 6px 10px;
+  padding: 6px 12px;
 }
 
-/* 대화 목록 */
+.banner-btn:hover {
+  background-color: var(--highlight-color);
+  color: #fff;
+  border: 1px solid transparent;
+}
+
+/* 예문, 퀴즈 소개 */
+.main-learn > div {
+  @apply w-2/4;
+}
+
+/* 캐릭터 대화 목록 소개 */
 .list-char {
   @apply grid grid-cols-2 lg:grid-cols-4 gap-3;
 }
