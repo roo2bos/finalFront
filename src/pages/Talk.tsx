@@ -5,8 +5,8 @@ import datas from '../../datas.json'; //임시 데이터
 import axios from 'axios';
 // import { RiThumbUpFill, RiThumbDownFill } from 'react-icons/ri';
 // import { BiSolidUserDetail } from 'react-icons/bi';
-// import { PiUserListFill } from 'react-icons/pi';
-// import { PiUserListDuotone } from 'react-icons/pi';
+import { PiUserListFill } from 'react-icons/pi';
+import { PiUserListDuotone } from 'react-icons/pi';
 
 import { PiMicrophoneFill } from 'react-icons/pi';
 import { PiMicrophoneSlash } from 'react-icons/pi';
@@ -17,16 +17,15 @@ import { IoStop } from 'react-icons/io5';
 import { IoPlay } from 'react-icons/io5';
 import { PiListMagnifyingGlassDuotone } from 'react-icons/pi';
 // import { MdChecklist } from 'react-icons/md';
-import { IoMdCloseCircle } from 'react-icons/io';
 import { RiLoader2Fill } from 'react-icons/ri';
 // import { FaFileArrowDown } from 'react-icons/fa6';
 import { FaArrowLeft } from 'react-icons/fa6';
 // import wavfile from '/test.wav';
 // import { type } from './../store/store';
+import { Popup } from './(talk)/Popup';
 
 // 파비콘 출천 : http://si.serverzero.kr/main/pc/index.php#five
 // 이미지 출처 : https://m.blog.naver.com/sinnam88/221375405075
-
 
 export const ChatHistory = ({ talkMessages, userInfo, characterInfo }) => {
 	return (
@@ -88,8 +87,8 @@ function Talk() {
 
 	const [userInfo] = useState(datas.users.find((user) => user.userid === account)); //임시
 	const [characterInfo] = useState(datas.characters.filter((character) => character.id === id)); //임시
-  const [bgNum, setBgNum] = useState(Math.floor(Math.random() * 3));
-	// const [characterDesc, setCharacterDesc] = useState(false);
+	const [bgNum, setBgNum] = useState(Math.floor(Math.random() * 3));
+	const [characterDesc, setCharacterDesc] = useState(false);
 	const [missions] = useState([
 		// 더미
 		{
@@ -118,7 +117,7 @@ function Talk() {
 
 	// 뒤로가기 버튼
 	const backHandler = (talkMessages) => {
-		if (talkMessages.length !== 0 && !window.confirm('대화창을 나가면 내역은 저장되지 않습니다.')) return;
+		if (talkMessages.length !== 0 && !isFinish && !window.confirm('대화창을 나가면 내역은 저장되지 않습니다.')) return;
 		window.history.back();
 	};
 
@@ -287,9 +286,9 @@ function Talk() {
 		}
 	};
 
-  const emoHandler = (idx) => {
-    setBgNum(idx);
-  }
+	const emoHandler = (idx) => {
+		setBgNum(idx);
+	};
 
 	return (
 		<>
@@ -307,83 +306,24 @@ function Talk() {
 							{/* <MdChecklist /> */}미션
 						</button>
 					</div>
-					<div className={`ly-modal${isPop ? '' : ' !hidden'}`}>
-						<div className="ly-inner">
-							<div className="ly-head">
-								<strong>오늘의 학습 미션</strong>
-								<button type="button" onClick={() => setIsPop(!isPop)}>
-									<IoMdCloseCircle className="text-[var(--highlight-color)]" />
-								</button>
-							</div>
-							<div className="ly-body">
-								<p className="todo">
-									<span>오늘의 학습 목표: 미달(1/3)</span> <span>전체 목표량 : 1/30일</span>
-								</p>
-								<ul className="list-mission">
-									{missions.map((mission) => {
-										return (
-											<li key={mission.id} className={`${mission.complete ? 'complete' : ''}`}>
-												<span>{mission.message}</span>
-											</li>
-										);
-									})}
-								</ul>
-							</div>
-						</div>
-					</div>
+					<Popup title={'오늘의 학습 미션'} datas={missions} isPop={isPop} setIsPop={setIsPop} />
 				</div>
 				<div ref={innerRef} className="inner">
-
 					<div className="bg-char" style={{ backgroundImage: `url(/bg_${bgNum}.png)` }}></div>
-          <div className="bg-emo">
-            <button onClick={()=>emoHandler(0)}><img src="/bg_0.png" alt="" /></button>
-            <button onClick={()=>emoHandler(1)}><img src="/bg_1.png" alt="" /></button>
-            <button onClick={()=>emoHandler(2)}><img src="/bg_2.png" alt="" /></button>
-          </div>
+					<div className="bg-emo">
+						<button onClick={() => emoHandler(0)}>
+							<img src="/bg_0.png" alt="" />
+						</button>
+						<button onClick={() => emoHandler(1)}>
+							<img src="/bg_1.png" alt="" />
+						</button>
+						<button onClick={() => emoHandler(2)}>
+							<img src="/bg_2.png" alt="" />
+						</button>
+					</div>
 					<div className="profile">
 						<img src={beforeMessage[0]?.img} alt="" />
-						<div className={`voiceContainer ${playState ? 'on' : 'off'}`}>
-							<div>
-								<div className="voice voice1"></div>
-								<div className="voice voice2"></div>
-								<div className="voice voice3"></div>
-								<div className="voice voice4"></div>
-								<div className="voice voice5"></div>
-							</div>
-						</div>
 					</div>
-
-					{/* <dl className='char-info'>
-                              <dt>
-                                <button
-                                  id='charName'
-                                  onClick={() => setCharacterDesc(!characterDesc)}
-                                >
-                                  {characterDesc ? (
-                                    <PiUserListFill className='text-lg' />
-                                  ) : (
-                                    <PiUserListDuotone className='text-lg' />
-                                  )}{' '}
-                                  {beforeMessage[0]?.name}{' '}
-                                </button>
-                              </dt>
-                              <dd>
-                                <div className='btn-group'>
-                                  <button>
-                                    <RiThumbUpFill /> (10k)
-                                  </button>
-                                  <button>
-                                    <RiThumbDownFill /> (0)
-                                  </button>
-                                </div>
-                              </dd>
-                            </dl> */}
-					{/*<div
-                          aria-labelledby={`charName`}
-                          className={`desc ${characterDesc ? 'on' : ''}`}
-                        >
-                          {characterInfo[0].desc}
-                        </div>*/}
 				</div>
 
 				<div className={`history ${history ? '' : 'hidden'}`}>
@@ -397,7 +337,21 @@ function Talk() {
 					<div className="talking">
 						<dl>
 							<dt className="flex justify-between">
-								<span>{characterInfo.name}</span>
+								<button id="charName" className="btn-char" onClick={() => setCharacterDesc(!characterDesc)}>
+									{characterDesc ? <PiUserListFill className="text-lg" /> : <PiUserListDuotone className="text-lg" />}{' '}
+									{characterInfo[0].name}
+									<div className={`voiceContainer ${playState ? 'on' : 'off'}`}>
+										<div>
+											<div className="voice voice1"></div>
+											<div className="voice voice2"></div>
+											<div className="voice voice3"></div>
+											<div className="voice voice4"></div>
+											<div className="voice voice5"></div>
+										</div>
+									</div>
+								</button>
+								<Popup title={'캐릭터 소개'} datas={characterInfo} isPop={characterDesc} setIsPop={setCharacterDesc} />
+
 								<button className="btn-history" onClick={() => setHistory(!history)}>
 									<PiListMagnifyingGlassDuotone
 										className={`text-2xl ${talkMessages.length == 0 ? ' text-gray-400' : ''}`}
@@ -415,7 +369,8 @@ function Talk() {
 							type="button"
 							ref={micRef}
 							className="btn-mic"
-							onClick={mic ? handleStopRecording : handleStartRecording}>
+							onClick={mic ? handleStopRecording : handleStartRecording}
+							disabled={isFinish ? true : false}>
 							{mic ? <PiMicrophoneFill /> : <PiMicrophoneSlash />}
 						</button>
 						<div className={`textarea-wrap ${isTyped ? 'mic-on' : ''}`}>
@@ -465,30 +420,10 @@ function Talk() {
 									type="button"
 									className="btn-finishchat"
 									onClick={finishChat}
-									disabled={firstAudioMsg ? false : true}>
+									disabled={firstAudioMsg || isFinishPop ? false : true}>
 									대화 종료 {correctLoad && <RiLoader2Fill className="animate-spin" />}
 								</button>
-								<div className={`ly-modal${isFinishPop ? '' : ' !hidden'}`}>
-									<div className="ly-inner">
-										<div className="ly-head">
-											<strong>교정 목록</strong>
-											<button type="button" onClick={() => setIsFinishPop(!isFinishPop)}>
-												<IoMdCloseCircle className="text-[var(--highlight-color)]" />
-											</button>
-										</div>
-										<div className="ly-body">
-											{correctList.length === 0 ? (
-												<div>Perfect Grammar</div>
-											) : (
-												<ul className="list-correct">
-													{correctList.map((msg, i) => {
-														return <li key={i}>{msg}</li>;
-													})}
-												</ul>
-											)}
-										</div>
-									</div>
-								</div>
+								<Popup title={'교정 목록'} datas={correctList} isPop={isFinishPop} setIsPop={setIsFinishPop} />
 							</div>
 						</div>
 					</form>
