@@ -3,8 +3,10 @@ import { useAppDispatch } from '../hooks';
 import { userNicknameCheck } from '../store/features/userIdCheck';
 import '../assets/css/auth.css';
 import { useEffect, useState } from 'react';
+import useUserData from '../components/UserData';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+
 
 type FormData = {
   username: string;
@@ -18,6 +20,9 @@ type FormData = {
 export default function Mypage() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const { userCheck } = useUserData(); 
+
+
   const [getUser, setGetUser] = useState<FormData>({
     username: '',
     userId: '',
@@ -36,6 +41,7 @@ export default function Mypage() {
     watch } 
     = useForm<FormData>();
 
+    // user 정보 받아오기
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -49,6 +55,7 @@ export default function Mypage() {
     fetchData();
   }, []);
 
+  // data 수정
   const onSubmit: SubmitHandler<FormData> = async (userdata) => {
     try {
       const formData = new FormData();
@@ -95,7 +102,8 @@ export default function Mypage() {
 
   return (
     <>
-      <div className='form-area'>
+      {
+        userCheck ? <div className='form-area'>
         <div className='form-elements'>
           <form className='auth-form' onSubmit={handleSubmit(onSubmit)}>
             <div>
@@ -225,6 +233,10 @@ export default function Mypage() {
           </form>
         </div>
       </div>
+        : 
+        null
+      }
+      
     </>
   );
 }

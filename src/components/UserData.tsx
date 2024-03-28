@@ -1,8 +1,7 @@
-// useUserData.js
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
-const UserData = () => {
+const useUserData = () => {
   const [user, setUser] = useState('');
   const [userCheck, setUserCheck] = useState(false);
   const [profileImage, setProfileImage] = useState('');
@@ -22,7 +21,7 @@ const UserData = () => {
     fetchData();
   }, []); 
 
-  return { user, userCheck, profileImage };
+  return { user, setUser, userCheck, setUserCheck, profileImage, setProfileImage };
 };
 
-export default UserData;
+export default useUserData;

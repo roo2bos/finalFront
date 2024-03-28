@@ -2,19 +2,29 @@ import { Link, useNavigate } from 'react-router-dom';
 import { FaBell } from 'react-icons/fa';
 import { useAppDispatch } from '../hooks';
 import { logoutUser } from '../store/features/loginSlice';
-import useUserData from '../components/UserData'; // 얘는 hook 폴더에 있어야 하지만 일단 나중에 정리 예정!
+import useUserData from '../components/UserData';
 import '../assets/css/headerNav.css';
+import { useEffect } from 'react';
 
 export default function Header() {
-  const { user, userCheck, profileImage } = useUserData(); 
+  const { user, setUser, userCheck, setUserCheck, profileImage, setProfileImage } = useUserData(); 
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   const handleLogout = () => {
     dispatch(logoutUser());
+    setUser('');
+    setProfileImage('');
+    setUserCheck(false);
     navigate('/');
   };
+
+  useEffect(() => {
+    setUser('');
+    setProfileImage('');
+    setUserCheck(false);
+  }, [setUser, setProfileImage, setUserCheck]); 
 
   return (
     <nav className="header-nav">
